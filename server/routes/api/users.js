@@ -8,20 +8,13 @@ const
     { User } = require('../../models');
 //==========================================================================
 const router = express.Router();
-const validateRegisterInput = require('../../validation/register');
+const validateRegisterInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 //==========================================================================
-//@route    GET: api/users/
-//@desc     Test
-//@access   Public
-router.get("/", (req, res) => {
-    res.json({ msg: 'Success' });
-});
-//==========================================================================
-//@route    POST: api/users/register
+//@route    POST: api/users/signup
 //@desc     Sign-Up Functionality
 //@access   Public
-router.post("/register", validateRegisterInput, async (req, res) => {
+router.post("/signup", validateRegisterInput, async (req, res) => {
 
     let { name, email, password } = req.body;
     const user = await User.findOne({email});

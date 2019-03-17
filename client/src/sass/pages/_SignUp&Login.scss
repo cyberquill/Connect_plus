@@ -50,7 +50,7 @@
     &__card {
         height: 90%;
         border-radius: 0.35em;
-        background: linear-gradient(to bottom, #7579ff, #b224ef);
+        background: linear-gradient(to bottom, rgba(117, 122, 255, 0.92), rgba(178, 36, 239, 0.92));
         z-index: 1;
         display: flex;
         align-items: center;
@@ -102,5 +102,11 @@
                 box-shadow: 0 9px 10px rgba(0, 0, 0, 0.6);
             }
         }
+    }
+
+    .invalid-feedback {
+        color: white;
+        position: absolute;
+        font-size: 14px;
     }
 }

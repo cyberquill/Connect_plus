@@ -1,52 +1,70 @@
 .form {
 
-    &-group {
+    &__group {
         position: relative;
         font-family: Arial, Helvetica, sans-serif;
-    }
+        border-bottom: 1.5px solid rgba(white, 0.4);
 
-    &__thumb {
-        display: inline-block;
-    }
-
-    &__input {
-        background: transparent !important;
-        color: white;
-        letter-spacing: 1px;
-        font-size: inherit;
-        border: none;
-        border-radius: 1px;
-        border-bottom: 2px solid rgba(245, 245, 245, 0.3);
-        transition: all .3s;
-
-        &::placeholder {
-            color: white;
-            opacity: 1;
+        &__thumb {
+            display: inline-block;
+            width: 10%;
+            transform: translateY(20px);
         }
 
-        &:-webkit-autofill {transition: all 5000s ease-in-out 0s;}
-
-        &:focus {
-            outline: none;
+        &__input {
+            background: transparent !important;
             color: white;
-            background: transparent;
-            box-shadow: 0 1px 2px rgba(black, .1);
-            border-bottom: 2px solid #ffffff;
+            display: inline-block;
+            width: 90%;
+            padding-left: 3%;
+            letter-spacing: 1px;
+            font-size: inherit;
+            border: none;
+            transform: translateY(15px);
+
+            &::placeholder {
+                color: rgba(white, 0.6);
+                opacity: 1;
+                transition: all 0.3s ease;
+            }
+
+            &:-webkit-autofill {transition: all 5000s ease-in-out 0s;}
+
+            &:focus {
+                box-shadow: none;
+                outline: none;
+
+                &::placeholder {
+                    color: white;
+                }
+            }
+        }
+
+        
+    }
+ 
+    &__invalid {
+
+        &--msg {
+            font-size: 14px;
+            border-top: 2px solid red;
+            transform: translate(0.5px, -1.5px);
         }
     }
+}
 
-    &__label {
-        color: rgb(201, 201, 201);
-        position: absolute;
-        left: 13px;
-        margin-top: 1px;
-        display: inline-block;
-        transition: all .3s;
-    }
+.rule {
+    width: 25%;
+    display: inline-block;
+    height: 1.5px;
+    transform: translateY(8px) scaleX(1);
+    transition: all 0.5s ease;
+    background-color: transparent;
+}
 
-    &__input:placeholder-shown + &__label {
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-15px);
-    }
+.form__group__input:focus ~ .rule {
+    background-color: white;
+    content: ' ';
+    height: 1.5px;
+    transform: translateY(8px) scaleX(4);
 }
