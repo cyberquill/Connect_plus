@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FormGroup from '../../layout/formGroup';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginUser } from '../../../redux/actions/Auth Actions';
 
 class Login extends Component {
     constructor() {
@@ -16,19 +19,20 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentWillReceiveProps(newProps) {
+        
+        if (newProps.errors) 
+            this.setState({ errors: newProps.errors });
+
+        if (newProps.auth.isAuthenticated) 
+            this.props.history.push('/');
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
-
         const { email, password } = this.state;
-
-        // Clear State
-        this.setState({
-            email: '',
-            password: '',
-            errors: {},
-        });
-
-        this.props.history.push('/');
+        const user = { email, password };
+        this.props.loginUser(user);
     };
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -74,4 +78,15 @@ class Login extends Component {
     }
 }
 
-export default Login;
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+};
+
+const mapStatesToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors,
+});
+
+export default connect(mapStatesToProps,{ loginUser })(withRouter(Login));

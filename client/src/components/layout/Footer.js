@@ -6,8 +6,13 @@ export default function Footer() {
             <a
                 className="footer__link"
                 href="https://github.com/Brijgopal"
-                target="_blank">
-                Made with <span role="img">💖</span> by Brijgopal Bharadwaj
+                target="_blank"
+                rel="noopener noreferrer">
+                Made with
+                <span role="img" aria-label="love" aria-labelledby="github-link">
+                    💖
+                </span>
+                by Brijgopal Bharadwaj
             </a>
         </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createUser } from '../../../redux/actions/Auth Actions';
 import FormGroup from '../../layout/formGroup';
@@ -37,7 +38,7 @@ class SignUp extends Component {
             password2,
         };
 
-        this.props.createUser(newUser);
+        this.props.createUser(newUser, this.props.history);
 
     };
 
@@ -116,4 +117,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { createUser })(SignUp);
+export default connect(mapStateToProps, { createUser })(withRouter(SignUp));
