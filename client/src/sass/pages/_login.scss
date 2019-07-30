@@ -1,0 +1,69 @@
+
+.login {
+    background-image: url(../assets/you-x-ventures-1442657-unsplash.jpg);
+    height: 80vh;
+    width: 100%;
+    background-size: cover;
+    border-radius: 15px;
+    box-shadow: 0px 0px 35px 5px rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    display: flex;
+
+
+    &__back {
+        background-image: linear-gradient(to bottom right, #00c6fb, #005bea);
+        height: 100vh;
+        padding: 10vh 20vh;
+        z-index: -1;
+    }
+
+    &__display {
+        width: 60%;
+    }
+
+    &__card {
+        background: rgba(255, 255, 255, 0.87);
+        width: 40%;
+        height: 100%;
+        z-index: 10;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__form {
+            background-image: linear-gradient(to bottom right, #00c6fb, #005bea);
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.65);
+            border-radius: 7px;
+            padding: 30px 50px;
+            width: 83%;
+            height: 87%;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+
+            &__heading {
+                color: white;
+                font-size: 50px;
+                margin-bottom: 30px;
+                margin-top: 10px;
+                font-family: elianto;
+                text-transform: uppercase;
+                text-align: center;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.16) skew(-5deg, -2deg);
+                }
+            }
+
+            &--radio {
+                position: relative;
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+    }
+}
