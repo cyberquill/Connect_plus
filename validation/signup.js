@@ -5,19 +5,23 @@ module.exports = function(req, res, next) {
     const data = req.body;
     let errors = {};
 
-    data.name = !isEmpty(data.name) ? data.name : '';
+    data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
+    data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password2 = !isEmpty(data.password2) ? data.password2 : '';
     data.gender = !isEmpty(data.gender) ? data.gender : '';
-    data.role = !isEmpty(data.role) ? data.role : '';
 
-    if (!validator.isLength(data.name, { min: 2, max: 30 })) {
-        errors.name = 'Name must be between 2 to 30 characters!';
+    if (!validator.isLength(data.firstName, { min: 2, max: 30 })) {
+        errors.firstName = 'Name must be between 2 to 30 characters!';
     }
 
-    if (validator.isEmpty(data.name)) {
-        errors.name = 'Name field is required!';
+    if (validator.isEmpty(data.firstName)) {
+        errors.firstName = 'Name field is required!';
+    }
+
+    if (!validator.isLength(data.lastName, { min: 2, max: 30 })) {
+        errors.lastName = 'Name must be between 2 to 30 characters!';
     }
 
     if (!validator.isEmail(data.email)) {
@@ -50,14 +54,6 @@ module.exports = function(req, res, next) {
 
     if (validator.isEmpty(data.gender)) {
         errors.gender = 'Please select a Gender!';
-    }
-
-    if (!validator.isIn(data.role, ['Student', 'Instructor'])) {
-        errors.role = 'Please specify a valid role!';
-    }
-
-    if (validator.isEmpty(data.role)) {
-        errors.role = 'Please select a role!';
     }
 
     if (!isEmpty(errors)) return res.status(400).json(errors);

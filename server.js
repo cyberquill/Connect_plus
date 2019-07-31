@@ -2,7 +2,7 @@ const path = require('path'),
     passport = require('passport'),
     express = require('express'),
     bodyParser = require('body-parser'),
-    { users, posts, likes, comments } = require('./routes');
+    { auth, users, posts, likes, comments } = require('./routes');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8000;
@@ -12,12 +12,14 @@ app.use(bodyParser.json());
 //==========================================================================
 app.use(passport.initialize());
 require('./config/passport')(passport);
+require('./config/passport-google')(passport);
 //==========================================================================
 app.get('/',(req,res) => res.send("Server Online..."));
-app.use('/api/users', users);
-app.use('/api/posts', posts);
-app.use('/api/likes', likes);
-app.use('/api/comments', comments);
+app.use('/auth', auth);
+app.use('/users', users);
+app.use('/posts', posts);
+app.use('/likes', likes);
+app.use('/comments', comments);
 //==========================================================================
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.get('*', (req, res) => {

@@ -1,6 +1,7 @@
 module.exports = {
-    users: require('./api_users'),
-    posts: require('./api_posts'),
-    likes: require('./api_likes'),
-    comments: require('./api_comments'),
+    auth: require('./routes_auth'),
+    users: require('./routes_users'),
+    posts: require('./routes_posts'),
+    likes: require('./routes_likes'),
+    comments: require('./routes_comments'),
 };
