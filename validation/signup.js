@@ -3,6 +3,7 @@ const validator = require('validator'),
 
 module.exports = function(req, res, next) {
     const data = req.body;
+    const regModes = ['native','google'];
     let errors = {};
 
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
@@ -10,7 +11,7 @@ module.exports = function(req, res, next) {
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password2 = !isEmpty(data.password2) ? data.password2 : '';
-    data.gender = !isEmpty(data.gender) ? data.gender : '';
+    data.regMode = !isEmpty(data.regMode) ? data.regMode : '';
 
     if (!validator.isLength(data.firstName, { min: 2, max: 30 })) {
         errors.firstName = 'Name must be between 2 to 30 characters!';
@@ -48,12 +49,13 @@ module.exports = function(req, res, next) {
         errors.password2 = 'Confirm password field is required!';
     }
 
-    if (!validator.isIn(data.gender, ['M', 'F', 'O'])) {
-        errors.gender = 'Please specify a valid gender!';
-    }
+    if (!isEmpty(data.gender))
+        if (!validator.isIn(data.gender, ['Male', 'Female', 'Other', 'None'])) {
+            errors.gender = 'Please specify a valid gender!';
+        }
 
-    if (validator.isEmpty(data.gender)) {
-        errors.gender = 'Please select a Gender!';
+    if (!validator.isIn(data.regMode, regModes)) {
+        errors.regMode = 'Please specify a valid regMode!';
     }
 
     if (!isEmpty(errors)) return res.status(400).json(errors);

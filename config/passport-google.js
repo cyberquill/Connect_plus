@@ -11,9 +11,8 @@ module.exports = passport => {
                 clientSecret: google.secret,
             },
             async (accessToken, refreshToken, profile, done) => {
-                const user = await User.findOne({ email: profile.emails.value });
+                const user = await User.findOne({ email: profile.emails[0].value });
                 if (user) return done(null, user);
-
                 let newUser = new User({
                     firstName: profile.name.givenName,
                     lastName: profile.name.familyName,
@@ -22,7 +21,6 @@ module.exports = passport => {
                     profilePic: profile.photos[0].value,
                     regMode: 'google',
                 });
-
                 newUser = await newUser.save();
                 return done(null, newUser);
             },

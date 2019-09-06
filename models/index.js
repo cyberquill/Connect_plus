@@ -16,14 +16,13 @@ mongoose.connection.on('disconnected', () => {
 // If the Node process ends, close the Mongoose connection:
 process.on('SIGINT', function() {
     mongoose.connection.close(() => {
-        console.log(
-            'Mongoose default connection disconnected through app termination',
-        );
+        console.log('Mongoose default connection disconnected through app termination');
         process.exit(0);
     });
 });
 // ============================================================================
 module.exports.User = require('./model_user');
 module.exports.Post = require('./model_post');
-module.exports.Like = require('./model_like');
+module.exports.Reaction = require('./model_reaction');
+module.exports.Follow = require('./model_follow');
 module.exports.Comment = require('./model_comment');

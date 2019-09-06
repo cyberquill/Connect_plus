@@ -15,6 +15,7 @@ const validateLoginInput = require('../validation/login');
 
 router.post('/signup', validateRegisterInput, async (req, res) => {
     let { firstName, lastName, email, password, gender } = req.body;
+    if (isEmpty(gender)) gender = 'None';
     const user = await User.findOne({ email });
     if (user) return res.status(400).json({ email: 'Email already registered!' });
 
@@ -38,7 +39,7 @@ router.post('/login', validateLoginInput, async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ email: 'User not found!' });
-    if (!user.password || user.regMode!=='native') 
+    if (!user.password || user.regMode !== 'native')
         return res.status(400).json({ email: 'User not registered locally!' });
 
     const matched = await bcrypt.compare(password, user.password);
@@ -52,7 +53,7 @@ router.post('/login', validateLoginInput, async (req, res) => {
         gender: req.user.gender,
         profilePic: req.user.profilePic,
     };
-    jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, secretOrKey, { expiresIn: '7 days' }, (err, token) => {
         res.json({
             success: true,
             token: 'Bearer ' + token,
@@ -74,13 +75,38 @@ router.get('/google/redirect', passport.authenticate('google', { session: false 
         gender: req.user.gender,
         profilePic: req.user.profilePic,
     };
-    jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, secretOrKey, { expiresIn: '7 days' }, (err, token) => {
         res.json({
             success: true,
             token: 'Bearer ' + token,
         });
     });
 });
+// ============================================================================
+//@route    POST:
+//@desc
+//@access
+
+// ============================================================================
+//@route    POST:
+//@desc
+//@access
+
+// ============================================================================
+//@route    POST:
+//@desc
+//@access
+
+// ============================================================================
+//@route    POST:
+//@desc
+//@access
+
+// ============================================================================
+//@route    POST:
+//@desc
+//@access
+
 //==========================================================================
 //@route    POST: /auth/current
 //@desc     Return Current user
