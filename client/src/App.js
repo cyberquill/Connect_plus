@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import checkAuthToken from './utils/authTokenPresent';
-import { setCurrentUser } from './redux/actions/User Actions';
+import { setCurrentUser } from './redux/actions/Auth Actions';
 //-----------------------------------------------------------
 import store from './redux/store';
 //-----------------------------------------------------------

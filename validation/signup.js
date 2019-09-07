@@ -3,7 +3,7 @@ const validator = require('validator'),
 
 module.exports = function(req, res, next) {
     const data = req.body;
-    const regModes = ['native','google'];
+    const regModes = ['Native', 'Google'];
     let errors = {};
 
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
@@ -54,7 +54,7 @@ module.exports = function(req, res, next) {
             errors.gender = 'Please specify a valid gender!';
         }
 
-    if (!validator.isIn(data.regMode, regModes)) {
+    if (!isEmpty(data.regMode) && !validator.isIn(data.regMode, regModes)) {
         errors.regMode = 'Please specify a valid regMode!';
     }
 

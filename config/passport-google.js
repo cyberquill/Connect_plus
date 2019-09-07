@@ -19,7 +19,7 @@ module.exports = passport => {
                     email: profile.emails[0].value,
                     gender: profile.gender,
                     profilePic: profile.photos[0].value,
-                    regMode: 'google',
+                    regMode: 'Google',
                 });
                 newUser = await newUser.save();
                 return done(null, newUser);

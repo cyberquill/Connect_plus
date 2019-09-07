@@ -5,18 +5,18 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import isEmpty from '../../../validation/isEmpty';
 import FormGroup from '../../components/FormGroup';
-import { createUser } from '../../../redux/actions/User Actions';
+import { createUser } from '../../../redux/actions/Auth Actions';
 
 class Signup extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: '',
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
             password2: '',
-            role: '',
             gender: '',
             errors: {},
         };
@@ -43,29 +43,36 @@ class Signup extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
     //==========================================================================
     render() {
-        if (!isEmpty(this.props.user)) {
+        if (!isEmpty(this.props.auth)) {
             this.props.history.push('/dashboard');
             return null;
         }
 
-        const { name, email, password, password2, errors } = this.state;
+        const { firstName, lastName, email, password, password2, errors } = this.state;
         return (
             <div className="signup__back">
                 <div className="signup">
                     <div className="signup__display">Signup to Continue!</div>
                     <div className="signup__card">
-                        <form
-                            noValidate
-                            className="signup__card__form"
-                            onSubmit={this.onSubmit}>
+                        <form noValidate className="signup__card__form" onSubmit={this.onSubmit}>
                             <FormGroup
-                                name="name"
+                                name="firstName"
                                 type="text"
                                 thumb="fas fa-user-alt"
-                                placeholder="Name"
-                                value={name}
+                                placeholder="First-Name"
+                                value={firstName}
                                 onChange={this.onChange}
-                                error={errors.name}
+                                error={errors.firstName}
+                            />
+
+                            <FormGroup
+                                name="lastName"
+                                type="text"
+                                thumb="fas fa-user-alt"
+                                placeholder="Last-Name"
+                                value={lastName}
+                                onChange={this.onChange}
+                                error={errors.lastName}
                             />
 
                             <FormGroup
@@ -105,12 +112,10 @@ class Signup extends Component {
                                         className="form-radioGroup__input"
                                         id="male"
                                         name="gender"
-                                        value="M"
+                                        value="Male"
                                         onChange={this.onChange}
                                     />
-                                    <label
-                                        htmlFor="male"
-                                        className="form-radioGroup__label">
+                                    <label htmlFor="male" className="form-radioGroup__label">
                                         <span className="form-radioGroup__button" />
                                         Male
                                     </label>
@@ -122,12 +127,10 @@ class Signup extends Component {
                                         className="form-radioGroup__input"
                                         id="female"
                                         name="gender"
-                                        value="F"
+                                        value="Female"
                                         onChange={this.onChange}
                                     />
-                                    <label
-                                        htmlFor="female"
-                                        className="form-radioGroup__label">
+                                    <label htmlFor="female" className="form-radioGroup__label">
                                         <span className="form-radioGroup__button" />
                                         Female
                                     </label>
@@ -139,74 +142,39 @@ class Signup extends Component {
                                         className="form-radioGroup__input"
                                         id="other"
                                         name="gender"
-                                        value="O"
+                                        value="Other"
                                         onChange={this.onChange}
                                     />
-                                    <label
-                                        htmlFor="other"
-                                        className="form-radioGroup__label">
+                                    <label htmlFor="other" className="form-radioGroup__label">
                                         <span className="form-radioGroup__button" />
                                         Other
                                     </label>
                                 </div>
 
+                                <div className="form-radioGroup">
+                                    <input
+                                        type="radio"
+                                        className="form-radioGroup__input"
+                                        id="other"
+                                        name="gender"
+                                        value="None"
+                                        onChange={this.onChange}
+                                    />
+                                    <label htmlFor="other" className="form-radioGroup__label">
+                                        <span className="form-radioGroup__button" />
+                                        Rather not say
+                                    </label>
+                                </div>
+
                                 <div
                                     className={classnames('', {
-                                        'form-radioGroup--invalid':
-                                            errors.gender,
+                                        'form-radioGroup--invalid': errors.gender,
                                     })}>
                                     {errors.gender}
                                 </div>
                             </div>
 
-                            <div className="signup__card__form--radio">
-                                <div className="form-radioGroup">
-                                    <input
-                                        type="radio"
-                                        className="form-radioGroup__input"
-                                        id="Student"
-                                        name="role"
-                                        value="Student"
-                                        onChange={this.onChange}
-                                    />
-                                    <label
-                                        htmlFor="Student"
-                                        className="form-radioGroup__label">
-                                        <span className="form-radioGroup__button" />
-                                        Student
-                                    </label>
-                                </div>
-
-                                <div className="form-radioGroup">
-                                    <input
-                                        type="radio"
-                                        className="form-radioGroup__input"
-                                        id="Instructor"
-                                        name="role"
-                                        value="Instructor"
-                                        onChange={this.onChange}
-                                    />
-                                    <label
-                                        htmlFor="Instructor"
-                                        className="form-radioGroup__label">
-                                        <span className="form-radioGroup__button" />
-                                        Instructor
-                                    </label>
-                                </div>
-
-                                <div
-                                    className={classnames('', {
-                                        'form-radioGroup--invalid': errors.role,
-                                    })}>
-                                    {errors.role}
-                                </div>
-                            </div>
-
-                            <input
-                                type="submit"
-                                value="Sign Up!"
-                                className="elbtn__type2"
-                            />
+                            <input type="submit" value="Sign Up!" className="elbtn__type2" />
                             <input type="hidden" name="_gotcha" />
                         </form>
                     </div>
@@ -218,12 +186,12 @@ class Signup extends Component {
 //==========================================================================
 Signup.propTypes = {
     createUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
 //==========================================================================
 const mapStateToProps = state => ({
-    user: state.user,
+    auth: state.auth,
     errors: state.errors,
 });
 

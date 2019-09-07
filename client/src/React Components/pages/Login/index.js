@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import authTokenPresent from '../../../utils/authTokenPresent';
 import isEmpty from '../../../validation/isEmpty';
 import FormGroup from '../../components/FormGroup';
-import { loginUser } from '../../../redux/actions/User Actions';
+import { loginUser } from '../../../redux/actions/Auth Actions';
 
 class Login extends Component {
     constructor() {
@@ -15,7 +15,6 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            role: '',
             errors: {},
         };
 
@@ -81,49 +80,6 @@ class Login extends Component {
                                 error={errors.password}
                                 others="mt-4"
                             />
-
-                            <div className="login__card__form--radio mt-4 mb-5">
-                                <div className="form-radioGroup">
-                                    <input
-                                        type="radio"
-                                        className="form-radioGroup__input"
-                                        id="Student"
-                                        name="role"
-                                        value="Student"
-                                        onChange={this.onChange}
-                                    />
-                                    <label
-                                        htmlFor="Student"
-                                        className="form-radioGroup__label">
-                                        <span className="form-radioGroup__button" />
-                                        Student
-                                    </label>
-                                </div>
-
-                                <div className="form-radioGroup">
-                                    <input
-                                        type="radio"
-                                        className="form-radioGroup__input"
-                                        id="Instructor"
-                                        name="role"
-                                        value="Instructor"
-                                        onChange={this.onChange}
-                                    />
-                                    <label
-                                        htmlFor="Instructor"
-                                        className="form-radioGroup__label">
-                                        <span className="form-radioGroup__button" />
-                                        Instructor
-                                    </label>
-                                </div>
-
-                                <div
-                                    className={classnames('', {
-                                        'form-radioGroup--invalid': errors.role,
-                                    })}>
-                                    {errors.role}
-                                </div>
-                            </div>
 
                             <input
                                 type="submit"

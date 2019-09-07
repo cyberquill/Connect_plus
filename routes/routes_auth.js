@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs'),
     { User } = require('../models');
 //==========================================================================
 const router = express.Router();
+const isEmpty = require('../validation/is-empty');
 const validateRegisterInput = require('../validation/signup');
 const validateLoginInput = require('../validation/login');
 //==========================================================================
@@ -14,19 +15,32 @@ const validateLoginInput = require('../validation/login');
 //@access   Public
 
 router.post('/signup', validateRegisterInput, async (req, res) => {
-    let { firstName, lastName, email, password, gender } = req.body;
+    let { firstName, lastName, email, password, gender, profilePic } = req.body;
     if (isEmpty(gender)) gender = 'None';
     const user = await User.findOne({ email });
     if (user) return res.status(400).json({ email: 'Email already registered!' });
 
-    let newUser = new User({ firstName, lastName, email, gender, profilePic, regMode: 'native' });
+    let newUser = new User({ firstName, lastName, email, gender, profilePic, regMode: 'Native' });
 
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, async (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
             newUser = await newUser.save();
-            res.json(newUser);
+            const payload = {
+                id: newUser._id,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                gender: newUser.gender,
+                profilePic: newUser.profilePic,
+            };
+            jwt.sign(payload, secretOrKey, { expiresIn: '7 days' }, (err, token) => {
+                res.json({
+                    success: true,
+                    token: 'Bearer ' + token,
+                });
+            });
         });
     });
 });
@@ -37,21 +51,23 @@ router.post('/signup', validateRegisterInput, async (req, res) => {
 
 router.post('/login', validateLoginInput, async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
+        .lean()
+        .catch(e => {});
     if (!user) return res.status(404).json({ email: 'User not found!' });
-    if (!user.password || user.regMode !== 'native')
+    if (!user.password || user.regMode !== 'Native')
         return res.status(400).json({ email: 'User not registered locally!' });
 
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) return res.status(400).json({ password: 'password incorrect!' });
 
     const payload = {
-        id: req.user.id,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        email: req.user.email,
-        gender: req.user.gender,
-        profilePic: req.user.profilePic,
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        gender: user.gender,
+        profilePic: user.profilePic,
     };
     jwt.sign(payload, secretOrKey, { expiresIn: '7 days' }, (err, token) => {
         res.json({
