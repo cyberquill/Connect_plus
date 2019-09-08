@@ -1,0 +1,150 @@
+
+.form-group {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 3px;
+
+    &__input {
+        background: transparent;
+        padding:10px 10px 10px 5px;
+        width: 100%;
+        font-weight: 600;
+        display:block;
+        color: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border:none;
+        border-bottom:1px solid #ddd;
+
+        &:focus { outline: none; }
+        &:-webkit-autofill {transition: all 10000s ease-in-out 0s;}
+    }
+
+    &__label {
+        color: #eee;
+        position: absolute;
+        top: 15px;
+        left: 10px;
+        font-weight:normal;
+        position:absolute;
+        pointer-events:none;
+        transition: all 0.2s ease;
+    }
+
+    & &__input:focus~&__label, & &__input:valid~&__label {
+        top: -5px;
+        left: 0;
+        padding: 0 3px;
+        color: white;
+        font-size:12px;
+    }
+
+    &__bar {
+        position:relative; 
+        display:block; 
+        width:100%;
+
+        &::before, &::after {
+            content:'';
+            height:2px; 
+            width:0;
+            bottom:0; 
+            position:absolute;
+            background:white; 
+            transition:0.2s ease all; 
+            -moz-transition:0.2s ease all; 
+            -webkit-transition:0.2s ease all;
+        }
+
+        &::before {
+            left: 50%;
+        }
+
+        &::after {
+            right: 50%;
+        }
+
+        &--invalid {
+            &::before, &::after {
+                background:red;
+            }
+        }
+    }
+
+    &__input:focus ~ &__bar::before, &__input:focus ~ &__bar::after {
+        width:50%;
+    }
+
+    &__input ~ &__bar--invalid::before, &__input ~ &__bar--invalid::after {
+        width:50%;
+    }
+
+    &__invalidMsg {
+        position: absolute;
+        top: -5px;
+        right: 0;
+        color: white;
+        background: red;
+        border-radius: 100px;
+        padding: 0 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        width: fit-content;
+        margin: 0 auto;
+    }
+}
+
+.form-radioGroup {
+    position: relative;
+    
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+        position: relative;
+        padding-left: 1.8rem;
+    }
+
+    &__button {
+        height: 1.55rem;
+        width: 1.55rem;
+        border: 3.5px solid white;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+
+        &::after {
+            content: "";
+            display: block;
+            opacity: 0;
+            height: 0.85rem;
+            width: 0.85rem;
+            border-radius: 100%;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity .2s;
+        }
+    }
+
+    &__input:checked ~ &__label &__button::after {
+        opacity: 1;
+    }
+
+    &--invalid {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-top: 2px solid red;
+        transform: translateY(75%);
+        text-align: center;
+        font-size: 0.8rem;
+    }
+}

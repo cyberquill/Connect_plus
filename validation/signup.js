@@ -14,15 +14,19 @@ module.exports = function(req, res, next) {
     data.regMode = !isEmpty(data.regMode) ? data.regMode : '';
 
     if (!validator.isLength(data.firstName, { min: 2, max: 30 })) {
-        errors.firstName = 'Name must be between 2 to 30 characters!';
+        errors.firstName = 'First name must be between 2 to 30 characters!';
     }
 
     if (validator.isEmpty(data.firstName)) {
-        errors.firstName = 'Name field is required!';
+        errors.firstName = 'First name is required!';
     }
 
     if (!validator.isLength(data.lastName, { min: 2, max: 30 })) {
-        errors.lastName = 'Name must be between 2 to 30 characters!';
+        errors.lastName = 'Last name must be between 2 to 30 characters!';
+    }
+
+    if (validator.isEmpty(data.lastName)) {
+        errors.lastName = 'Last name is required!';
     }
 
     if (!validator.isEmail(data.email)) {
@@ -30,7 +34,7 @@ module.exports = function(req, res, next) {
     }
 
     if (validator.isEmpty(data.email)) {
-        errors.email = 'Email field is required!';
+        errors.email = 'Email is required!';
     }
 
     if (!validator.isLength(data.password, { min: 6, max: 30 })) {
@@ -38,7 +42,7 @@ module.exports = function(req, res, next) {
     }
 
     if (validator.isEmpty(data.password)) {
-        errors.password = 'Password field is required!';
+        errors.password = 'Password is required!';
     }
 
     if (!validator.equals(data.password, data.password2)) {
@@ -46,7 +50,7 @@ module.exports = function(req, res, next) {
     }
 
     if (validator.isEmpty(data.password2)) {
-        errors.password2 = 'Confirm password field is required!';
+        errors.password2 = 'Password confirmation is required!';
     }
 
     if (!isEmpty(data.gender))

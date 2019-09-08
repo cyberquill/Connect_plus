@@ -2,34 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const formGroup = ({
-    name,
-    value,
-    thumb,
-    placeholder,
-    type,
-    onChange,
-    error,
-    others,
-}) => {
+const formGroup = ({ name, value, thumb, placeholder, type, onChange, error, others }) => {
     return (
         <div className={others}>
             <div className="form-group">
-                <i className={`form-group__thumb ${thumb}`} />
                 <input
-                    type={type}
+                    type={type === 'email' ? 'text' : type}
                     name={name}
-                    placeholder={placeholder}
                     value={value}
                     onChange={onChange}
                     className="form-group__input"
+                    required
+                    pattern="\S+.*"
                 />
-                <div
-                    className={classnames('form-group__rule', {
-                        'form-group__rule--invalid': error,
-                    })}
-                />
-            {error && <div className="form__invalidMsg">{error}</div>}
+                <label htmlFor={name} className="form-group__label">
+                    {placeholder}
+                </label>
+                {error && <span className="form-group__invalidMsg">{error}</span>}
+                <span
+                    className={classnames('form-group__bar', {
+                        'form-group__bar--invalid': error,
+                    })}></span>
             </div>
         </div>
     );
