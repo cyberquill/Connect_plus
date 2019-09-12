@@ -92,10 +92,11 @@ router.get('/google/redirect', passport.authenticate('google', { session: false 
         profilePic: req.user.profilePic,
     };
     jwt.sign(payload, secretOrKey, { expiresIn: '7 days' }, (err, token) => {
-        res.json({
+        /* res.json({
             success: true,
             token: 'Bearer ' + token,
-        });
+        }); */
+        res.redirect('http://localhost:3000?token=' + 'Bearer ' + token);
     });
 });
 // ============================================================================

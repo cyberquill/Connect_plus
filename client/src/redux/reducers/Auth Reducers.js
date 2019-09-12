@@ -1,5 +1,5 @@
 
-import { AUTH_USER_NATIVE } from '../actions/types';
+import { AUTH_USER_NATIVE } from '../types';
 
 const initialState = {};
 

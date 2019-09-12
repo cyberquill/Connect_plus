@@ -1,3 +1,50 @@
+@keyframes rotation {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(359deg);
+	}
+}
+
+@keyframes bar {
+	0% {
+		transform: translateX(0) rotate(0deg);
+		opacity: 0;
+	}
+	14.28% {
+		transform: translateX(-15px) rotate(0deg);
+		opacity: 1;
+	}
+	28.56% {
+		transform: translateX(-30px) rotate(0deg);
+		opacity: 1;
+	}
+	37.12% {
+		transform: translateX(-39px) rotate(0deg);
+		opacity: 1;
+	}
+	42.84% {
+		transform: translateX(-45px) rotate(10deg);
+		opacity: 1;
+	}
+	57.12% {
+		transform: translateX(-60px) rotate(40deg);
+		opacity: 1;
+	}
+	71.4% {
+		transform: translateX(-75px) rotate(62deg);
+		opacity: 1;
+	}
+	85.68% {
+		transform: translateX(-90px) rotate(72deg);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(-105px) rotate(74deg);
+		opacity: 0;
+	}
+}
 
 @keyframes animate1 {
 	0% {

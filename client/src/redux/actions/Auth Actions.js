@@ -1,4 +1,4 @@
-import { GET_ERRORS, AUTH_USER_NATIVE, NETWORK_ERROR } from './types';
+import { GET_ERRORS, AUTH_USER_NATIVE, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR } from '../types';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import isEmpty from '../../validation/isEmpty';
@@ -19,7 +19,7 @@ export const createUser = (newUser, history) => dispatch => {
         .catch(err => {
             if (!isEmpty(err.response))
                 dispatch({
-                    type: GET_ERRORS,
+                    type: AUTH_ERROR,
                     payload: err.response.data,
                 });
             else if (!err.status)
@@ -29,9 +29,12 @@ export const createUser = (newUser, history) => dispatch => {
                 });
             else
                 dispatch({
-                    type: NETWORK_ERROR,
+                    type: GET_ERRORS,
                     payload: err,
                 });
+            setTimeout(() => {
+                dispatch({ type: RESET_ERRORS });
+            }, 5000);
         });
 };
 
@@ -50,7 +53,7 @@ export const loginUser = (user, history) => dispatch => {
         .catch(err => {
             if (!isEmpty(err.response))
                 dispatch({
-                    type: GET_ERRORS,
+                    type: AUTH_ERROR,
                     payload: err.response.data,
                 });
             else if (!err.status)
@@ -60,10 +63,17 @@ export const loginUser = (user, history) => dispatch => {
                 });
             else
                 dispatch({
-                    type: NETWORK_ERROR,
+                    type: GET_ERRORS,
                     payload: err,
                 });
+            setTimeout(() => {
+                dispatch({ type: RESET_ERRORS });
+            }, 5000);
         });
+};
+
+export const googleLogin = newUser => dispatch => {
+    dispatch(setCurrentUser(newUser));
 };
 
 export const logoutUser = () => dispatch => {

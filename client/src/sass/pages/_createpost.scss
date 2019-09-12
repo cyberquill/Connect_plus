@@ -1,0 +1,354 @@
+.createpost {
+	background: white;
+	height: 80vh;
+	width: 100%;
+	background-size: cover;
+	border-radius: 15px;
+	box-shadow: 0px 0px 35px 5px rgba(0, 0, 0, 0.5);
+	z-index: 0;
+	display: flex;
+
+	&__wrapper {
+		background: #eee;
+		height: 100vh;
+		padding: 10vh 20vh;
+        z-index: -1;
+	}
+
+	&__card {
+		// background-image: linear-gradient(to bottom right, #5a297c, #291842);
+		background: white;
+		width: 40%;
+		height: 100%;
+		z-index: 10;
+		border-top-left-radius: 15px;
+		border-bottom-left-radius: 15px;
+		padding: 17px 15px 17px 30px;
+
+		overflow-x: hidden;
+		overflow-y: scroll;
+
+		&::-webkit-scrollbar {
+			width: 25px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #ddd;
+			border-left: 11px solid white;
+			border-right: 11px solid white;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: linear-gradient(to bottom, #8e2de2, #4a00e0);
+			border-left: 8px solid white;
+			border-right: 8px solid white;
+			border-radius: 50px;
+		}
+
+		&__form {
+			width: 100%;
+			height: 100%;
+			z-index: 20;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			&__urlsection {
+				width: 100%;
+				background: #a0a0a0;
+				border-radius: 10px;
+				padding: 15px;
+				margin-bottom: 30px;
+
+				&--add {
+					background: #f0366e;
+					border: none;
+					color: white;
+					width: 150px;
+					padding: 10px 20px;
+					border-radius: 150px;
+					display: block;
+					margin: 0 auto;
+					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+					transition: all 0.2s ease;
+
+					&:hover {
+						box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+						transform: scale(1.05);
+						cursor: pointer;
+					}
+
+					&:focus {
+						border: none;
+						outline: none;
+					}
+				}
+
+				&--list {
+					margin: 10px 0;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+
+				&--grp {
+                    margin-top: 10px;
+                    width: 80%;
+				}
+
+				&--input {
+					border: none;
+					width: 85%;
+					border-top-left-radius: 150px;
+					border-bottom-left-radius: 150px;
+					padding-left: 10px;
+					padding: 5px 15px;
+					display: inline-block;
+					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+
+					&:focus {
+						border: none;
+						outline: none;
+					}
+				}
+
+				&--rm {
+					background: #01df14;
+					border: none;
+					color: white;
+                    // width: 40px;
+                    width: 15%;
+					padding: 5px 10px;
+					border-top-right-radius: 150px;
+					border-bottom-right-radius: 150px;
+					display: block;
+					margin: 0 auto;
+					display: inline-block;
+					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+					cursor: pointer;
+
+					&:focus {
+						border: none;
+						outline: none;
+					}
+				}
+			}
+
+			&__desc {
+				// resize: none;
+				width: 100%;
+				min-height: 30%;
+				color: #444;
+				background: #eee;
+				border-radius: 10px;
+				padding: 5px 15px;
+				border: none;
+				outline: none;
+				flex-shrink: 0;
+
+				&--label {
+					width: 100%;
+				}
+			}
+
+			&--radio {
+				width: fit-content;
+				position: relative;
+				margin: 0 auto;
+				padding: 15px 0;
+			}
+		}
+	}
+
+	&__preview {
+		width: 60%;
+		background-image: linear-gradient(to bottom right, #00c6fb, #005bea);
+		position: relative;
+
+		overflow-x: hidden;
+		overflow-y: scroll;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
+
+.fileUpload {
+	position: relative;
+	padding: 0 100px;
+	margin-top: 30px;
+}
+
+.postForm-radioGroup {
+	position: relative;
+
+	&__input {
+		display: none;
+	}
+
+	&__label {
+		color: #444;
+		font-family: Arial, Helvetica, sans-serif;
+		cursor: pointer;
+		position: relative;
+		padding-left: 1.8rem;
+	}
+
+	&__button {
+		height: 25px;
+		width: 25px;
+		border: 2px solid #005bea;
+		border-radius: 100%;
+		display: inline-block;
+		position: absolute;
+		left: 0;
+
+		&::after {
+			content: '';
+			display: block;
+			opacity: 0;
+			height: 15px;
+			width: 15px;
+			border-radius: 100%;
+			background-color: #005bea;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-47%, -51%);
+			transition: opacity 0.2s ease;
+		}
+	}
+
+	&__input:checked ~ &__label &__button::after {
+		opacity: 1;
+	}
+}
+
+@mixin gradientBg($startColor, $endColor) {
+	background: $startColor;
+	background: -moz-linear-gradient(
+		to left top,
+		$startColor 0%,
+		$endColor 80%,
+		$endColor 100%
+	);
+	background: -webkit-linear-gradient(
+		to left top,
+		$startColor 0%,
+		$endColor 80%,
+		$endColor 100%
+	);
+	background: linear-gradient(
+		to left top,
+		$startColor 0%,
+		$endColor 80%,
+		$endColor 100%
+	);
+}
+
+/* bg shortcodes */
+.bg-gradient1 span,
+.bg-gradient1:before {
+	@include gradientBg(#52a0fd, #00cae0);
+}
+
+.fancy-button {
+	text-decoration: none;
+	background: transparent;
+	border: none;
+	display: inline-block;
+	margin-bottom: 35px;
+	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	letter-spacing: 0.03em;
+	color: #ffffff;
+	position: relative;
+	cursor: pointer;
+
+	&:focus {
+		border: none;
+		outline: none;
+	}
+
+	&:before {
+		content: '';
+		display: inline-block;
+		height: 30px;
+		position: absolute;
+		bottom: -5px;
+		left: 30px;
+		right: 30px;
+		z-index: -1;
+		border-radius: 30em;
+		filter: blur(20px) brightness(0.95);
+		transform-style: preserve-3d;
+		transition: all 0.3s ease-out;
+
+		&:focus {
+			border: none;
+			outline: none;
+		}
+	}
+	i {
+		margin-top: -5px;
+		margin-right: 10px;
+		font-size: 1.2em;
+		vertical-align: middle;
+	}
+	span {
+		display: inline-block;
+		padding: 10px 40px;
+		border-radius: 50em;
+		position: relative;
+		z-index: 2;
+		will-change: transform, filter;
+		transform-style: preserve-3d;
+		transition: all 0.3s ease-out;
+	}
+	&:focus,
+	&:active {
+		color: #ffffff;
+	}
+	&:hover {
+		color: #ffffff;
+
+		span {
+			filter: brightness(1.05) contrast(1.05);
+			transform: scale(0.95);
+		}
+		&:before {
+			bottom: 0;
+			filter: blur(10px) brightness(0.95);
+		}
+	}
+	&.pop-onhover {
+		&:before {
+			opacity: 0;
+			bottom: 10px;
+		}
+		&:hover {
+			&:before {
+				bottom: -7px;
+				opacity: 1;
+				filter: blur(20px);
+			}
+			span {
+				transform: scale(1.04);
+			}
+			&:active {
+				span {
+					filter: brightness(1) contrast(1);
+					transform: scale(1);
+					transition: all 0.15s ease-out;
+				}
+				&:before {
+					bottom: 0;
+					filter: blur(10px) brightness(0.95);
+					transition: all 0.2s ease-out;
+				}
+			}
+		}
+	}
+}

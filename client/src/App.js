@@ -10,8 +10,9 @@ import NotFound from './React Components/pages/NotFound';
 import Home from './React Components/pages/Home';
 import Signup from './React Components/pages/Signup';
 import Login from './React Components/pages/Login';
+import CreatePost from './React Components/pages/CreatePost';
 //===================================================================================
-const token = checkAuthToken();                         //check for existing token.
+const token = checkAuthToken(); //check for existing token.
 if (token) store.dispatch(setCurrentUser(token));
 //===================================================================================
 
@@ -24,6 +25,7 @@ class App extends Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/login" component={Login} />
+                        <Route exact path="/createpost" component={CreatePost} />
                         <Route component={NotFound} />
                     </Switch>
                 </Router>

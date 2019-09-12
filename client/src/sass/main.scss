@@ -13,5 +13,9 @@
 @import "components/authWrapper";
 @import "components/formGroup";
 @import "components/logo";
+@import "components/preview";
 
+@import "layouts/loaders";
+
+@import "pages/createpost";
 @import "pages/signup_login";

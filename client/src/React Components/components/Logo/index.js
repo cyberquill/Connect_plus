@@ -13,7 +13,6 @@ export default class Logo extends Component {
             height: this.props.dimension,
             width: this.props.dimension,
         };
-        console.log(this.wrapperCSS);
 
         return (
             <div className={this.props.others}>

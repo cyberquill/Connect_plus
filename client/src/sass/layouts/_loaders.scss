@@ -1,0 +1,88 @@
+.loader1 {
+	position: relative;
+	padding: 0;
+	width: 100px;
+	height: $bar-height;
+	transform: scale(1.5);
+
+	& span {
+		display: block;
+		position: absolute;
+		right: 0;
+		width: $bar-width;
+		height: $bar-height;
+		border-radius: 1px;
+		// Rotate from the middle of the bottom
+		transform-origin: 50% 100%;
+		background-color: $bar-colour;
+		animation: bar linear $bar-animation-duration infinite;
+		// Tell the browser which properties will change in the animation
+		will-change: transform;
+
+		&:nth-child(1) {
+			transform: translateX(0) rotate(0deg);
+			opacity: 0.2;
+		}
+		&:nth-child(2) {
+			transform: translateX(-15px) rotate(0deg);
+			animation-delay: $bar-animation-duration-single;
+		}
+		&:nth-child(3) {
+			transform: translateX(-30px) rotate(0deg);
+			animation-delay: ($bar-animation-duration-single * 2);
+		}
+		&:nth-child(4) {
+			transform: translateX(-45px) rotate(10deg);
+			animation-delay: ($bar-animation-duration-single * 3);
+		}
+		&:nth-child(5) {
+			transform: translateX(-60px) rotate(40deg);
+			animation-delay: ($bar-animation-duration-single * 4);
+		}
+		&:nth-child(6) {
+			transform: translateX(-75px) rotate(62deg);
+			animation-delay: ($bar-animation-duration-single * 5);
+		}
+		&:nth-child(7) {
+			transform: translateX(-90px) rotate(72deg);
+			animation-delay: ($bar-animation-duration-single * 6);
+		}
+	}
+
+	&__wrapper {
+		z-index: 100;
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		background: rgba(#1a6aaf, 0.8);
+		transition: all 0.2s ease;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.loader2 {
+	border: 16px solid #f3f3f3; /* Light grey */
+	border-top: 16px solid #0058a5;
+    border-bottom: 16px solid #0058a5;
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+    animation: rotation 2s linear infinite;
+    
+    &--wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(#fff, 0.6);
+    }
+}
