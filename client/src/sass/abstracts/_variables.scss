@@ -19,7 +19,7 @@ $color-grey-dark-3: #333;
 $color-white: #fff;
 $color-black: #000;
 
-
+//===============================: Loader-1 :===============================
 // Bar Settings
 $text-colour: #fff;
 $bar-colour: $text-colour;
@@ -34,3 +34,11 @@ $bar-count: 7;
 
 // Generated settings
 $bar-animation-duration-single: -($bar-animation-duration / $bar-count);
+
+//===============================: Loader-1 :===============================
+
+$basic-dark-color: #212121; //color of the spinner
+$border-width: 4px; //width of spinners border
+$basic-spinner-dimensions: 125px; //width and height of spinner
+$main-spinner-dimensions: $basic-spinner-dimensions - $border-width * 2; //width and height of bigger circle
+$small-spinner-dimensions: $main-spinner-dimensions * 0.7; //width and height of smaller circle

@@ -9,6 +9,7 @@ import AuthWrapper from '../../components/AuthWrapper';
 import FormGroup from '../../components/FormGroup';
 import { loginUser } from '../../../redux/actions/Auth Actions';
 import userImg from '../../../assets/user_purple.png';
+import setAuthToken from '../../../utils/setAuthToken';
 
 class Login extends Component {
     constructor() {
@@ -42,7 +43,13 @@ class Login extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
     //==========================================================================
     render() {
-        if (authTokenPresent() || !isEmpty(this.props.user)) {
+        const token = authTokenPresent();
+        if (token) {
+            setAuthToken(token);
+            return <Redirect to="/dashboard" />;
+        }
+
+        if (!isEmpty(this.props.user)) {
             return <Redirect to="/dashboard" />;
         }
 
@@ -112,7 +119,7 @@ class Login extends Component {
                                     />
                                 </svg>
                             </span>
-                            <span class="google-button__text">Sign-up with Google</span>
+                            <span class="google-button__text">Sign-in with Google</span>
                         </button>
                     </a>
                 </form>

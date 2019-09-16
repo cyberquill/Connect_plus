@@ -8,6 +8,7 @@ import authTokenPresent from '../../../utils/authTokenPresent';
 import AuthWrapper from '../../components/AuthWrapper';
 import FormGroup from '../../components/FormGroup';
 import { createUser } from '../../../redux/actions/Auth Actions';
+import setAuthToken from '../../../utils/setAuthToken';
 
 class Signup extends Component {
     constructor(props) {
@@ -45,7 +46,15 @@ class Signup extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
     //==========================================================================
     render() {
-        if (authTokenPresent() || !isEmpty(this.props.user)) {
+        const token = authTokenPresent();
+        if (token) {
+            setAuthToken(token);
+            console.log('redirect 1');
+            return <Redirect to="/dashboard" />;
+        }
+
+        if (!isEmpty(this.props.user)) {
+            console.log('redirect 2');
             return <Redirect to="/dashboard" />;
         }
 

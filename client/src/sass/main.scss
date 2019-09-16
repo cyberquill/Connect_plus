@@ -14,8 +14,12 @@
 @import "components/formGroup";
 @import "components/logo";
 @import "components/preview";
+@import "components/postCard";
 
 @import "layouts/loaders";
+@import "layouts/sidebar";
 
-@import "pages/createpost";
 @import "pages/signup_login";
+@import "pages/dashboard";
+@import "pages/post";
+@import "pages/createpost";

@@ -6,10 +6,9 @@ import isEmpty from '../../../validation/isEmpty';
 import ImagePreview from '../../components/ImagePreview';
 import {
     uploadFiles,
-    uploadLoadersDisplayed,
     filesCollected,
 } from '../../../redux/actions/Upload Actions';
-import { createPost, postLoaderDisplayed } from '../../../redux/actions/Post Actions';
+import { createPost } from '../../../redux/actions/Post Actions';
 import Loader1 from '../../layouts/Loader1';
 import Loader2 from '../../layouts/Loader2';
 
@@ -93,7 +92,7 @@ class CreatePost extends Component {
     //==========================================================================
     render() {
         if (isEmpty(this.props.user)) {
-            return <Redirect to="/dashboard" />;
+            return <Redirect to="/login" />;
         }
         const { inputURLs, uploadURLs } = this.state;
         const showPostLoader = this.props.posts.showLoader ? <Loader1 /> : null;
@@ -249,5 +248,5 @@ const mapStatesToProps = state => ({
 //==========================================================================
 export default connect(
     mapStatesToProps,
-    { uploadFiles, uploadLoadersDisplayed, filesCollected, createPost, postLoaderDisplayed },
+    { uploadFiles, filesCollected, createPost },
 )(withRouter(CreatePost));

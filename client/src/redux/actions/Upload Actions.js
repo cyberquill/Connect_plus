@@ -5,7 +5,6 @@ import {
     FILES_UPLOADING,
     FILES_UPLOADED,
     FILES_COLLECTED,
-    UPLOAD_LOADERS_DISPLAYED,
     RESET_ERRORS,
 } from '../types';
 import axios from 'axios';
@@ -44,10 +43,6 @@ export const uploadFiles = newFiles => (dispatch, getState) => {
                 dispatch({type: RESET_ERRORS});
             }, 5000);
         });
-};
-
-export const uploadLoadersDisplayed = () => (dispatch, getState) => {
-    dispatch({ type: UPLOAD_LOADERS_DISPLAYED });
 };
 
 export const filesCollected = () => (dispatch, getState) => {

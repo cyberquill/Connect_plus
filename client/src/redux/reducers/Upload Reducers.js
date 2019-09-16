@@ -1,6 +1,5 @@
 import {
     FILES_UPLOADING,
-    UPLOAD_LOADERS_DISPLAYED,
     FILES_UPLOADED,
     FILES_COLLECTED,
     UPLOAD_ERROR,
@@ -22,12 +21,6 @@ export default function(state = initialState, action) {
                 success: null,
                 nUploads: action.payload,
                 urls: [],
-            };
-
-        case UPLOAD_LOADERS_DISPLAYED:
-            return {
-                ...state,
-                isLoading: false,
             };
 
         case FILES_UPLOADED:

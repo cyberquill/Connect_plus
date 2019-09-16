@@ -13,3 +13,12 @@ body {
         text-decoration: none !important;
     }
 }
+
+.notfound {
+    background: url(../assets/404.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100vw;
+    height: 100vh;
+}

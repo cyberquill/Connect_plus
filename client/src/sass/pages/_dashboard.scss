@@ -1,0 +1,35 @@
+.dashboard {
+	&__heading {
+        width: 100%;
+        text-align: center;
+
+		&--text {
+			font-size: 5rem;
+			padding-top: 40px;
+            font-family: 'Roboto', cursive;
+            font-weight: 600;
+			text-transform: uppercase;
+			color: transparent;
+			display: inline-block;
+			background: linear-gradient(to left, #fc00ff, #00dbde);
+			-webkit-background-clip: text;
+			background-clip: text;
+            transition: all 0.3s ease;
+
+			&:hover {
+				transform: scale(1.1) skew(5deg, 1deg);
+				text-shadow: 0.5rem 1rem 1.05rem rgba(0, 0, 0, 0.25);
+			}
+		}
+	}
+
+	&__wrapper {
+		width: 80vw;
+		min-height: 100vh;
+        background: #eee;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-bottom: 100px;
+	}
+}

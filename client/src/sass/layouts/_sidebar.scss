@@ -1,0 +1,12 @@
+
+.sidebar {
+
+    &__wrapper {
+        background-image: linear-gradient(to right bottom, #5a297c, #291842);
+        width: 20vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}

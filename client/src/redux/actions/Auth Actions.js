@@ -1,4 +1,4 @@
-import { GET_ERRORS, AUTH_USER_NATIVE, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR } from '../types';
+import { GET_ERRORS, AUTH_SET_USER, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR } from '../types';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import isEmpty from '../../validation/isEmpty';
@@ -84,7 +84,7 @@ export const logoutUser = () => dispatch => {
 
 export const setCurrentUser = user => {
     return {
-        type: AUTH_USER_NATIVE,
+        type: AUTH_SET_USER,
         payload: user,
     };
 };

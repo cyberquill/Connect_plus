@@ -108,14 +108,16 @@ router.get('/:pid', passport.authenticate('jwt', { session: false }), async (req
     res.json(post);
 });
 // ============================================================================
-//@route    GET: /posts/:pid/reactions
+//@route    GET: /posts/:pid/reactions/:page
 //@desc     Returns all the reactions on the specified post
 //@access   Private
 
 router.get(
-    '/:pid/reactions',
+    '/:pid/reactions/:page',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
+        const page = req.params.page ? parseInt(req.params.page) : 1;
+        const size = 20;
         const post = await Post.findById(req.params.pid)
             .lean()
             .catch(e => {});
@@ -130,7 +132,11 @@ router.get(
                     path: 'user',
                     select: '-password',
                 },
-                options: { sort: { dtTime: -1 } },
+                options: {
+                    skip: (page - 1) * size,
+                    limit: size,
+                    sort: { dtTime: -1 },
+                },
             })
             .lean();
         res.json(reactions);
@@ -141,26 +147,36 @@ router.get(
 //@desc     Returns all the comments on the specified post
 //@access   Private
 
-router.get('/:pid/comments', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const post = await Post.findById(req.params.pid)
-        .lean()
-        .catch(e => {});
-    if (!post) {
-        res.status(400).json({ post: 'Post does not exist!' });
-        return;
-    }
-    const { comments } = await Post.findById(post._id)
-        .populate({
-            path: 'comments',
-            populate: {
-                path: 'user',
-                select: '-password',
-            },
-            options: { sort: { dtTime: -1 } },
-        })
-        .lean();
-    res.json(comments);
-});
+router.get(
+    '/:pid/comments/:page',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        const page = req.params.page ? parseInt(req.params.page) : 1;
+        const size = 20;
+        const post = await Post.findById(req.params.pid)
+            .lean()
+            .catch(e => {});
+        if (!post) {
+            res.status(400).json({ post: 'Post does not exist!' });
+            return;
+        }
+        const { comments } = await Post.findById(post._id)
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'user',
+                    select: '-password',
+                },
+                options: {
+                    skip: (page - 1) * size,
+                    limit: size,
+                    sort: { dtTime: -1 },
+                },
+            })
+            .lean();
+        res.json(comments);
+    },
+);
 // ============================================================================
 //@route    POST: /posts
 //@desc     Delete Post
