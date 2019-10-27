@@ -1,12 +1,77 @@
-
 .sidebar {
+	&__wrapper {
+		background-image: linear-gradient(to right bottom, #5a297c, #291842);
+		width: 20vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
 
-    &__wrapper {
-        background-image: linear-gradient(to right bottom, #5a297c, #291842);
-        width: 20vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
+	& .user {
+		width: 100%;
+		margin: 10vh 0 5vh;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+
+		&__profilePic {
+			width: 70%;
+			border-radius: 200px;
+			overflow: hidden;
+			padding: 3px;
+			margin-bottom: 20px;
+			border: 5px solid white;
+			position: relative;
+			display: inline-block;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: transparent;
+				border-radius: 500px;
+				border: 6px solid #5a297c;
+			}
+
+			& img {
+				max-width: 100%;
+			}
+		}
+
+		&__text {
+			margin-left: 10px;
+			text-align: left;
+			font-size: 24px;
+			font-weight: 600;
+
+			& div {
+				font-size: 14px;
+				font-weight: normal;
+			}
+		}
+	}
+	&__link {
+		width: 100%;
+        text-decoration: none;
+        color: white;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        text-align: center;
+        padding: 10px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: #5a297c;
+            background: white;
+        }
+	}
 }

@@ -48,7 +48,12 @@ export default function(state = initialState, action) {
                     pstPgCtr: state.pstPgCtr + 1,
                     list: [...state.list, ...action.payload],
                 };
-            else return state;
+            else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: true,
+                };
 
         case POST_SELECTED:
             return {

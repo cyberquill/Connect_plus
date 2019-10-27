@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 
@@ -21,9 +21,24 @@ class SideBar extends Component {
             return <Redirect to="/login" />;
         }
 
+        let { profilePic, firstName, lastName, email } = this.props.user;
+
         return (
             <div className="sidebar__wrapper">
-                <div className="sidebar">Hi</div>
+                <div className="sidebar">
+                    <div className="user">
+                        <div className="user__profilePic">
+                            <img src={profilePic} alt="" />
+                        </div>
+                        <div className="user__text">
+                            {firstName} {lastName}
+                            <div>{email}</div>
+                        </div>
+                    </div>
+                    <Link to='/createpost'>
+                        <div className="sidebar__link">Add Post</div>
+                    </Link>
+                </div>
             </div>
         );
     }

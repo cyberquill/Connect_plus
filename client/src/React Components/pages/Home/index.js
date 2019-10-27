@@ -3,24 +3,13 @@ import queryString from 'query-string';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter, Link, Redirect } from 'react-router-dom';
+import Logo from '../../components/Logo';
 import setAuthToken from '../../../utils/setAuthToken';
 import { googleLogin } from '../../../redux/actions/Auth Actions';
 
 class Home extends Component {
     constructor() {
         super();
-
-        this.state = {
-            uploadURLs: [
-                'https://i.pinimg.com/236x/8f/20/30/8f2030245aa0c71a86bc47362f5ef79c.jpg',
-                'https://i.pinimg.com/564x/bb/79/97/bb79976c5db7a5d0b89398f19711e6fb.jpg',
-                'https://i.pinimg.com/236x/ab/84/a9/ab84a992a2b9bb55d9b0d02b6b241833.jpg',
-                'https://i.pinimg.com/originals/1e/90/65/1e9065ad5287cc70dad6f5cc52d8e57c.gif',
-                'https://i.pinimg.com/564x/bb/42/28/bb4228b856d20a90f9c019cfb0117ef5.jpg',
-                'https://i.pinimg.com/564x/87/c8/38/87c838bdb18ef5c1c4d3f8bcbc736299.jpg',
-                'https://i.pinimg.com/564x/b4/c1/a0/b4c1a015fa63f1913cd7eb659fd758c1.jpg',
-            ],
-        };
     }
 
     componentDidMount() {
@@ -36,7 +25,35 @@ class Home extends Component {
     }
 
     render() {
-        return <div className="home">Hello</div>;
+        return (
+            <div className="home__wrapper">
+                <div className="home">
+                    <div className="home__nav">
+                        <Link to="/">
+                            <span className="home__nav__link">About Us</span>
+                        </Link>
+                        <Link to="/signup">
+                            <span className="home__nav__link">SignUp</span>
+                        </Link>
+                        <Link to="/login">
+                            <span className="home__nav__link">LogIn</span>
+                        </Link>
+                    </div>
+                    <Link to="/">
+                        <Logo dimension="17vh" others="home__logo" />
+                    </Link>
+                    <div className="home__heading">
+                        Connect <sup>+</sup>
+                    </div>
+                    <div className="home__desc">
+                        It's not just a social-network, It's an Adventure!
+                    </div>
+                    <Link to="/signup">
+                        <button className="home__btn">Explore!</button>
+                    </Link>
+                </div>
+            </div>
+        );
     }
 }
 //==========================================================================
