@@ -25,20 +25,21 @@ class SideBar extends Component {
         if(isEmpty(profilePic)) profilePic = userImg;
 
         return (
-            <div className="sidebar__wrapper">
-                <div className="sidebar">
-                    <div className="user">
-                        <div className="user__profilePic">
-                            <img src={profilePic} alt="" />
+            <div className='sidebar__wrapper'>
+                <div className='sidebar'>
+                    <div className='user'>
+                        <div className='user__profilePic'>
+                            <img src={profilePic} alt='' />
                         </div>
-                        <div className="user__text">
+                        <div className='user__text'>
                             {firstName} {lastName}
                             <div>{email}</div>
                         </div>
                     </div>
                     <Link to='/createpost'>
-                        <div className="sidebar__link">Add Post</div>
+                        <div className='sidebar__link'>Add Post</div>
                     </Link>
+                    <button className='sidebar__link'>Logout</button>
                 </div>
             </div>
         );
