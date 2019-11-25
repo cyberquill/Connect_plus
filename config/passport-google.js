@@ -11,6 +11,7 @@ module.exports = passport => {
                 clientSecret: google.secret,
             },
             async (accessToken, refreshToken, profile, done) => {
+                console.log('checkpoint-1');
                 const user = await User.findOne({ email: profile.emails[0].value });
                 if (user) return done(null, user);
                 let newUser = new User({
