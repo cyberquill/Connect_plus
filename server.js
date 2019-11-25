@@ -30,8 +30,8 @@ app.use('/reactions', reactions);
 app.use('/comments', comments);
 app.use('/', misc);
 //==========================================================================
-/*app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});*/
+});
 app.listen(port, () => console.log(`Server Online on port ${port}...`));
