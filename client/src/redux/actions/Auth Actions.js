@@ -72,8 +72,9 @@ export const loginUser = (user, history) => dispatch => {
         });
 };
 
-export const googleLogin = newUser => dispatch => {
-    dispatch(setCurrentUser(newUser));
+export const googleLogin = (user, history) => dispatch => {
+    dispatch(setCurrentUser(user));
+    history.push('/dashboard');
 };
 
 export const logoutUser = () => dispatch => {

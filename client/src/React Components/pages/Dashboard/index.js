@@ -13,29 +13,47 @@ import Post from '../Post';
 class Dashboard extends Component {
     constructor() {
         super();
-        this.state = {};
-        //this.onChange = this.onChange.bind(this);
+        this.state = {
+            allowRequest: 0,
+        };
         this.pageBottomHandler = this.pageBottomHandler.bind(this);
     }
     //==========================================================================
     componentDidMount() {
         window.addEventListener('scroll', this.pageBottomHandler);
-        this.props.getPosts(this.props.posts.pstPgCtr);
+        if (!isEmpty(this.props.user))
+            this.props.getPosts(this.props.posts.pstPgCtr);
     }
     //==========================================================================
     pageBottomHandler = e => {
-        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+        const windowHeight =
+            'innerHeight' in window
+                ? window.innerHeight
+                : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight,
+        );
+        const windowBottom = Math.round(windowHeight + window.pageYOffset);
+
+        if (windowBottom >= docHeight && this.state.allowRequest) {
             this.props.getPosts(this.props.posts.pstPgCtr);
-        }
+            this.setState({ allowRequest: 0 });
+        } else if (
+            Math.abs(windowBottom - docHeight) > 500 &&
+            !this.state.allowRequest
+        )
+            this.setState({ allowRequest: 1 });
     };
     //==========================================================================
-    //onChange = e => this.setState({ [e.target.name]: e.target.value });
-    //==========================================================================
     render() {
-        if (isEmpty(this.props.user)) {
-            return <Redirect to="/login" />;
-        }
-
+        if (isEmpty(this.props.user)) return <Redirect to='/login' />;
+        const showLoader = this.props.posts.showLoader ? <Loader3 /> : null;
         const postCards = this.props.posts.list.map((post, index) => {
             return <PostCard post={post} index={index} key={index} />;
         });
@@ -43,16 +61,18 @@ class Dashboard extends Component {
         return (
             <Fragment>
                 <SideBar />
-                <div className="dashboard__wrapper">
-                    <div className="dashboard">
-                        <div className="dashboard__heading">
-                            <div className="dashboard__heading--text">Dashboard</div>
+                <div className='dashboard__wrapper'>
+                    <div className='dashboard'>
+                        <div className='dashboard__heading'>
+                            <div className='dashboard__heading--text'>
+                                Dashboard
+                            </div>
                         </div>
-                        <div className="postcard--wrapper">{postCards}</div>
-                        <Loader3 />
+                        <div className='postcard--wrapper'>{postCards}</div>
+                        {showLoader}
                     </div>
                 </div>
-                {!isEmpty(this.props.posts.activePost) ? <Post /> : null }
+                {!isEmpty(this.props.posts.activePost) ? <Post /> : null}
             </Fragment>
         );
     }
@@ -74,7 +94,4 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(
-    mapStatesToProps,
-    { getPosts },
-)(withRouter(Dashboard));
+export default connect(mapStatesToProps, { getPosts })(withRouter(Dashboard));

@@ -98,6 +98,7 @@ class Login extends Component {
                         <span></span>
                     </div>
                     <a href='https://connect-plus.herokuapp.com/auth/google'>
+                    {/* <a href='http://localhost:8000/auth/google'> */}
                         <button type='button' class='google-button'>
                             <span class='google-button__icon'>
                                 <svg

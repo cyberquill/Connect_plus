@@ -40,7 +40,7 @@ class UsageAlarm extends Component {
             return null;
         }
 
-        //return null;
+        return null;
 
         return (
             <div className="usagealarm__wrapper">

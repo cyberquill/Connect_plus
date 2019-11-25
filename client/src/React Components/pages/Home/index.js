@@ -17,10 +17,8 @@ class Home extends Component {
         if (token) {
             localStorage.setItem('jwtToken', token);
             setAuthToken(token);
-
             const decoded = jwt_decode(token);
-            this.props.googleLogin(decoded);
-            this.props.history.push('/dashboard');
+            this.props.googleLogin(decoded, this.props.history);
         }
     }
 
