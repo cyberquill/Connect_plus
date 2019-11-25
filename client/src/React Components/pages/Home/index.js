@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { withRouter, Link, Redirect } from 'react-router-dom';
@@ -23,8 +22,6 @@ class Home extends Component {
             this.props.googleLogin(decoded);
             this.props.history.push('/dashboard');
         }
-
-        axios.get('/').then((res => console.log(res)));
     }
 
     render() {

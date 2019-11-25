@@ -83,7 +83,6 @@ router.post('/login', validateLoginInput, async (req, res) => {
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/redirect', passport.authenticate('google', { session: false }), (req, res) => {
-    console.log('checkpoint-2');
     const payload = {
         id: req.user.id,
         firstName: req.user.firstName,
@@ -98,7 +97,6 @@ router.get('/google/redirect', passport.authenticate('google', { session: false 
             token: 'Bearer ' + token,
         }); */
         //res.redirect('http://localhost:3000?token=' + 'Bearer ' + token);
-        console.log('checkpoint-3: token= Bearer ' + token);
         res.redirect('https://connect-plus.herokuapp.com/?token=' + 'Bearer ' + token);
     });
 });
