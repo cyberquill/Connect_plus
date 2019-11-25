@@ -7,7 +7,7 @@ const path = require('path'),
     { auth, users, posts, reactions, comments, misc } = require('./routes');
 require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 //==========================================================================
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
