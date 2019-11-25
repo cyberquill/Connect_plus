@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
+import userImg from '../../../assets/user_purple.png';
 
 class SideBar extends Component {
     constructor() {
@@ -17,11 +18,11 @@ class SideBar extends Component {
     pageBottomHandler = e => {};
     //==========================================================================
     render() {
-        if (isEmpty(this.props.user)) {
+        if (isEmpty(this.props.user)) 
             return <Redirect to="/login" />;
-        }
 
         let { profilePic, firstName, lastName, email } = this.props.user;
+        if(isEmpty(profilePic)) profilePic = userImg;
 
         return (
             <div className="sidebar__wrapper">

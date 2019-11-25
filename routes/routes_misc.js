@@ -48,7 +48,7 @@ router.post(
 //@desc
 //@access
 
-router.get('/', (req, res) => res.json({msg: 'Server Online'}));
+router.get('/hello', (req, res) => res.json({msg: 'Server Online'}));
 // ============================================================================
 //@route    POST:
 //@desc

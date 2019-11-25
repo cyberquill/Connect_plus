@@ -1,6 +1,7 @@
-# Connect+
+# [**Connect<sup>+</sup>**](https://connect-plus.herokuapp.com/)
 
-An Social-Networking website, based on the **MERN** stack.
+An Social-Networking website, based on the **MERN** stack. 
+[Visit the live website](https://connect-plus.herokuapp.com/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
