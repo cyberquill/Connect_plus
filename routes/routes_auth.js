@@ -96,7 +96,8 @@ router.get('/google/redirect', passport.authenticate('google', { session: false 
             success: true,
             token: 'Bearer ' + token,
         }); */
-        res.redirect('http://localhost:3000?token=' + 'Bearer ' + token);
+        //res.redirect('http://localhost:3000?token=' + 'Bearer ' + token);
+        res.redirect('https://connect-plus.herokuapp.com/?token=' + 'Bearer ' + token);
     });
 });
 // ============================================================================
