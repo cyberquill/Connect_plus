@@ -21,7 +21,6 @@ class CreatePost extends Component {
             uploadURLs: [],
             inputURLs: [''],
             access: '',
-            showLoader: false,
             errors: {},
         };
 

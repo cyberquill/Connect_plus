@@ -6,8 +6,15 @@ import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import {
     unSelectPost,
+    getPostViews,
     getPostReactions,
     getPostComments,
+    setPostReaction,
+    setPostComment,
+    postsReset,
+    postViewsReset,
+    postReactionsReset,
+    postCommentsReset,
 } from '../../../redux/actions/Post Actions';
 import like from '../../../assets/r_like.png';
 import love from '../../../assets/r_love.png';
@@ -20,57 +27,91 @@ class Post extends Component {
     constructor() {
         super();
         this.state = { comment: '', mode: 'details' };
-        this.reactionBottomHandler = this.reactionBottomHandler.bind(this);
-        this.commentBottomHandler = this.commentBottomHandler.bind(this);
+        this.commentDiv = React.createRef();
+        this.viewsBottomHandler = this.viewsBottomHandler.bind(this);
+        this.reactionsBottomHandler = this.reactionsBottomHandler.bind(this);
+        this.commentsBottomHandler = this.commentsBottomHandler.bind(this);
         this.detailsViewHandler = this.detailsViewHandler.bind(this);
+        this.viewsViewHandler = this.viewsViewHandler.bind(this);
         this.reactionsViewHandler = this.reactionsViewHandler.bind(this);
+        this.reactionSubmitHandler = this.reactionSubmitHandler.bind(this);
         this.commentsViewHandler = this.commentsViewHandler.bind(this);
-        this.reactionHandler = this.reactionHandler.bind(this);
         this.commentChangeHandler = this.commentChangeHandler.bind(this);
         this.commentSubmitHandler = this.commentSubmitHandler.bind(this);
     }
     //==========================================================================
     componentDidMount() {}
     //==========================================================================
-    reactionBottomHandler = e => {};
-    //==========================================================================
-    commentBottomHandler = e => {};
-    //==========================================================================
     detailsViewHandler = e => this.setState({ mode: 'details' });
     //==========================================================================
+    viewsViewHandler = e => {
+        this.props.postViewsReset();
+        this.props.getPostViews(
+            this.props.posts.activePost._id,
+            this.props.posts.viwPgCtr,
+        );
+        this.setState({ mode: 'views' });
+    };
+    //==========================================================================
     reactionsViewHandler = e => {
-        this.props.getPostReactions(this.props.posts.activePost._id, this.props.posts.rxbPgCtr);
+        this.props.postReactionsReset();
+        this.props.getPostReactions(
+            this.props.posts.activePost._id,
+            this.props.posts.rxnPgCtr,
+        );
         this.setState({ mode: 'reactions' });
     };
     //==========================================================================
     commentsViewHandler = e => {
-        this.props.getPostComments(this.props.posts.activePost._id, this.props.posts.cmtPgCtr);
+        this.props.postCommentsReset();
+        this.props.getPostComments(
+            this.props.posts.activePost._id,
+            this.props.posts.cmtPgCtr,
+        );
         this.setState({ mode: 'comments' });
     };
     //==========================================================================
-    reactionHandler = reaction => () => {};
+    viewsBottomHandler = e => {};
+    //==========================================================================
+    reactionsBottomHandler = e => {};
+    //==========================================================================
+    commentsBottomHandler = e => {};
+    //==========================================================================
+    reactionSubmitHandler = reaction => () => {
+        this.props.setPostReaction(this.props.posts.activePost._id, reaction);
+    };
+    //==========================================================================
+    commentSubmitHandler = e => {
+        console.log('pressed!');
+        const comment = { text: this.state.comment };
+        this.props.setPostComment(this.props.posts.activePost._id, comment);
+        this.commentDiv.current.innerText = '';
+    };
     //==========================================================================
     commentChangeHandler = e => this.setState({ comment: e.target.innerText });
-    //==========================================================================
-    commentSubmitHandler = e => {};
     //==========================================================================
     render() {
         if (isEmpty(this.props.user)) return <Redirect to="/login" />;
 
-        if (isEmpty(this.props.posts.activePost)) return <Redirect to="/dashboard" />;
+        if (isEmpty(this.props.posts.activePost))
+            return <Redirect to="/dashboard" />;
 
         let {
             resources,
             desc,
             dtTime,
+            nViews,
             nReactions,
             nComments,
             user,
+            viwList,
             rxnList,
             cmtList,
         } = this.props.posts.activePost;
 
-        const description = isEmpty(desc) ? null : <div className="postDesc">{desc}</div>;
+        const description = isEmpty(desc) ? null : (
+            <div className="postDesc">{desc}</div>
+        );
         user = user[0];
         dtTime = new Date(dtTime).toLocaleDateString('en-UK', {
             weekday: 'long',
@@ -97,34 +138,114 @@ class Post extends Component {
         const resourceCarouselIndicators = resources.map((resource, index) => {
             const cls = index ? '' : 'active';
             return (
-                <li data-target="#resourceCarousel" data-slide-to={`${index}`} className={cls}></li>
+                <li
+                    data-target="#resourceCarousel"
+                    data-slide-to={`${index}`}
+                    className={cls}></li>
             );
         });
 
-        /* const commentList = cmtList.map((comment, index) => {
-            let {
-                desc,
-                dtTime,
-                user,
-            } = comment;
-            return (
-                <div className="comment">
-                    <div className="comment__user">
-                        <div className="comment__user__profilePic">
-                            <img src={user.profilePic} alt="" />
-                        </div>
-                        <div className="comment__user__text">
-                            {user.firstName} {user.lastName}
-                            <div>{dtTime}</div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }); */
+        const viewList = !viwList
+            ? null
+            : viwList.map((view, index) => {
+                  let { dtTime, user } = view;
+                  user = user[0];
+                  dtTime = new Date(dtTime).toLocaleDateString('en-UK', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                      hour12: true,
+                  });
+                  return (
+                      <div className="postList__item" key={index}>
+                          <div className="postList__item__user">
+                              <div className="postList__item__profilePic">
+                                  <img src={user.profilePic} alt="" />
+                              </div>
+                              <div className="postList__item__text">
+                                  {user.firstName} {user.lastName}
+                                  <div>{dtTime}</div>
+                              </div>
+                          </div>
+                      </div>
+                  );
+              });
 
-        /* const reactionList = rxnList.map((reaction, index) => (
-            
-        )); */
+        const reactionList = !rxnList
+            ? null
+            : rxnList.map((reaction, index) => {
+                  let { dtTime, user, type } = reaction;
+                  user = user[0];
+                  dtTime = new Date(dtTime).toLocaleDateString('en-UK', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                      hour12: true,
+                  });
+                  if (type === 'like') type = like;
+                  else if (type === 'love') type = love;
+                  else if (type === 'haha') type = haha;
+                  else if (type === 'amazed') type = amazed;
+                  else if (type === 'sad') type = sad;
+                  else if (type === 'angry') type = angry;
+
+                  return (
+                      <div className="postList__item" key={index}>
+                          <div className="postList__item__user">
+                              <div className="postList__item__profilePic">
+                                  <img src={user.profilePic} alt="" />
+                              </div>
+                              <div className="postList__item__text">
+                                  {user.firstName} {user.lastName}
+                                  <div>{dtTime}</div>
+                              </div>
+                              <img
+                                  src={type}
+                                  className="postList__item__reaction"
+                                  onClick={this.reactionSubmitHandler('love')}
+                              />
+                          </div>
+                      </div>
+                  );
+              });
+
+        const commentList = !cmtList
+            ? null
+            : cmtList.map((comment, index) => {
+                  let { text, dtTime, user } = comment;
+                  user = user[0];
+                  dtTime = new Date(dtTime).toLocaleDateString('en-UK', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                      hour12: true,
+                  });
+                  return (
+                      <div className="postList__item" key={index}>
+                          <div className="postList__item__user">
+                              <div className="postList__item__profilePic">
+                                  <img src={user.profilePic} alt="" />
+                              </div>
+                              <div className="postList__item__text">
+                                  {user.firstName} {user.lastName}
+                                  <div>{dtTime}</div>
+                              </div>
+                          </div>
+                          <div className="postList__item__comment">{text}</div>
+                      </div>
+                  );
+              });
 
         const detailSection = (
             <section className="post__section">
@@ -139,10 +260,19 @@ class Post extends Component {
                 </div>
                 {description}
                 <div className="postSpecs">
-                    <button className="postSpecs__btn" onClick={this.reactionsViewHandler}>
+                    <button
+                        className="postSpecs__btn"
+                        onClick={this.viewsViewHandler}>
+                        {nViews} Views
+                    </button>
+                    <button
+                        className="postSpecs__btn"
+                        onClick={this.reactionsViewHandler}>
                         {nReactions} Reactions
                     </button>
-                    <button className="postSpecs__btn" onClick={this.commentsViewHandler}>
+                    <button
+                        className="postSpecs__btn"
+                        onClick={this.commentsViewHandler}>
                         {nComments} Comments
                     </button>
                 </div>
@@ -150,82 +280,113 @@ class Post extends Component {
                     <img
                         src={like}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('like')}
+                        onClick={this.reactionSubmitHandler('like')}
                     />
                     <img
                         src={love}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('love')}
+                        onClick={this.reactionSubmitHandler('love')}
                     />
                     <img
                         src={haha}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('haha')}
+                        onClick={this.reactionSubmitHandler('haha')}
                     />
                     <img
                         src={amazed}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('amazed')}
+                        onClick={this.reactionSubmitHandler('amazed')}
                     />
                     <img
                         src={sad}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('sad')}
+                        onClick={this.reactionSubmitHandler('sad')}
                     />
                     <img
                         src={angry}
                         className="postReactions--item"
-                        onClick={this.reactionHandler('angry')}
+                        onClick={this.reactionSubmitHandler('angry')}
                     />
                 </div>
                 <div className="postComment">
-                    <button className="commentSend" onKeyUp={this.commentSubmitHandler}>
+                    <button
+                        className="commentSend"
+                        onClick={this.commentSubmitHandler}>
                         <i className="fas fa-paper-plane"></i>
                     </button>
                     <div
                         contentEditable="true"
                         onKeyUp={this.commentChangeHandler}
-                        className="postComment--text"></div>
+                        className="postComment--text"
+                        ref={this.commentDiv}></div>
                 </div>
+            </section>
+        );
+
+        const viewSection = (
+            <section className="post__section">
+                <div className="post-group">
+                    <button
+                        className="post__backBtn"
+                        onClick={this.detailsViewHandler}>
+                        <i className="fas fa-arrow-circle-left"></i>
+                    </button>
+                    <div className="post__section__heading">Views:</div>
+                </div>
+                <div className="postList">{viewList}</div>
             </section>
         );
 
         const reactionSection = (
             <section className="post__section">
                 <div className="post-group">
-                    <button className="post__backBtn" onClick={this.detailsViewHandler}>
+                    <button
+                        className="post__backBtn"
+                        onClick={this.detailsViewHandler}>
                         <i className="fas fa-arrow-circle-left"></i>
                     </button>
                     <div className="post__section__heading">Reactions:</div>
                 </div>
-                {/* <div className="post__section__list">{reactionList}</div> */}
+                <div className="postList">{reactionList}</div>
             </section>
         );
 
         const commentSection = (
             <section className="post__section">
                 <div className="post-group">
-                    <button className="post__backBtn" onClick={this.detailsViewHandler}>
+                    <button
+                        className="post__backBtn"
+                        onClick={this.detailsViewHandler}>
                         <i className="fas fa-arrow-circle-left"></i>
                     </button>
                     <div className="post__section__heading">Comments:</div>
                 </div>
-                {/* <div className="post__section__list">{commentList}</div> */}
+                <div className="postList">{commentList}</div>
             </section>
         );
 
         let visibleSection = null;
-        if (this.state.mode === 'reactions') visibleSection = reactionSection;
-        else if (this.state.mode === 'comments') visibleSection = commentSection;
+        if (this.state.mode === 'views') visibleSection = viewSection;
+        else if (this.state.mode === 'reactions')
+            visibleSection = reactionSection;
+        else if (this.state.mode === 'comments')
+            visibleSection = commentSection;
         else visibleSection = detailSection;
 
         return (
             <div className="post__wrapper">
                 <div className="post">
                     <section className="post__resourceSection">
-                        <div id="resourceCarousel" className="carousel slide" data-ride="carousel">
-                            <ol className="carousel-indicators">{resourceCarouselIndicators}</ol>
-                            <div className="carousel-inner">{resourceCarouselItems}</div>
+                        <div
+                            id="resourceCarousel"
+                            className="carousel slide"
+                            data-ride="carousel">
+                            <ol className="carousel-indicators">
+                                {resourceCarouselIndicators}
+                            </ol>
+                            <div className="carousel-inner">
+                                {resourceCarouselItems}
+                            </div>
                             <a
                                 className="carousel-control-prev"
                                 href="#resourceCarousel"
@@ -250,7 +411,9 @@ class Post extends Component {
                     </section>
                     {visibleSection}
                 </div>
-                <button className="post__closeBtn" onClick={this.props.unSelectPost}>
+                <button
+                    className="post__closeBtn"
+                    onClick={this.props.unSelectPost}>
                     <i className="fas fa-times-circle"></i>
                 </button>
             </div>
@@ -272,5 +435,16 @@ const mapStatesToProps = state => ({
 //==========================================================================
 export default connect(
     mapStatesToProps,
-    { unSelectPost, getPostReactions, getPostComments },
+    {
+        unSelectPost,
+        getPostViews,
+        getPostReactions,
+        getPostComments,
+        setPostReaction,
+        setPostComment,
+        postsReset,
+        postViewsReset,
+        postReactionsReset,
+        postCommentsReset,
+    },
 )(withRouter(Post));

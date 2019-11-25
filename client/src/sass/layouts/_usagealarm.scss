@@ -1,0 +1,53 @@
+
+.usagealarm {
+    background: white;
+    width: 33.33%;
+    border-radius: 10px;
+    padding: 20px;
+
+    &__wrapper {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1000;
+        background: rgba(37, 37, 37, 0.842);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__text {
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    &__btngrp {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 2.5rem;
+        margin-bottom: 0.5rem;
+
+        &__btn {
+            background: linear-gradient(to right bottom, #5a297c, #291842);
+            color: white;
+            font-size: 1.25rem;
+            padding: 1px 2rem;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: white;
+                color: #291842;
+                border: 1px solid #5a297c;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

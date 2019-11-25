@@ -19,7 +19,8 @@ router.post(
     async (req, res) => {
         let newPost = { uid: req.user.id };
         if (!isEmpty(req.body.desc)) newPost.desc = req.body.desc;
-        if (!isEmpty(req.body.resources)) newPost.resources = req.body.resources;
+        if (!isEmpty(req.body.resources))
+            newPost.resources = req.body.resources;
         if (!isEmpty(req.body.access)) newPost.access = req.body.access;
 
         newPost = new Post(newPost);
@@ -56,7 +57,11 @@ router.post(
         if (!isEmpty(req.body.type)) newReaction.type = req.body.type;
 
         if (exits) {
-            newReaction = await Reaction.findByIdAndUpdate(exits._id, newReaction, { new: true });
+            newReaction = await Reaction.findByIdAndUpdate(
+                exits._id,
+                newReaction,
+                { new: true },
+            );
         } else {
             newReaction = new Reaction(newReaction);
             await newReaction.save();
@@ -88,7 +93,8 @@ router.post(
             uid: req.user.id,
         };
         if (!isEmpty(req.body.text)) newComment.text = req.body.text;
-        if (!isEmpty(req.body.resource)) newComment.resource = req.body.resource;
+        if (!isEmpty(req.body.resource))
+            newComment.resource = req.body.resource;
         newComment = new Comment(newComment);
         await newComment.save();
         await Post.findByIdAndUpdate(post._id, { $inc: { nComments: 1 } });
@@ -100,13 +106,52 @@ router.post(
 //@desc     Returns the specified post
 //@access   Private
 
-router.get('/:pid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const post = await Post.findById(req.params.pid)
-        .lean()
-        .catch(e => {});
-    if (!post) res.status(404).json({ post: 'Post Not Found!' });
-    res.json(post);
-});
+router.get(
+    '/:pid',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        const post = await Post.findById(req.params.pid)
+            .lean()
+            .catch(e => {});
+        if (!post) res.status(404).json({ post: 'Post Not Found!' });
+        res.json(post);
+    },
+);
+// ============================================================================
+//@route    GET: /posts/:pid/views/:page
+//@desc     Returns all the reactions on the specified post
+//@access   Private
+
+router.get(
+    '/:pid/views/:page',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        const page = req.params.page ? parseInt(req.params.page) : 1;
+        const size = 20;
+        const post = await Post.findById(req.params.pid)
+            .lean()
+            .catch(e => {});
+        if (!post) {
+            res.status(400).json({ post: 'Post does not exist!' });
+            return;
+        }
+        const { views } = await Post.findById(post._id)
+            .populate({
+                path: 'views',
+                populate: {
+                    path: 'user',
+                    select: '-password',
+                },
+                options: {
+                    skip: (page - 1) * size,
+                    limit: size,
+                    sort: { dtTime: -1 },
+                },
+            })
+            .lean();
+        res.json(views);
+    },
+);
 // ============================================================================
 //@route    GET: /posts/:pid/reactions/:page
 //@desc     Returns all the reactions on the specified post
@@ -143,7 +188,7 @@ router.get(
     },
 );
 // ============================================================================
-//@route    GET: /posts/:pid/comments
+//@route    GET: /posts/:pid/comments/:page
 //@desc     Returns all the comments on the specified post
 //@access   Private
 

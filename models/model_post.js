@@ -7,10 +7,17 @@ const postSchema = new Schema({
     desc: String,
     dtTime: { type: Date, default: Date.now },
     access: { type: String, default: 'public' },
+    nViews: { type: Number, default: 0 },
     nReactions: { type: Number, default: 0 },
     nComments: { type: Number, default: 0 },
 });
 // ============================================================================
+postSchema.virtual('views', {
+    ref: 'View',
+    localField: '_id',
+    foreignField: 'pid',
+});
+
 postSchema.virtual('reactions', {
     ref: 'Reaction',
     localField: '_id',

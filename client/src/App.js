@@ -13,6 +13,7 @@ import Signup from './React Components/pages/Signup';
 import Login from './React Components/pages/Login';
 import Dashboard from './React Components/pages/Dashboard';
 import CreatePost from './React Components/pages/CreatePost';
+import UsageAlarm from './React Components/layouts/UsageAlarm';
 //===================================================================================
 const token = checkAuthToken(); //check for existing token.
 if (token) store.dispatch(setCurrentUser(token));
@@ -31,6 +32,7 @@ class App extends Component {
                         <Route exact path="/createpost" component={CreatePost} />
                         <Route component={NotFound} />
                     </Switch>
+                    <UsageAlarm />
                 </Router>
             </Provider>
         );

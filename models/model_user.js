@@ -25,6 +25,12 @@ userSchema.virtual('posts', {
     foreignField: 'uid',
 });
 
+userSchema.virtual('views', {
+    ref: 'View',
+    localField: '_id',
+    foreignField: 'uid',
+});
+
 userSchema.virtual('reactions', {
     ref: 'Reaction',
     localField: '_id',

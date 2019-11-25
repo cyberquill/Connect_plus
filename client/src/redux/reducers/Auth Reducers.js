@@ -9,7 +9,8 @@ export default function(state = initialState, action) {
             const user = action.payload;
             return {
                 ...state,
-                ...user
+                ...user,
+                loginTime: Date.now(),
             }
 
         default:

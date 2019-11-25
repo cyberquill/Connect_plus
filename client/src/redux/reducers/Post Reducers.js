@@ -6,9 +6,15 @@ import {
     POST_ERROR,
     POST_SELECTED,
     POST_UNSELECTED,
+    POST_REACTION_SET,
     POST_DETAILS_FETCHING,
     POST_REACTIONS_FETCHED,
     POST_COMMENTS_FETCHED,
+    POST_VIEWS_FETCHED,
+    POST_VIEWS_RESET,
+    POSTS_RESET,
+    POST_REACTIONS_RESET,
+    POST_COMMENTS_RESET,
 } from '../types';
 import isEmpty from '../../validation/isEmpty';
 
@@ -18,6 +24,7 @@ const initialState = {
     activePost: {},
     list: [],
     pstPgCtr: 1,
+    viwPgCtr: 1,
     rxnPgCtr: 1,
     cmtPgCtr: 1,
 };
@@ -40,11 +47,36 @@ export default function(state = initialState, action) {
                 showLoader: false,
             };
 
+        case POSTS_RESET:
+            return {
+                ...state,
+                pstPgCtr: 1,
+            };
+
+        case POST_VIEWS_RESET:
+            return {
+                ...state,
+                viwPgCtr: 1,
+            };
+
+        case POST_REACTIONS_RESET:
+            return {
+                ...state,
+                rxnPgCtr: 1,
+            };
+
+        case POST_COMMENTS_RESET:
+            return {
+                ...state,
+                cmtPgCtr: 1,
+            };
+
         case POSTS_FETCHED:
             if (!isEmpty(action.payload))
                 return {
                     ...state,
                     success: true,
+                    showLoader: false,
                     pstPgCtr: state.pstPgCtr + 1,
                     list: [...state.list, ...action.payload],
                 };
@@ -67,31 +99,72 @@ export default function(state = initialState, action) {
                 activePost: {},
             };
 
-        case POST_REACTIONS_FETCHED:
+        case POST_REACTION_SET:
+            return {
+                ...state,
+                activePost: {
+                    ...state.activePost,
+                    reaction: action.payload,
+                },
+            };
+
+        case POST_VIEWS_FETCHED:
             if (!isEmpty(action.payload))
                 return {
                     ...state,
                     success: true,
+                    showLoader: false,
+                    viwPgCtr: state.viwPgCtr + 1,
+                    activePost: {
+                        ...state.activePost,
+                        viwList: action.payload,
+                    },
+                };
+            else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: false,
+                };
+
+        case POST_REACTIONS_FETCHED:
+            if (!isEmpty(action.payload)) {
+                console.log('changing state');
+                return {
+                    ...state,
+                    success: true,
+                    showLoader: false,
                     rxnPgCtr: state.rxnPgCtr + 1,
                     activePost: {
                         ...state.activePost,
-                        rxnList: [...state.activePost.rxnList, ...action.payload],
+                        rxnList: [...action.payload],
                     },
                 };
-            else return state;
+            } else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: false,
+                };
 
         case POST_COMMENTS_FETCHED:
             if (!isEmpty(action.payload))
                 return {
                     ...state,
                     success: true,
+                    showLoader: false,
                     cmtPgCtr: state.cmtPgCtr + 1,
                     activePost: {
                         ...state.activePost,
-                        cmtList: [...state.activePost.cmtList, ...action.payload],
+                        cmtList: action.payload,
                     },
                 };
-            else return state;
+            else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: false,
+                };
 
         case POST_ERROR:
             return {

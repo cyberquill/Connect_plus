@@ -4,7 +4,7 @@ const validator = require('validator'),
 module.exports = function(req, res, next) {
     const data = req.body;
     let errors = {};
-    const reactions = ['like','love','haha','wow','sad','angry'];
+    const reactions = ['like','love','haha','amazed','sad','angry'];
 
     data.type = !isEmpty(data.type) ? data.type : '';
 
