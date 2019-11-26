@@ -40,6 +40,8 @@ class Signup extends Component {
     onSubmit = e => {
         e.preventDefault();
         const { errors, ...newUser } = this.state;
+        if(isEmpty(newUser.gender))
+            newUser.gender = 'None';
         this.props.createUser(newUser, this.props.history);
     };
     //==========================================================================
@@ -182,7 +184,6 @@ class Signup extends Component {
                                     name='gender'
                                     value='None'
                                     onChange={this.onChange}
-                                    checked
                                 />
                                 <label
                                     htmlFor='none'

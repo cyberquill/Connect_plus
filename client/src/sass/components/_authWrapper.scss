@@ -2,8 +2,18 @@
 .auth__back {
     background: #eee;
     height: 100vh;
-    padding: 10vh 20vh;
+    padding: 10vh 10vw;
     z-index: -1;
+    display: flex;
+    align-items: center;
+
+    @include respond(tab-port) {
+        padding: 10vh 20vw;
+    }
+
+    @include respond(phone) {
+        padding: 5vh;
+    }
 }
 
 .auth {
@@ -11,50 +21,81 @@
     height: 80vh;
     width: 100%;
     background-size: cover;
-    border-radius: 15px;
-    box-shadow: 0px 0px 35px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 1.5rem;
+    box-shadow: 0rem 0rem 3.5rem 0.5rem rgba(0, 0, 0, 0.5);
     z-index: 0;
     display: flex;
 
     &__display {
         width: 60%;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding-bottom: 4rem;
+        padding-left: 4rem;
+
+        @include respond(tab-port) {
+            display: none;
+        }
 
         &__art {
-            width: 60%;
-            display: block;
-            margin: 0 auto;
-            margin-top: 10px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 0 22.5%;
+            margin: 2.5rem auto 0;
+            width: 100%;
+            max-height: 75%;
+            overflow: hidden;
+            z-index: -1;
+
+            @include respond(tab-land) {
+                padding: 0 5rem;
+                width: 100%;
+            }
         }
 
         &__logo {
             position: absolute;
-            top: 45%;
+            top: 18vw;
             right: 20%;
+            width: 10vw;
+            height: 10vw;
+            max-width: 10rem;
+            max-height: 10rem;
+
+            @include respond(tab-land) {
+                top: 30vw;
+                right: 20%;
+                width: 10vw;
+                height: 10vw;
+            }
         }
 
         &__heading {
             color: #5a297c;
             display: inline-block;
-            font-size: 60px;  
-            padding-left: 40px;
-            margin-top: -10px;
-            text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.45);
+            font-size: 7rem;  
+            margin-top: -1rem;
+            text-shadow: 0.3rem 0.3rem 0.7rem rgba(0, 0, 0, 0.45);
+            line-height: 1em;
+            margin-top: 1rem;
             font-family: 'Kaushan Script', cursive;
             transition: all 0.3s ease;
 
             &:hover {
                 transform: scale(1.15);
-                text-shadow: 6px 4px 8px rgba(0, 0, 0, 0.5);
+                text-shadow: 0.75rem 0.5rem 1.3rem rgba(0, 0, 0, 0.5);
             }
         }
 
         &__desc {
             color: #333;
-            font-size: 18px; 
+            font-size: 1.8rem; 
             font-weight: 600;
-            margin-left: 47px;
-            transform: translateY(-15px);
+            margin-left: 1rem;
         }
 
         &__contact {
@@ -63,8 +104,9 @@
             text-transform: uppercase;
             margin: 0;
             padding: 0;
-            margin-left: 30px;
-            padding: 3px 20px;
+            padding: 0.3rem 2rem;
+            margin-left: 4rem;
+            font-size: 1.5rem;
             font-weight: 600;
             border: 2px solid #333;
             border-radius: 100px;
@@ -79,16 +121,27 @@
         }
 
         &__footer {
-            margin-top: 20px;
+            margin-top: 2.5rem;
+            font-size: 1.5rem;
 
-            & i {
-                font-size: 20px;
-                transform: translateY(10%);
+            & > i {
+                font-size: 2.5rem;
+                transform: translateY(0.45rem);
+                margin-right: 1rem;
             }
 
             &--icons {
+                font-size: 2.5rem;
+                display: flex;
+                margin-top: 1rem;
+                margin-left: 1.5rem;
+                align-items: center;
+                justify-content: space-evenly;
+                width: 40%;
+                
                 & i {
-                    font-size: 25px;
+                    font-size: 2.5rem;
+                    padding: 0 0.5rem;
                     transition: all 0.1s ease;
 
                     &:hover {
@@ -96,13 +149,6 @@
                         transform: scale(1.15);
                     }
                 }
-                font-size: 25px;
-                display: flex;
-                margin-top: 10px;
-                align-items: center;
-                justify-content: space-evenly;
-                width: 40%;
-                transform: translateX(34px);
             }
         }
     }
@@ -113,8 +159,8 @@
         width: 40%;
         height: 100%;
         z-index: 10;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
 
         display: flex;
         flex-direction: column;
@@ -122,13 +168,20 @@
         align-items: center;
         padding: 0;
 
+        @include respond(tab-port) {
+            width: 100%;
+            border-radius: 1.5rem;
+            margin: 0;
+        }
+
         &__form {
             width: 80%;
             height: 100%;
-            padding-top: 15px;
+            padding-top: 1.5rem;
             z-index: 20;
             display: flex;
             flex-direction: column;
+            //justify-content: center;
 
             &--radio {
                 position: relative;

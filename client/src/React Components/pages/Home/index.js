@@ -37,9 +37,7 @@ class Home extends Component {
                             <span className="home__nav__link">LogIn</span>
                         </Link>
                     </div>
-                    <Link to="/">
-                        <Logo dimension="17vh" others="home__logo" />
-                    </Link>
+                    <Logo others="home__logo" />
                     <div className="home__heading">
                         Connect <sup>+</sup>
                     </div>
