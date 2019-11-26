@@ -1,4 +1,4 @@
-import { GET_ERRORS, AUTH_SET_USER, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR } from '../types';
+import { GET_ERRORS, AUTH_SET_USER, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR, AUTH_UNSET_USER } from '../types';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import isEmpty from '../../validation/isEmpty';
@@ -14,6 +14,7 @@ export const createUser = (newUser, history) => dispatch => {
 
             const decoded = jwt_decode(token);
             dispatch(setCurrentUser(decoded));
+            dispatch({ type: RESET_ERRORS });
             history.push('/dashboard');
         })
         .catch(err => {
@@ -32,9 +33,6 @@ export const createUser = (newUser, history) => dispatch => {
                     type: GET_ERRORS,
                     payload: err,
                 });
-            setTimeout(() => {
-                dispatch({ type: RESET_ERRORS });
-            }, 5000);
         });
 };
 
@@ -48,6 +46,7 @@ export const loginUser = (user, history) => dispatch => {
 
             const decoded = jwt_decode(token);
             dispatch(setCurrentUser(decoded));
+            dispatch({ type: RESET_ERRORS });
             history.push('/dashboard');
         })
         .catch(err => {
@@ -66,9 +65,6 @@ export const loginUser = (user, history) => dispatch => {
                     type: GET_ERRORS,
                     payload: err,
                 });
-            setTimeout(() => {
-                dispatch({ type: RESET_ERRORS });
-            }, 5000);
         });
 };
 
@@ -77,10 +73,11 @@ export const googleLogin = (user, history) => dispatch => {
     history.push('/dashboard');
 };
 
-export const logoutUser = () => dispatch => {
+export const logoutUser = history => dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
-    dispatch(setCurrentUser({}));
+    dispatch({type: AUTH_UNSET_USER});
+    history.push('/');
 };
 
 export const setCurrentUser = user => {

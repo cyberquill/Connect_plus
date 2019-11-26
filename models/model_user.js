@@ -8,7 +8,11 @@ const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     gender: { type: String, default: 'None' },
-    profilePic: String,
+    profilePic: {
+        type: String,
+        default:
+            'https://res.cloudinary.com/brij1999/image/upload/v1574787385/Connect_plus/user_purple.png',
+    },
     joinDtTime: { type: Date, default: Date.now },
     nPosts: { type: Number, default: 0 },
     nFollowers: { type: Number, default: 0 },

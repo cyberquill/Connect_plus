@@ -21,7 +21,7 @@ class Signup extends Component {
             password: '',
             password2: '',
             gender: '',
-            errors: {},
+            errors: { user: {} },
         };
 
         this.onChange = this.onChange.bind(this);
@@ -58,7 +58,14 @@ class Signup extends Component {
             return <Redirect to="/dashboard" />;
         }
 
-        const { firstName, lastName, email, password, password2, errors } = this.state;
+        const googleURL =
+            process.env.NODE_ENV === 'production'
+                ? 'https://connect-plus.herokuapp.com/auth/google'
+                : 'http://localhost:8000/auth/google';
+
+
+        const { firstName, lastName, email, password, password2 } = this.state;
+        const errors = this.state.errors.user;
         return (
             <AuthWrapper>
                 <form
@@ -206,7 +213,7 @@ class Signup extends Component {
                         <span>OR</span>
                         <span></span>
                     </div>
-                    <a href='https://connect-plus.herokuapp.com/auth/google'>
+                    <a href={googleURL}>
                         <button type='button' class='google-button'>
                             <span class='google-button__icon'>
                                 <svg

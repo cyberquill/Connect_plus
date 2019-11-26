@@ -1,5 +1,5 @@
 
-import { AUTH_SET_USER } from '../types';
+import { AUTH_SET_USER, AUTH_UNSET_USER } from '../types';
 
 const initialState = {};
 
@@ -12,6 +12,9 @@ export default function(state = initialState, action) {
                 ...user,
                 loginTime: Date.now(),
             }
+
+        case AUTH_UNSET_USER:
+            return initialState;
 
         default:
             return state;

@@ -62,7 +62,7 @@ module.exports = function(req, res, next) {
         errors.regMode = 'Please specify a valid regMode!';
     }
 
-    if (!isEmpty(errors)) return res.status(400).json(errors);
+    if (!isEmpty(errors)) return res.status(400).json({ user: errors });
 
     next();
 };

@@ -1,4 +1,5 @@
 export const AUTH_SET_USER = 'AUTH_SET_USER';
+export const AUTH_UNSET_USER = 'AUTH_UNSET_USER';
 
 export const FILES_UPLOADED = 'FILES_UPLOADED';
 export const FILES_UPLOADING = 'FILES_UPLOADING';

@@ -1,27 +1,31 @@
-
 @import url('https://fonts.googleapis.com/css?family=Kaushan+Script|Roboto&display=swap');
 
-@import "abstracts/functions";
-@import "abstracts/mixins";
-@import "abstracts/variables";
+@font-face {
+    src: url(../fonts/Elianto.otf);
+    font-family: elianto;
+}
 
-@import "base/animations";
-@import "base/base";
-@import "base/typography";
-@import "base/utilities";
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
 
-@import "components/authWrapper";
-@import "components/formGroup";
-@import "components/logo";
-@import "components/preview";
-@import "components/postCard";
+@import 'base/animations';
+@import 'base/base';
+@import 'base/typography';
+@import 'base/utilities';
 
-@import "layouts/loaders";
-@import "layouts/sidebar";
-@import "layouts/usagealarm";
+@import 'components/authWrapper';
+@import 'components/formGroup';
+@import 'components/logo';
+@import 'components/preview';
+@import 'components/postCard';
 
-@import "pages/home";
-@import "pages/signup_login";
-@import "pages/dashboard";
-@import "pages/post";
-@import "pages/createpost";
+@import 'layouts/loaders';
+@import 'layouts/sidebar';
+@import 'layouts/usagealarm';
+
+@import 'pages/home';
+@import 'pages/signup_login';
+@import 'pages/dashboard';
+@import 'pages/post';
+@import 'pages/createpost';

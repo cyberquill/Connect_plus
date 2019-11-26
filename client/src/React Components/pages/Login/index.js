@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authTokenPresent from '../../../utils/authTokenPresent';
 import isEmpty from '../../../validation/isEmpty';
@@ -18,7 +17,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            errors: {},
+            errors: { user: {} },
         };
 
         this.onChange = this.onChange.bind(this);
@@ -46,14 +45,20 @@ class Login extends Component {
         const token = authTokenPresent();
         if (token) {
             setAuthToken(token);
-            return <Redirect to="/dashboard" />;
+            return <Redirect to='/dashboard' />;
         }
 
         if (!isEmpty(this.props.user)) {
-            return <Redirect to="/dashboard" />;
+            return <Redirect to='/dashboard' />;
         }
 
-        const { email, password, errors } = this.state;
+        const googleURL =
+            process.env.NODE_ENV === 'production'
+                ? 'https://connect-plus.herokuapp.com/auth/google'
+                : 'http://localhost:8000/auth/google';
+
+        const { email, password } = this.state;
+        const errors = this.state.errors.user;
         return (
             <AuthWrapper>
                 <div className='login__userimg rounded-circle mt-5'>
@@ -97,8 +102,7 @@ class Login extends Component {
                         <span>OR</span>
                         <span></span>
                     </div>
-                    <a href='https://connect-plus.herokuapp.com/auth/google'>
-                    {/* <a href='http://localhost:8000/auth/google'> */}
+                    <a href={googleURL}>
                         <button type='button' class='google-button'>
                             <span class='google-button__icon'>
                                 <svg
@@ -147,7 +151,4 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(
-    mapStatesToProps,
-    { loginUser },
-)(withRouter(Login));
+export default connect(mapStatesToProps, { loginUser })(withRouter(Login));

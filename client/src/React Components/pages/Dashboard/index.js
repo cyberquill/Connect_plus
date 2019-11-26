@@ -9,6 +9,7 @@ import PostCard from '../../components/PostCard';
 import Loader3 from '../../layouts/Loader3';
 import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
+import authTokenPresent from '../../../utils/authTokenPresent';
 
 class Dashboard extends Component {
     constructor() {
@@ -21,8 +22,13 @@ class Dashboard extends Component {
     //==========================================================================
     componentDidMount() {
         window.addEventListener('scroll', this.pageBottomHandler);
-        if (!isEmpty(this.props.user))
+        if (authTokenPresent() && !isEmpty(this.props.user))
             this.props.getPosts(this.props.posts.pstPgCtr);
+        else
+            setTimeout(
+                () => this.props.getPosts(this.props.posts.pstPgCtr),
+                3000,
+            );
     }
     //==========================================================================
     pageBottomHandler = e => {

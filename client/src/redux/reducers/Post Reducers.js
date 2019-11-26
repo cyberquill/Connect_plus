@@ -15,6 +15,7 @@ import {
     POSTS_RESET,
     POST_REACTIONS_RESET,
     POST_COMMENTS_RESET,
+    AUTH_UNSET_USER,
 } from '../types';
 import isEmpty from '../../validation/isEmpty';
 
@@ -172,6 +173,9 @@ export default function(state = initialState, action) {
                 success: false,
                 showLoader: false,
             };
+
+        case AUTH_UNSET_USER:
+            return initialState;
 
         default:
             return state;

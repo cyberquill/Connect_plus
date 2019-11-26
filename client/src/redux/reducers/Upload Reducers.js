@@ -3,6 +3,7 @@ import {
     FILES_UPLOADED,
     FILES_COLLECTED,
     UPLOAD_ERROR,
+    AUTH_UNSET_USER,
 } from '../types';
 
 const initialState = {
@@ -42,6 +43,9 @@ export default function(state = initialState, action) {
                 nUploads: 0,
                 urls: [],
             };
+
+        case AUTH_UNSET_USER:
+            return initialState;
 
         default:
             return state;

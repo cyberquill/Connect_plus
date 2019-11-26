@@ -5,24 +5,41 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import userImg from '../../../assets/user_purple.png';
+import { logoutUser } from '../../../redux/actions/Auth Actions';
 
 class SideBar extends Component {
     constructor() {
         super();
         this.state = {};
-        this.pageBottomHandler = this.pageBottomHandler.bind(this);
+        this.addPostLinkHandler = this.addPostLinkHandler.bind(this);
+        this.userProfileLinkHandler = this.userProfileLinkHandler.bind(this);
+        this.settingsLinkHandler = this.settingsLinkHandler.bind(this);
+        this.logoutLinkHandler = this.logoutLinkHandler.bind(this);
     }
     //==========================================================================
     componentDidMount() {}
     //==========================================================================
-    pageBottomHandler = e => {};
+    addPostLinkHandler = e => this.props.history.push('/createpost');
+    //==========================================================================
+    userProfileLinkHandler = e => this.props.history.push('/profile');
+    //==========================================================================
+    settingsLinkHandler = e => this.props.history.push('/settings');
+    //==========================================================================
+    logoutLinkHandler = e => this.props.logoutUser(this.props.history);
     //==========================================================================
     render() {
-        if (isEmpty(this.props.user)) 
-            return <Redirect to="/login" />;
+        if (isEmpty(this.props.user)) return <Redirect to='/login' />;
 
-        let { profilePic, firstName, lastName, email } = this.props.user;
-        if(isEmpty(profilePic)) profilePic = userImg;
+        let {
+            profilePic,
+            firstName,
+            lastName,
+            email,
+            nFollowers,
+            nFollowing,
+            nPosts,
+        } = this.props.user;
+        if (isEmpty(profilePic)) profilePic = userImg;
 
         return (
             <div className='sidebar__wrapper'>
@@ -34,12 +51,42 @@ class SideBar extends Component {
                         <div className='user__text'>
                             {firstName} {lastName}
                             <div>{email}</div>
+                            <table>
+                                <tr>
+                                    <td>Followers:</td>
+                                    <td>{nFollowers}</td>
+                                </tr>
+                                <tr>
+                                    <td>Following:</td>
+                                    <td>{nFollowing}</td>
+                                </tr>
+                                <tr>
+                                    <td>Posts:</td>
+                                    <td>{nPosts}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                    <Link to='/createpost'>
-                        <div className='sidebar__link'>Add Post</div>
-                    </Link>
-                    <button className='sidebar__link'>Logout</button>
+                    <div
+                        className='sidebar__link'
+                        onClick={this.userProfileLinkHandler}>
+                        User Profile
+                    </div>
+                    <div
+                        className='sidebar__link'
+                        onClick={this.addPostLinkHandler}>
+                        Add Post
+                    </div>
+                    <div
+                        className='sidebar__link'
+                        onClick={this.settingsLinkHandler}>
+                        Settings
+                    </div>
+                    <div
+                        className='sidebar__link'
+                        onClick={this.logoutLinkHandler}>
+                        Logout
+                    </div>
                 </div>
             </div>
         );
@@ -56,7 +103,4 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(
-    mapStatesToProps,
-    {},
-)(withRouter(SideBar));
+export default connect(mapStatesToProps, { logoutUser })(withRouter(SideBar));

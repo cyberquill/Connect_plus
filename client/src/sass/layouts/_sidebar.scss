@@ -1,16 +1,19 @@
 .sidebar {
     &__wrapper {
-        background-image: linear-gradient(to right bottom, #5a297c, #291842);
+        background-color: #2f3e4e;
+        // background: linear-gradient(to top, #141e30, #243b55);
         width: 20%;
         height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     & .user {
         width: 100%;
-        margin: 10vh 0 5vh;
         color: white;
         display: flex;
         flex-direction: column;
@@ -26,6 +29,11 @@
             border: 5px solid white;
             position: relative;
             display: inline-block;
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05);
+            }
 
             &::before {
                 content: '';
@@ -36,7 +44,7 @@
                 bottom: 0;
                 background: transparent;
                 border-radius: 500px;
-                border: 6px solid #5a297c;
+                border: 6px solid #2f3e4e;
             }
 
             & img {
@@ -48,16 +56,37 @@
             text-align: center;
             font-size: 24px;
             width: 100%;
+            font-family: sans-serif;
             font-weight: 600;
             overflow: hidden;
             text-overflow: ellipsis;
 
             & div {
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: normal;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            & table {
+                font-size: 16px;
+                font-weight: normal;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin: 10px auto 30px;
+
+                & tr td:nth-child(2) {
+                    padding-left: 10px;
+                    text-align: left;
+                    font-family: 'elianto';
+                }
+
+                & tr td {
+                    width: 50%;
+                    text-align: right;
+                }
             }
         }
     }
@@ -65,18 +94,44 @@
         width: 100%;
         text-decoration: none;
         color: white;
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
         text-align: center;
         padding: 10px 0;
+        border: none;
+        font-family: 'elianto';
+        outline: none;
         text-transform: uppercase;
+        background: transparent;
         letter-spacing: 1px;
         font-weight: 600;
+        position: relative;
+        z-index: 10;
+        cursor: pointer;
         transition: all 0.3s ease;
 
         &:hover {
-            color: #5a297c;
-            background: white;
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(1);
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to bottom right, #00c6fb, #005bea);
+            z-index: -1;
+            transition: opacity 0.3s linear;
+            opacity: 0;
+        }
+
+        &:hover::before {
+            opacity: 1;
         }
     }
 }
+

@@ -1,11 +1,19 @@
-import { GET_ERRORS, NETWORK_ERROR, UPLOAD_ERROR, POST_ERROR, RESET_ERRORS } from '../types';
+import {
+    GET_ERRORS,
+    AUTH_ERROR,
+    NETWORK_ERROR,
+    UPLOAD_ERROR,
+    POST_ERROR,
+    RESET_ERRORS,
+    AUTH_UNSET_USER,
+} from '../types';
 
 const initialState = {
-    posts: null,
-    uploads: null,
-    user: null,
-    network: null,
-    misc: null,
+    user: {},
+    posts: {},
+    uploads: {},
+    network: {},
+    misc: {},
 };
 
 export default function(state = initialState, action) {
@@ -14,27 +22,35 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 misc: action.payload,
-            }
+            };
 
+        case AUTH_ERROR:
+            return {
+                ...state,
+                ...action.payload,
+            };
         case UPLOAD_ERROR:
             return {
                 ...state,
                 uploads: action.payload,
-            }
+            };
 
         case POST_ERROR:
             return {
                 ...state,
                 posts: action.payload,
-            }
+            };
 
         case NETWORK_ERROR:
             return {
                 ...state,
                 network: action.payload,
-            }
+            };
 
         case RESET_ERRORS:
+            return initialState;
+
+        case AUTH_UNSET_USER:
             return initialState;
 
         default:
