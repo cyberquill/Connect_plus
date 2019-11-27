@@ -1,7 +1,7 @@
 .loader1 {
 	position: relative;
 	padding: 0;
-	width: 100px;
+	width: 10rem;
 	height: $bar-height;
 	transform: scale(1.5);
 
@@ -11,7 +11,7 @@
 		right: 0;
 		width: $bar-width;
 		height: $bar-height;
-		border-radius: 1px;
+		border-radius: 0.1rem;
 		// Rotate from the middle of the bottom
 		transform-origin: 50% 100%;
 		background-color: $bar-colour;
@@ -24,27 +24,27 @@
 			opacity: 0.2;
 		}
 		&:nth-child(2) {
-			transform: translateX(-15px) rotate(0deg);
+			transform: translateX(-1.5rem) rotate(0deg);
 			animation-delay: $bar-animation-duration-single;
 		}
 		&:nth-child(3) {
-			transform: translateX(-30px) rotate(0deg);
+			transform: translateX(-3rem) rotate(0deg);
 			animation-delay: ($bar-animation-duration-single * 2);
 		}
 		&:nth-child(4) {
-			transform: translateX(-45px) rotate(10deg);
+			transform: translateX(-4.5rem) rotate(10deg);
 			animation-delay: ($bar-animation-duration-single * 3);
 		}
 		&:nth-child(5) {
-			transform: translateX(-60px) rotate(40deg);
+			transform: translateX(-6rem) rotate(40deg);
 			animation-delay: ($bar-animation-duration-single * 4);
 		}
 		&:nth-child(6) {
-			transform: translateX(-75px) rotate(62deg);
+			transform: translateX(-7.5rem) rotate(62deg);
 			animation-delay: ($bar-animation-duration-single * 5);
 		}
 		&:nth-child(7) {
-			transform: translateX(-90px) rotate(72deg);
+			transform: translateX(-9rem) rotate(72deg);
 			animation-delay: ($bar-animation-duration-single * 6);
 		}
 	}
@@ -64,13 +64,21 @@
 }
 
 .loader2 {
-	border: 16px solid #f3f3f3; /* Light grey */
-	border-top: 16px solid #0058a5;
-	border-bottom: 16px solid #0058a5;
+	border: 1.6rem solid #f3f3f3; /* Light grey */
+	border-top: 1.6rem solid #0058a5;
+	border-bottom: 1.6rem solid #0058a5;
 	border-radius: 50%;
-	width: 120px;
-	height: 120px;
-	animation: rotation 2s linear infinite;
+	width: 12rem;
+	height: 12rem;
+    animation: rotation 2s linear infinite;
+    
+    @include respond(tab-port) {
+        width: 6rem;
+        height: 6rem;
+        border: 0.6rem solid #f3f3f3; /* Light grey */
+        border-top: 0.6rem solid #0058a5;
+        border-bottom: 0.6rem solid #0058a5;
+    }
 
 	&--wrapper {
 		position: absolute;
@@ -88,6 +96,147 @@
 }
 
 .eisenfoxLoader {
+	position: relative;
+	width: 12.5rem;
+	height: 12.5rem;
+
+	&:before,
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		border-width: 0.4rem;
+		border-style: solid;
+		border-radius: 50%;
+	}
+
+	&-1 {
+		&:before {
+			width: 11.7rem;
+			height: 11.7rem;
+			border-bottom-color: #333;
+			border-right-color: #333;
+			border-top-color: rgba(#333, 0);
+			border-left-color: rgba(#333, 0);
+			top: 0px;
+			left: 0px;
+			animation: rotate-animation 1s linear 0s infinite;
+		}
+
+		&:after {
+			width: 8.2rem;
+			height: 8.2rem;
+			border-bottom-color: #333;
+			border-right-color: #333;
+			border-top-color: rgba(#333, 0);
+			border-left-color: rgba(#333, 0);
+			top: (11.7rem - 8.2rem) / 2;
+			left: (11.7rem - 8.2rem) / 2;
+			animation: anti-rotate-animation 0.85s linear 0s infinite;
+		}
+	}
+
+	&-2 {
+		&:before {
+			width: 11.7rem;
+			height: 11.7rem;
+			border-color: #333;
+			top: 0px;
+			left: 0px;
+			animation: eisenfoxLoader_scale 1s linear 0s infinite;
+		}
+
+		&:after {
+			width: 11.7rem;
+			height: 11.7rem;
+			border-color: #333;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			animation: eisenfoxLoader_scale 1s linear 0.5s infinite;
+		}
+	}
+
+	&--wrapper {
+		width: 100%;
+		height: fit-content;
+		display: flex;
+		justify-content: center;
+	}
+
+
+    @include respond(tab-port) {    
+        position: relative;
+        width: 6.5rem;
+        height: 6.5rem;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-width: 0.2rem;
+            border-style: solid;
+            border-radius: 50%;
+        }
+
+        &-1 {
+            &:before {
+                width: 6.1rem;
+                height: 6.1rem;
+                border-bottom-color: #333;
+                border-right-color: #333;
+                border-top-color: rgba(#333, 0);
+                border-left-color: rgba(#333, 0);
+                top: 0px;
+                left: 0px;
+                animation: rotate-animation 1s linear 0s infinite;
+            }
+
+            &:after {
+                width: 4.27rem;
+                height: 4.27rem;
+                border-bottom-color: #333;
+                border-right-color: #333;
+                border-top-color: rgba(#333, 0);
+                border-left-color: rgba(#333, 0);
+                top: (6.1rem - 4.27rem) / 2;
+                left: (6.1rem - 4.27rem) / 2;
+                animation: anti-rotate-animation 0.85s linear 0s infinite;
+            }
+        }
+
+        &-2 {
+            &:before {
+                width: 6.1rem;
+                height: 6.1rem;
+                border-color: #333;
+                top: 0px;
+                left: 0px;
+                animation: eisenfoxLoader_scale 1s linear 0s infinite;
+            }
+
+            &:after {
+                width: 6.1rem;
+                height: 6.1rem;
+                border-color: #333;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                animation: eisenfoxLoader_scale 1s linear 0.5s infinite;
+            }
+        }
+
+        &--wrapper {
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+/* .eisenfoxLoader {
 	position: relative;
 	width: $basic-spinner-dimensions;
 	height: $basic-spinner-dimensions;
@@ -156,3 +305,4 @@
 		justify-content: center;
 	}
 }
+ */

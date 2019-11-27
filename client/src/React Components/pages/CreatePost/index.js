@@ -47,7 +47,7 @@ class CreatePost extends Component {
         this.state.inputURLs = this.state.inputURLs.filter(s => s !== '' && s !== null);
         this.state.uploadURLs = this.state.uploadURLs.filter(s => s !== '' && s !== null);
         newPost.resources = [...this.state.inputURLs, ...this.state.uploadURLs];
-        newPost.access = this.state.access;
+        newPost.access = isEmpty(this.state.access) ? 'Public' : this.state.access;
         this.props.createPost(newPost, this.props.history);
     };
     //==========================================================================
@@ -131,7 +131,6 @@ class CreatePost extends Component {
                                             name="access"
                                             value="Public"
                                             onChange={this.onChange}
-                                            checked
                                         />
                                         <label
                                             htmlFor="public"

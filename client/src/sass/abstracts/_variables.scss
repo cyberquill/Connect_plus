@@ -28,17 +28,17 @@ $bar-animation-duration: 2.8s;
 // These are not to be adjusted; it would mess 
 // with the angles. If anyone knows how to make 
 // the angles dynamic. I'd love to hear it.
-$bar-width: 3px;
-$bar-height: 25px;
+$bar-width: 0.3rem;
+$bar-height: 2.5rem;
 $bar-count: 7;
 
 // Generated settings
 $bar-animation-duration-single: -($bar-animation-duration / $bar-count);
 
-//===============================: Loader-1 :===============================
+//===============================: Loader-3 :===============================
 
-$basic-dark-color: #212121; //color of the spinner
-$border-width: 4px; //width of spinners border
-$basic-spinner-dimensions: 125px; //width and height of spinner
+$basic-dark-color: #333; //color of the spinner
+$border-width: 0.4rem; //width of spinners border
+$basic-spinner-dimensions: 12.5rem; //width and height of spinner
 $main-spinner-dimensions: $basic-spinner-dimensions - $border-width * 2; //width and height of bigger circle
 $small-spinner-dimensions: $main-spinner-dimensions * 0.7; //width and height of smaller circle

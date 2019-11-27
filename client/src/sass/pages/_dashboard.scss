@@ -1,9 +1,11 @@
 .dashboard {
+    background: #eee;
+    
 	&__heading {
         width: 100%;
         text-align: center;
         z-index: 0;
-        padding: 2vw 0 3vw;
+        padding: 3vw 0 3vw;
         background: white;
         // box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.8);
         box-shadow: 0 1rem 3rem rgba(#333, .23);

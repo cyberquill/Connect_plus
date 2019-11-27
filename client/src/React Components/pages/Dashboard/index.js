@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import { getPosts } from '../../../redux/actions/Post Actions';
 import PostCard from '../../components/PostCard';
-import Loader3 from '../../layouts/Loader3';
+import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
 import authTokenPresent from '../../../utils/authTokenPresent';
@@ -59,7 +59,7 @@ class Dashboard extends Component {
     //==========================================================================
     render() {
         if (isEmpty(this.props.user)) return <Redirect to='/login' />;
-        const showLoader = this.props.posts.showLoader ? <Loader3 /> : null;
+        const showLoader = this.props.posts.showLoader ? <Loader4 /> : null;
         const postCards = this.props.posts.list.map((post, index) => {
             return <PostCard post={post} index={index} key={index} />;
         });

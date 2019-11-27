@@ -3,16 +3,27 @@
 	height: 80vh;
 	width: 100%;
 	background-size: cover;
-	border-radius: 15px;
-	box-shadow: 0px 0px 35px 5px rgba(0, 0, 0, 0.5);
-	z-index: 0;
-	display: flex;
+	border-radius: 1.5rem;
+	box-shadow: 0 0 3.5rem 0.5rem rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    font-size: 1.6rem;
+    display: flex;
+
+    @include respond(tab-port) {
+        flex-direction: column;
+        height: 100%;
+    }
 
 	&__wrapper {
-		background: #eee;
+        background: #eee;
+        width: 100%;
 		height: 100vh;
 		padding: 10vh 20vh;
         z-index: -1;
+
+        @include respond(tab-port) {
+            padding: 5vh;
+        }
 	}
 
 	&__card {
@@ -21,28 +32,38 @@
 		width: 40%;
 		height: 100%;
 		z-index: 10;
-		border-top-left-radius: 15px;
-		border-bottom-left-radius: 15px;
-		padding: 17px 15px 17px 30px;
-
+		border-top-left-radius: 1.5rem;
+		border-bottom-left-radius: 1.5rem;
+		padding: 1.7rem 1.5rem 1.7rem 3rem;
 		overflow-x: hidden;
-		overflow-y: scroll;
+        overflow-y: scroll;
+        
+        @include respond(tab-port) {
+            width: 100%;
+            order: 2;
+            padding: 1.7rem;
+            border-bottom-right-radius: 1.5rem;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
 
 		&::-webkit-scrollbar {
-			width: 25px;
+			width: 2.5rem;
 		}
 
 		&::-webkit-scrollbar-track {
 			background: #ddd;
-			border-left: 11px solid white;
-			border-right: 11px solid white;
+			border-left: 1.1rem solid white;
+			border-right: 1.1rem solid white;
 		}
 
 		&::-webkit-scrollbar-thumb {
 			background: linear-gradient(to bottom, #8e2de2, #4a00e0);
-			border-left: 8px solid white;
-			border-right: 8px solid white;
-			border-radius: 50px;
+			border-left: 0.8rem solid white;
+			border-right: 0.8rem solid white;
+			border-radius: 5rem;
 		}
 
 		&__form {
@@ -56,24 +77,24 @@
 			&__urlsection {
 				width: 100%;
 				background: #a0a0a0;
-				border-radius: 10px;
-				padding: 15px;
-				margin-bottom: 30px;
+				border-radius: 1rem;
+				padding: 1.5rem;
+				margin-bottom: 3rem;
 
 				&--add {
 					background: #f0366e;
 					border: none;
 					color: white;
-					width: 150px;
-					padding: 10px 20px;
-					border-radius: 150px;
+					width: 15rem;
+					padding: 1rem 2rem;
+					border-radius: 500px;
 					display: block;
 					margin: 0 auto;
-					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+					box-shadow: 0.1rem 0.4rem 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
 					transition: all 0.2s ease;
 
 					&:hover {
-						box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+						box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.5);
 						transform: scale(1.05);
 						cursor: pointer;
 					}
@@ -85,7 +106,7 @@
 				}
 
 				&--list {
-					margin: 10px 0;
+					margin: 1rem 0;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
@@ -93,19 +114,19 @@
 				}
 
 				&--grp {
-                    margin-top: 10px;
+                    margin-top: 1rem;
                     width: 80%;
 				}
 
 				&--input {
 					border: none;
 					width: 85%;
-					border-top-left-radius: 150px;
-					border-bottom-left-radius: 150px;
-					padding-left: 10px;
-					padding: 5px 15px;
+					border-top-left-radius: 15rem;
+					border-bottom-left-radius: 15rem;
+					padding-left: 1rem;
+					padding: 0.5rem 1.5rem;
 					display: inline-block;
-					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+					box-shadow: 0.1rem 0.4rem 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
 
 					&:focus {
 						border: none;
@@ -119,13 +140,13 @@
 					color: white;
                     // width: 40px;
                     width: 15%;
-					padding: 5px 10px;
-					border-top-right-radius: 150px;
-					border-bottom-right-radius: 150px;
+					padding: 0.5rem 1rem;
+					border-top-right-radius: 15rem;
+					border-bottom-right-radius: 15rem;
 					display: block;
 					margin: 0 auto;
 					display: inline-block;
-					box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+					box-shadow: 0.1rem 0.4rem 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
 					cursor: pointer;
 
 					&:focus {
@@ -141,8 +162,8 @@
 				min-height: 30%;
 				color: #444;
 				background: #eee;
-				border-radius: 10px;
-				padding: 5px 15px;
+				border-radius: 1rem;
+				padding: 0.5rem 1.5rem;
 				border: none;
 				outline: none;
 				flex-shrink: 0;
@@ -156,7 +177,7 @@
 				width: fit-content;
 				position: relative;
 				margin: 0 auto;
-				padding: 15px 0;
+				padding: 1.5rem 0;
 			}
 		}
 	}
@@ -165,9 +186,17 @@
 		width: 60%;
 		background-image: linear-gradient(to bottom right, #00c6fb, #005bea);
 		position: relative;
-
 		overflow-x: hidden;
-		overflow-y: scroll;
+        overflow-y: scroll;
+        
+        @include respond(tab-port) {
+            width: 100%;
+            order: 1;
+            min-height: 10rem;
+            max-height: 75vh;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+        }
 
 		&::-webkit-scrollbar {
 			display: none;
@@ -177,8 +206,12 @@
 
 .fileUpload {
 	position: relative;
-	padding: 0 100px;
-	margin-top: 30px;
+	padding: 0 10rem;
+    margin-top: 3rem;
+    
+    @include respond(tab-port) {
+        padding: 0 3rem;
+    }
 }
 
 .postForm-radioGroup {
@@ -193,13 +226,13 @@
 		font-family: Arial, Helvetica, sans-serif;
 		cursor: pointer;
 		position: relative;
-		padding-left: 1.8rem;
+		padding-left: 4rem;
 	}
 
 	&__button {
-		height: 25px;
-		width: 25px;
-		border: 2px solid #005bea;
+		height: 2.5rem;
+		width: 2.5rem;
+		border: 0.2rem solid #005bea;
 		border-radius: 100%;
 		display: inline-block;
 		position: absolute;
@@ -209,14 +242,14 @@
 			content: '';
 			display: block;
 			opacity: 0;
-			height: 15px;
-			width: 15px;
+			height: 1.5rem;
+			width: 1.5rem;
 			border-radius: 100%;
 			background-color: #005bea;
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-47%, -51%);
+			transform: translate(-50%, -50%);
 			transition: opacity 0.2s ease;
 		}
 	}
@@ -259,10 +292,10 @@
 	background: transparent;
 	border: none;
 	display: inline-block;
-	margin-bottom: 35px;
+	margin-bottom: 3.5rem;
 	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
-	font-size: 20px;
-	letter-spacing: 0.03em;
+	font-size: 2rem;
+	letter-spacing: 0.03rem;
 	color: #ffffff;
 	position: relative;
 	cursor: pointer;
@@ -275,14 +308,14 @@
 	&:before {
 		content: '';
 		display: inline-block;
-		height: 30px;
+		height: 3rem;
 		position: absolute;
-		bottom: -5px;
-		left: 30px;
-		right: 30px;
+		bottom: -0.5rem;
+		left: 3rem;
+		right: 3rem;
 		z-index: -1;
-		border-radius: 30em;
-		filter: blur(20px) brightness(0.95);
+		border-radius: 30rem;
+		filter: blur(2rem) brightness(0.95);
 		transform-style: preserve-3d;
 		transition: all 0.3s ease-out;
 
@@ -292,15 +325,15 @@
 		}
 	}
 	i {
-		margin-top: -5px;
-		margin-right: 10px;
-		font-size: 1.2em;
+		margin-top: -0.5rem;
+		margin-right: 1rem;
+		font-size: 2rem;
 		vertical-align: middle;
 	}
 	span {
 		display: inline-block;
-		padding: 10px 40px;
-		border-radius: 50em;
+		padding: 1rem 4rem;
+		border-radius: 50rem;
 		position: relative;
 		z-index: 2;
 		will-change: transform, filter;
@@ -320,19 +353,19 @@
 		}
 		&:before {
 			bottom: 0;
-			filter: blur(10px) brightness(0.95);
+			filter: blur(1rem) brightness(0.95);
 		}
 	}
 	&.pop-onhover {
 		&:before {
 			opacity: 0;
-			bottom: 10px;
+			bottom: 1rem;
 		}
 		&:hover {
 			&:before {
-				bottom: -7px;
+				bottom: -0.7rem;
 				opacity: 1;
-				filter: blur(20px);
+				filter: blur(2rem);
 			}
 			span {
 				transform: scale(1.04);
@@ -345,7 +378,7 @@
 				}
 				&:before {
 					bottom: 0;
-					filter: blur(10px) brightness(0.95);
+					filter: blur(1rem) brightness(0.95);
 					transition: all 0.2s ease-out;
 				}
 			}
