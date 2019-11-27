@@ -145,7 +145,7 @@ class Post extends Component {
             );
         });
 
-        const viewList = !viwList
+        const viewList = isEmpty(viwList)
             ? null
             : viwList.map((view, index) => {
                   let { dtTime, user } = view;
@@ -175,7 +175,7 @@ class Post extends Component {
                   );
               });
 
-        const reactionList = !rxnList
+        const reactionList = isEmpty(rxnList)
             ? null
             : rxnList.map((reaction, index) => {
                   let { dtTime, user, type } = reaction;
@@ -216,7 +216,7 @@ class Post extends Component {
                   );
               });
 
-        const commentList = !cmtList
+        const commentList = isEmpty(cmtList)
             ? null
             : cmtList.map((comment, index) => {
                   let { text, dtTime, user } = comment;

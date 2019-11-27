@@ -1,17 +1,105 @@
 .sidebar {
+
+    &__chkbx {
+        display: none;
+    }
+    
+    &__btn {
+        background-color: white;
+        height: 5rem;
+        width: 5rem;
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        border-radius: 50%;
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba(#333, .23);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__icon {
+        position: relative;
+        margin-top: 2.5rem;
+
+        &,
+        &::before,
+        &::after {
+            width: 2.5rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before { top: -.8rem; }
+        &::after { top: .8rem; }
+    }
+
+    &__btn:hover &__icon::before {
+        top: -1rem;
+    }
+
+    &__btn:hover &__icon::after {
+        top: 1rem;
+    }
+
+    &__chkbx:checked + &__btn &__icon {
+        background-color: transparent;
+    }
+
+    &__chkbx:checked + &__btn &__icon::before {
+        top: 0;
+        transform: rotate(135deg);
+    }
+
+    &__chkbx:checked + &__btn &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+
+    //==========================================================================
+
+    &__chkbx:checked ~ &__wrapper {
+        transform: translateX(0);
+    }
+
+    &__chkbx:checked~&__wrapper+div {
+        width: calc(100% - 25.6rem);
+    }
+
+    @include respond(tab-port) {
+        &__chkbx:checked~&__wrapper+div {
+            width: 100%;
+        }
+    }
+
+    //==========================================================================
+
     &__wrapper {
         background-color: #2f3e4e;
         // background: linear-gradient(to top, #141e30, #243b55);
-        width: 20%;
+        width: 25.6rem;
         height: 100vh;
         position: fixed;
+        transform: translateX(-100%);
         top: 0;
         left: 0;
+        z-index: 100;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        transition: all 0.3s ease;
     }
-
+    
     & .user {
         width: 100%;
         color: white;
@@ -22,11 +110,11 @@
 
         &__profilePic {
             width: 70%;
-            border-radius: 200px;
+            border-radius: 500px;
             overflow: hidden;
-            padding: 3px;
-            margin-bottom: 20px;
-            border: 5px solid white;
+            padding: 0.3rem;
+            margin-bottom: 2rem;
+            border: 0.5rem solid white;
             position: relative;
             display: inline-block;
             transition: all 0.3s ease;
@@ -44,7 +132,7 @@
                 bottom: 0;
                 background: transparent;
                 border-radius: 500px;
-                border: 6px solid #2f3e4e;
+                border: 0.6rem solid #2f3e4e;
             }
 
             & img {
@@ -54,7 +142,7 @@
 
         &__text {
             text-align: center;
-            font-size: 24px;
+            font-size: 2.4rem;
             width: 100%;
             font-family: sans-serif;
             font-weight: 600;
@@ -62,7 +150,7 @@
             text-overflow: ellipsis;
 
             & div {
-                font-size: 12px;
+                font-size: 1.2rem;
                 font-weight: normal;
                 white-space: nowrap;
                 overflow: hidden;
@@ -70,15 +158,15 @@
             }
 
             & table {
-                font-size: 16px;
+                font-size: 1.6rem;
                 font-weight: normal;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin: 10px auto 30px;
+                margin: 1rem auto 3rem;
 
                 & tr td:nth-child(2) {
-                    padding-left: 10px;
+                    padding-left: 1rem;
                     text-align: left;
                     font-family: 'elianto';
                 }
@@ -95,13 +183,14 @@
         text-decoration: none;
         color: white;
         text-align: center;
-        padding: 10px 0;
+        padding: 1rem 0;
         border: none;
         font-family: 'elianto';
         outline: none;
         text-transform: uppercase;
         background: transparent;
-        letter-spacing: 1px;
+        letter-spacing: 0.1rem;
+        font-size: 1.6rem;
         font-weight: 600;
         position: relative;
         z-index: 10;

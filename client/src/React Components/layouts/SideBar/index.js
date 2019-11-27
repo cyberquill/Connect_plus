@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { withRouter, Link, Redirect } from 'react-router-dom';
@@ -42,53 +42,51 @@ class SideBar extends Component {
         if (isEmpty(profilePic)) profilePic = userImg;
 
         return (
-            <div className='sidebar__wrapper'>
-                <div className='sidebar'>
-                    <div className='user'>
-                        <div className='user__profilePic'>
-                            <img src={profilePic} alt='' />
+            <Fragment>
+                <input type='checkbox' className='sidebar__chkbx' id='sidebar-toggle' />
+                <label htmlFor='sidebar-toggle' className='sidebar__btn'>
+                    <span className='sidebar__icon'>&nbsp;</span>
+                </label>
+                <div className='sidebar__wrapper'>
+                    <div className='sidebar'>
+                        <div className='user'>
+                            <div className='user__profilePic'>
+                                <img src={profilePic} alt='' />
+                            </div>
+                            <div className='user__text'>
+                                {firstName} {lastName}
+                                <div>{email}</div>
+                                <table>
+                                    <tr>
+                                        <td>Followers:</td>
+                                        <td>{nFollowers}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Following:</td>
+                                        <td>{nFollowing}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Posts:</td>
+                                        <td>{nPosts}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div className='user__text'>
-                            {firstName} {lastName}
-                            <div>{email}</div>
-                            <table>
-                                <tr>
-                                    <td>Followers:</td>
-                                    <td>{nFollowers}</td>
-                                </tr>
-                                <tr>
-                                    <td>Following:</td>
-                                    <td>{nFollowing}</td>
-                                </tr>
-                                <tr>
-                                    <td>Posts:</td>
-                                    <td>{nPosts}</td>
-                                </tr>
-                            </table>
+                        <div className='sidebar__link' onClick={this.userProfileLinkHandler}>
+                            User Profile
                         </div>
-                    </div>
-                    <div
-                        className='sidebar__link'
-                        onClick={this.userProfileLinkHandler}>
-                        User Profile
-                    </div>
-                    <div
-                        className='sidebar__link'
-                        onClick={this.addPostLinkHandler}>
-                        Add Post
-                    </div>
-                    <div
-                        className='sidebar__link'
-                        onClick={this.settingsLinkHandler}>
-                        Settings
-                    </div>
-                    <div
-                        className='sidebar__link'
-                        onClick={this.logoutLinkHandler}>
-                        Logout
+                        <div className='sidebar__link' onClick={this.addPostLinkHandler}>
+                            Add Post
+                        </div>
+                        <div className='sidebar__link' onClick={this.settingsLinkHandler}>
+                            Settings
+                        </div>
+                        <div className='sidebar__link' onClick={this.logoutLinkHandler}>
+                            Logout
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
