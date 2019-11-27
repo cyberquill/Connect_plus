@@ -72,7 +72,7 @@ class Signup extends Component {
             <AuthWrapper>
                 <form
                     noValidate
-                    className='auth__card__form'
+                    className='auth__card__form pb-4'
                     onSubmit={this.onSubmit}>
                     <FormGroup
                         name='firstName'

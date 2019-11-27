@@ -2,18 +2,25 @@
 
 .login {
     &__userimg {
-        width: 130px;
-        height: 130px;
+        width: 10vw;
+        height: 10vw;
+        max-width: 12rem;
+        max-height: 12rem;
+        margin: 0 auto 3vw;
+
         position: relative;
         flex-shrink: 0;
         display: flex;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.5);
         align-items: flex-start;
         justify-content: center;
         background: white;
         overflow: hidden;
         border: 3px solid white;
-        position: relative;
+
+        @include respond(tab-port) {
+            display: none;
+        }
 
         &::before {
             content: '';
@@ -30,6 +37,29 @@
         &--img {
             max-width:100%;
             max-height:100%;
+        }
+    }
+
+    &__logo {
+        flex-shrink: 0;
+        display: none;
+
+        @include respond(tab-port) {
+            display: flex;
+            width: 15vw;
+            height: 15vw;
+            max-width: 15rem;
+            max-height: 15rem;
+            margin: 0 auto 5vh;
+        }
+
+        @include respond(phone) {
+            display: flex;
+            width: 20vw;
+            height: 20vw;
+            max-width: 20rem;
+            max-height: 20rem;
+            margin: 0 auto 5vh;
         }
     }
 }

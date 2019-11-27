@@ -9,6 +9,7 @@ import FormGroup from '../../components/FormGroup';
 import { loginUser } from '../../../redux/actions/Auth Actions';
 import userImg from '../../../assets/user_purple.png';
 import setAuthToken from '../../../utils/setAuthToken';
+import Logo from '../../components/Logo';
 
 class Login extends Component {
     constructor() {
@@ -61,13 +62,11 @@ class Login extends Component {
         const errors = this.state.errors.user;
         return (
             <AuthWrapper>
-                <div className='login__userimg rounded-circle mt-5'>
-                    <img src={userImg} alt='' className='login__userimg--img' />
-                </div>
-                <form
-                    noValidate
-                    className='auth__card__form'
-                    onSubmit={this.onSubmit}>
+                <form noValidate className='auth__card__form' onSubmit={this.onSubmit}>
+                    <div className='login__userimg rounded-circle'>
+                        <img src={userImg} alt='' className='login__userimg--img' />
+                    </div>
+                    <Logo others='login__logo' />
                     <FormGroup
                         name='email'
                         type='email'
@@ -105,9 +104,7 @@ class Login extends Component {
                     <a href={googleURL}>
                         <button type='button' class='google-button'>
                             <span class='google-button__icon'>
-                                <svg
-                                    viewBox='0 0 366 372'
-                                    xmlns='http://www.w3.org/2000/svg'>
+                                <svg viewBox='0 0 366 372' xmlns='http://www.w3.org/2000/svg'>
                                     <path
                                         d='M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z'
                                         id='Shape'
@@ -129,9 +126,7 @@ class Login extends Component {
                                     />
                                 </svg>
                             </span>
-                            <span class='google-button__text'>
-                                Sign-in with Google
-                            </span>
+                            <span class='google-button__text'>Sign-in with Google</span>
                         </button>
                     </a>
                 </form>
