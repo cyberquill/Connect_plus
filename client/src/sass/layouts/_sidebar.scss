@@ -6,21 +6,25 @@
     
     &__btn {
         background-color: white;
-        height: 5rem;
-        width: 5rem;
+        height: 6rem;
+        width: 6rem;
         position: fixed;
         top: 2rem;
         left: 2rem;
         border-radius: 50%;
-        z-index: 2000;
-        box-shadow: 0 1rem 3rem rgba(#333, .23);
+        z-index: 70;
+        box-shadow: 0 0.5rem 3rem rgba(#333, .5);
         text-align: center;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
     }
 
     &__icon {
         position: relative;
-        margin-top: 2.5rem;
 
         &,
         &::before,
@@ -75,6 +79,11 @@
         width: calc(100% - 25.6rem);
     }
 
+    &__chkbx:checked~&__btn {
+        height: 5rem;
+        width: 5rem;
+    }
+
     @include respond(tab-port) {
         &__chkbx:checked~&__wrapper+div {
             width: 100%;
@@ -92,7 +101,7 @@
         transform: translateX(-100%);
         top: 0;
         left: 0;
-        z-index: 100;
+        z-index: 50;
         overflow: hidden;
         display: flex;
         flex-direction: column;

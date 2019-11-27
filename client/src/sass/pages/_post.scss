@@ -6,27 +6,55 @@
     display: flex;
     align-items: flex-start;
 
-    &__resourceSection {
-        height: 100%;
-        width: 65%;
-        background: #111;
-        position: relative;
+    @include respond(tab-port) {
+        flex-direction: column;
+    }
 
-        & #resourceCarousel {
-            width: 100%;
-            height: 100%;
-            position: relative;
+    &__wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        background: rgba(black, 0.8);
+        padding: 10vh;
 
-            & .resCarousel {
-                width: 100%;
-                height: 80vh;
-            }
+        @include respond(tab-port) {
+            padding: 10vw;
+        }
+    }
+
+    &__closeBtn {
+        font-size: 4rem;
+        border-radius: 500px;
+        width: 4.5rem;
+        height: 4.5rem;
+        position: absolute;
+        text-align: center;
+        line-height: 4rem;
+        top: 4.5rem;
+        right: 4.5rem;
+        background: white;
+        cursor: pointer;
+        box-shadow: 0 1rem 3rem rgba(#333, .23);
+        color: rgba(black, 0.8);
+        transition: all 0.3s ease;
+
+        @include respond(tab-port) {
+            top: 10vw;
+            right: 10vw;
+            transform: translate(50%,-50%);
+        }
+
+        &:hover{
+            transform: scale(1.2);
         }
     }
 
     &__section {
-        width: 35%;
         height: 100%;
+        width: 100%;
         position: relative;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -35,13 +63,13 @@
             width: 100%;
             display: flex;
             align-items: center;
-            padding-left: 0.6em;
-            border-bottom: 3px solid #333;
+            padding-left: 0.6rem;
+            border-bottom: 0.3rem solid #333;
         }
 
         &__heading {
             padding-left: 10%;
-            font-size: 1.75em;
+            font-size: 3rem;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -53,14 +81,14 @@
 
         & .postUser {
             width: 100%;
-            padding: 20px;
+            padding: 2rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
 
             &__profilePic {
-                width: 20%;
-                border-radius: 200px;
+                width: 7.5rem;
+                border-radius: 500px;
                 overflow: hidden;
                 padding: 3px;
                 border: 2px solid #5a297c;
@@ -85,9 +113,9 @@
             }
 
             &__text {
-                margin-left: 10px;
+                margin-left: 1rem;
                 text-align: left;
-                font-size: 22px;
+                font-size: 2.2rem;
                 font-family: Arial, Helvetica, sans-serif;
                 font-weight: 600;
                 white-space: nowrap;
@@ -95,7 +123,7 @@
                 text-overflow: ellipsis;
 
                 & div {
-                    font-size: 12px;
+                    font-size: 1.2rem;
                     font-weight: normal;
                     white-space: nowrap;
                     overflow: hidden;
@@ -106,12 +134,14 @@
 
         & .postDesc {
             text-align: justify;
-            margin: 0 20px 20px;
+            font-size: 1.4rem;
+            margin: 0 2rem 2rem;
         }
 
         & .postSpecs {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -128,7 +158,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 border-left: 1px solid #999;
-                padding: 10px 0;
+                padding: 1rem 0;
                 cursor: pointer;
                 transition: all 0.3s ease;
 
@@ -141,8 +171,8 @@
 
         & .postReactions {
             width: 100%;
-            height: 40px;
-            margin-bottom: 20px;
+            height: 4rem;
+            margin-bottom: 2rem;
             display: flex;
             justify-content: space-evenly;
             align-items: center;
@@ -175,16 +205,16 @@
 
         & .postComment {
             background: #ccc;
-            margin: 0 20px 20px;
-            min-height: 1em;
-            padding: 1em;
-            border-radius: 10px;
+            margin: 0 2rem 2rem;
+            min-height: 1rem;
+            padding: 2rem;
+            border-radius: 1rem;
             position: relative;
 
             & .commentSend {
                 float: right;
-                font-size: 1em;
-                transform: scale(1.25);
+                font-size: 1.6rem;
+                transform: translateY(-15%) scale(1.2);
                 background: transparent;
                 border: none;
                 outline: none;
@@ -196,7 +226,7 @@
 
                 &:hover {
                     color: #0044ff;
-                    transform: scale(1.4);
+                    transform: translateY(-15%) scale(1.5);
                     animation-duration: 0.3s;
                     animation-fill-mode: both;
                     transition: all 0.3s ease;
@@ -221,7 +251,7 @@
         & .postList {
             &__item {
                 width: 100%;
-                padding: 10px;
+                padding: 1rem;
                 border-bottom: 1px solid #999;
                 position: relative;
 
@@ -233,7 +263,7 @@
 
                 &__profilePic {
                     width: 15%;
-                    border-radius: 200px;
+                    border-radius: 500px;
                     overflow: hidden;
                     padding: 3px;
                     border: 2px solid #5a297c;
@@ -258,9 +288,9 @@
                 }
 
                 &__text {
-                    margin-left: 10px;
+                    margin-left: 1rem;
                     text-align: left;
-                    font-size: 16px;
+                    font-size: 1.6rem;
                     font-family: Arial, Helvetica, sans-serif;
                     font-weight: 600;
                     white-space: nowrap;
@@ -268,7 +298,7 @@
                     text-overflow: ellipsis;
 
                     & div {
-                        font-size: 12px;
+                        font-size: 1.2rem;
                         font-weight: normal;
                         white-space: nowrap;
                         overflow: hidden;
@@ -302,43 +332,52 @@
 
                 &__comment {
                     background: #ddd;
-                    border-radius: 10px;
-                    margin-top: 10px;
+                    border-radius: 1rem;
+                    margin-top: 1rem;
                     margin-left: 15%;
-                    padding: 5px 10px;
+                    padding: 0.5rem 1rem;
                 }
             }
         }
     }
 
-    &__wrapper {
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        z-index: 100;
-        top: 0;
-        left: 0;
-        background: rgba(black, 0.8);
-        padding: 10vh 12vw;
-    }
+    &__resourceSection {
+        height: 100%;
+        width: 70%;
+        background: #111;
+        position: relative;
+        overflow: hidden;
 
-    &__closeBtn {
-        position: absolute;
-        top: 20px;
-        right: 50px;
-        background: transparent;
-        border: none;
-        outline: none;
-        font-size: 40px;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        & ~ section {
+            width: 30%;
+        }
 
-        &:hover,
-        &:focus {
-            border: none;
-            outline: none;
-            transform: scale(1.2);
+        @include respond(tab-port) {
+            width: 100%;
+            height: 80vh;
+
+            & ~ section {
+                width: 100%;
+            }
+        }
+
+        & #resourceCarousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & .resCarouselItm {
+                width: 100%;
+                height: 80vh;
+                object-fit: cover;
+
+                @include respond(tab-port) {
+                    height: 40vh;
+                }
+            }
         }
     }
 
@@ -347,8 +386,9 @@
         background: transparent;
         border: none;
         outline: none;
-        font-size: 2em;
+        font-size: 3rem;
         cursor: pointer;
+        transition: all 0.3s ease;
 
         &:hover,
         &:focus {

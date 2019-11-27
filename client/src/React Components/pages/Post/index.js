@@ -46,28 +46,19 @@ class Post extends Component {
     //==========================================================================
     viewsViewHandler = e => {
         this.props.postViewsReset();
-        this.props.getPostViews(
-            this.props.posts.activePost._id,
-            this.props.posts.viwPgCtr,
-        );
+        this.props.getPostViews(this.props.posts.activePost._id, this.props.posts.viwPgCtr);
         this.setState({ mode: 'views' });
     };
     //==========================================================================
     reactionsViewHandler = e => {
         this.props.postReactionsReset();
-        this.props.getPostReactions(
-            this.props.posts.activePost._id,
-            this.props.posts.rxnPgCtr,
-        );
+        this.props.getPostReactions(this.props.posts.activePost._id, this.props.posts.rxnPgCtr);
         this.setState({ mode: 'reactions' });
     };
     //==========================================================================
     commentsViewHandler = e => {
         this.props.postCommentsReset();
-        this.props.getPostComments(
-            this.props.posts.activePost._id,
-            this.props.posts.cmtPgCtr,
-        );
+        this.props.getPostComments(this.props.posts.activePost._id, this.props.posts.cmtPgCtr);
         this.setState({ mode: 'comments' });
     };
     //==========================================================================
@@ -91,10 +82,9 @@ class Post extends Component {
     commentChangeHandler = e => this.setState({ comment: e.target.innerText });
     //==========================================================================
     render() {
-        if (isEmpty(this.props.user)) return <Redirect to="/login" />;
+        if (isEmpty(this.props.user)) return <Redirect to='/login' />;
 
-        if (isEmpty(this.props.posts.activePost))
-            return <Redirect to="/dashboard" />;
+        if (isEmpty(this.props.posts.activePost)) return <Redirect to='/dashboard' />;
 
         let {
             resources,
@@ -109,9 +99,7 @@ class Post extends Component {
             cmtList,
         } = this.props.posts.activePost;
 
-        const description = isEmpty(desc) ? null : (
-            <div className="postDesc">{desc}</div>
-        );
+        const description = isEmpty(desc) ? null : <div className='postDesc'>{desc}</div>;
         user = user[0];
         dtTime = new Date(dtTime).toLocaleDateString('en-UK', {
             weekday: 'long',
@@ -122,7 +110,7 @@ class Post extends Component {
 
         const resourceCarouselItems = resources.map((resource, index) => {
             const active = index ? '' : ' active';
-            const cls = 'carousel-item resCarousel' + active;
+            const cls = 'carousel-item resCarouselItm' + active;
             return (
                 <div
                     className={cls}
@@ -131,17 +119,16 @@ class Post extends Component {
                         backgroundPosition: 'center',
                         backgroundSize: 'contain',
                         backgroundRepeat: 'no-repeat',
-                    }}></div>
+                    }}>
+                    &nbsp;
+                </div>
             );
         });
 
         const resourceCarouselIndicators = resources.map((resource, index) => {
             const cls = index ? '' : 'active';
             return (
-                <li
-                    data-target="#resourceCarousel"
-                    data-slide-to={`${index}`}
-                    className={cls}></li>
+                <li data-target='#resourceCarousel' data-slide-to={`${index}`} className={cls}></li>
             );
         });
 
@@ -161,12 +148,12 @@ class Post extends Component {
                       hour12: true,
                   });
                   return (
-                      <div className="postList__item" key={index}>
-                          <div className="postList__item__user">
-                              <div className="postList__item__profilePic">
-                                  <img src={user.profilePic} alt="" />
+                      <div className='postList__item' key={index}>
+                          <div className='postList__item__user'>
+                              <div className='postList__item__profilePic'>
+                                  <img src={user.profilePic} alt='' />
                               </div>
-                              <div className="postList__item__text">
+                              <div className='postList__item__text'>
                                   {user.firstName} {user.lastName}
                                   <div>{dtTime}</div>
                               </div>
@@ -197,18 +184,18 @@ class Post extends Component {
                   else if (type === 'angry') type = angry;
 
                   return (
-                      <div className="postList__item" key={index}>
-                          <div className="postList__item__user">
-                              <div className="postList__item__profilePic">
-                                  <img src={user.profilePic} alt="" />
+                      <div className='postList__item' key={index}>
+                          <div className='postList__item__user'>
+                              <div className='postList__item__profilePic'>
+                                  <img src={user.profilePic} alt='' />
                               </div>
-                              <div className="postList__item__text">
+                              <div className='postList__item__text'>
                                   {user.firstName} {user.lastName}
                                   <div>{dtTime}</div>
                               </div>
                               <img
                                   src={type}
-                                  className="postList__item__reaction"
+                                  className='postList__item__reaction'
                                   onClick={this.reactionSubmitHandler('love')}
                               />
                           </div>
@@ -232,190 +219,165 @@ class Post extends Component {
                       hour12: true,
                   });
                   return (
-                      <div className="postList__item" key={index}>
-                          <div className="postList__item__user">
-                              <div className="postList__item__profilePic">
-                                  <img src={user.profilePic} alt="" />
+                      <div className='postList__item' key={index}>
+                          <div className='postList__item__user'>
+                              <div className='postList__item__profilePic'>
+                                  <img src={user.profilePic} alt='' />
                               </div>
-                              <div className="postList__item__text">
+                              <div className='postList__item__text'>
                                   {user.firstName} {user.lastName}
                                   <div>{dtTime}</div>
                               </div>
                           </div>
-                          <div className="postList__item__comment">{text}</div>
+                          <div className='postList__item__comment'>{text}</div>
                       </div>
                   );
               });
 
+        const resourceSection = isEmpty(resources) ? null : (
+            <section className='post__resourceSection'>
+                <div id='resourceCarousel' className='carousel slide' data-ride='carousel'>
+                    <ol className='carousel-indicators'>{resourceCarouselIndicators}</ol>
+                    <div className='carousel-inner'>{resourceCarouselItems}</div>
+                    <a
+                        className='carousel-control-prev'
+                        href='#resourceCarousel'
+                        role='button'
+                        data-slide='prev'>
+                        <span className='carousel-control-prev-icon' aria-hidden='true'></span>
+                        <span className='sr-only'>Previous</span>
+                    </a>
+                    <a
+                        className='carousel-control-next'
+                        href='#resourceCarousel'
+                        role='button'
+                        data-slide='next'>
+                        <span className='carousel-control-next-icon' aria-hidden='true'></span>
+                        <span className='sr-only'>Next</span>
+                    </a>
+                </div>
+            </section>
+        );
+
         const detailSection = (
-            <section className="post__section">
-                <div className="postUser">
-                    <div className="postUser__profilePic">
-                        <img src={user.profilePic} alt="" />
+            <section className='post__section'>
+                <div className='postUser'>
+                    <div className='postUser__profilePic'>
+                        <img src={user.profilePic} alt='' />
                     </div>
-                    <div className="postUser__text">
+                    <div className='postUser__text'>
                         {user.firstName} {user.lastName}
                         <div>{dtTime}</div>
                     </div>
                 </div>
                 {description}
-                <div className="postSpecs">
-                    <button
-                        className="postSpecs__btn"
-                        onClick={this.viewsViewHandler}>
+                <div className='postSpecs'>
+                    <button className='postSpecs__btn' onClick={this.viewsViewHandler}>
                         {nViews} Views
                     </button>
-                    <button
-                        className="postSpecs__btn"
-                        onClick={this.reactionsViewHandler}>
+                    <button className='postSpecs__btn' onClick={this.reactionsViewHandler}>
                         {nReactions} Reactions
                     </button>
-                    <button
-                        className="postSpecs__btn"
-                        onClick={this.commentsViewHandler}>
+                    <button className='postSpecs__btn' onClick={this.commentsViewHandler}>
                         {nComments} Comments
                     </button>
                 </div>
-                <div className="postReactions">
+                <div className='postReactions'>
                     <img
                         src={like}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('like')}
                     />
                     <img
                         src={love}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('love')}
                     />
                     <img
                         src={haha}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('haha')}
                     />
                     <img
                         src={amazed}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('amazed')}
                     />
                     <img
                         src={sad}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('sad')}
                     />
                     <img
                         src={angry}
-                        className="postReactions--item"
+                        className='postReactions--item'
                         onClick={this.reactionSubmitHandler('angry')}
                     />
                 </div>
-                <div className="postComment">
-                    <button
-                        className="commentSend"
-                        onClick={this.commentSubmitHandler}>
-                        <i className="fas fa-paper-plane"></i>
+                <div className='postComment'>
+                    <button className='commentSend' onClick={this.commentSubmitHandler}>
+                        <i className='fas fa-paper-plane'></i>
                     </button>
                     <div
-                        contentEditable="true"
+                        contentEditable='true'
                         onKeyUp={this.commentChangeHandler}
-                        className="postComment--text"
+                        className='postComment--text'
                         ref={this.commentDiv}></div>
                 </div>
             </section>
         );
 
         const viewSection = (
-            <section className="post__section">
-                <div className="post-group">
-                    <button
-                        className="post__backBtn"
-                        onClick={this.detailsViewHandler}>
-                        <i className="fas fa-arrow-circle-left"></i>
+            <section className='post__section'>
+                <div className='post-group'>
+                    <button className='post__backBtn' onClick={this.detailsViewHandler}>
+                        <i className='fas fa-arrow-circle-left'></i>
                     </button>
-                    <div className="post__section__heading">Views:</div>
+                    <div className='post__section__heading'>Views:</div>
                 </div>
-                <div className="postList">{viewList}</div>
+                <div className='postList'>{viewList}</div>
             </section>
         );
 
         const reactionSection = (
-            <section className="post__section">
-                <div className="post-group">
-                    <button
-                        className="post__backBtn"
-                        onClick={this.detailsViewHandler}>
-                        <i className="fas fa-arrow-circle-left"></i>
+            <section className='post__section'>
+                <div className='post-group'>
+                    <button className='post__backBtn' onClick={this.detailsViewHandler}>
+                        <i className='fas fa-arrow-circle-left'></i>
                     </button>
-                    <div className="post__section__heading">Reactions:</div>
+                    <div className='post__section__heading'>Reactions:</div>
                 </div>
-                <div className="postList">{reactionList}</div>
+                <div className='postList'>{reactionList}</div>
             </section>
         );
 
         const commentSection = (
-            <section className="post__section">
-                <div className="post-group">
-                    <button
-                        className="post__backBtn"
-                        onClick={this.detailsViewHandler}>
-                        <i className="fas fa-arrow-circle-left"></i>
+            <section className='post__section'>
+                <div className='post-group'>
+                    <button className='post__backBtn' onClick={this.detailsViewHandler}>
+                        <i className='fas fa-arrow-circle-left'></i>
                     </button>
-                    <div className="post__section__heading">Comments:</div>
+                    <div className='post__section__heading'>Comments:</div>
                 </div>
-                <div className="postList">{commentList}</div>
+                <div className='postList'>{commentList}</div>
             </section>
         );
 
         let visibleSection = null;
         if (this.state.mode === 'views') visibleSection = viewSection;
-        else if (this.state.mode === 'reactions')
-            visibleSection = reactionSection;
-        else if (this.state.mode === 'comments')
-            visibleSection = commentSection;
+        else if (this.state.mode === 'reactions') visibleSection = reactionSection;
+        else if (this.state.mode === 'comments') visibleSection = commentSection;
         else visibleSection = detailSection;
 
         return (
-            <div className="post__wrapper">
-                <div className="post">
-                    <section className="post__resourceSection">
-                        <div
-                            id="resourceCarousel"
-                            className="carousel slide"
-                            data-ride="carousel">
-                            <ol className="carousel-indicators">
-                                {resourceCarouselIndicators}
-                            </ol>
-                            <div className="carousel-inner">
-                                {resourceCarouselItems}
-                            </div>
-                            <a
-                                className="carousel-control-prev"
-                                href="#resourceCarousel"
-                                role="button"
-                                data-slide="prev">
-                                <span
-                                    className="carousel-control-prev-icon"
-                                    aria-hidden="true"></span>
-                                <span className="sr-only">Previous</span>
-                            </a>
-                            <a
-                                className="carousel-control-next"
-                                href="#resourceCarousel"
-                                role="button"
-                                data-slide="next">
-                                <span
-                                    className="carousel-control-next-icon"
-                                    aria-hidden="true"></span>
-                                <span className="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </section>
+            <div className='post__wrapper'>
+                <div className='post'>
+                    {resourceSection}
                     {visibleSection}
                 </div>
-                <button
-                    className="post__closeBtn"
-                    onClick={this.props.unSelectPost}>
-                    <i className="fas fa-times-circle"></i>
-                </button>
+                <div className='post__closeBtn' onClick={this.props.unSelectPost}>
+                    &times;
+                </div>
             </div>
         );
     }
@@ -433,18 +395,15 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(
-    mapStatesToProps,
-    {
-        unSelectPost,
-        getPostViews,
-        getPostReactions,
-        getPostComments,
-        setPostReaction,
-        setPostComment,
-        postsReset,
-        postViewsReset,
-        postReactionsReset,
-        postCommentsReset,
-    },
-)(withRouter(Post));
+export default connect(mapStatesToProps, {
+    unSelectPost,
+    getPostViews,
+    getPostReactions,
+    getPostComments,
+    setPostReaction,
+    setPostComment,
+    postsReset,
+    postViewsReset,
+    postReactionsReset,
+    postCommentsReset,
+})(withRouter(Post));

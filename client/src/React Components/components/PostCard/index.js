@@ -42,8 +42,8 @@ class PostCard extends Component {
                         <img src={user.profilePic} alt="" />
                     </div>
                     <div className="postcard-user__text">
-                        {user.firstName} {user.lastName} <br />
-                        {dtTime}
+                        {user.firstName} {user.lastName}
+                        <div>{dtTime}</div>
                     </div>
                 </div>
                 {description}
