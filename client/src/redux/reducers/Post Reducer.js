@@ -49,10 +49,7 @@ export default function(state = initialState, action) {
             };
 
         case POSTS_RESET:
-            return {
-                ...state,
-                pstPgCtr: 1,
-            };
+            return initialState;
 
         case POST_VIEWS_RESET:
             return {

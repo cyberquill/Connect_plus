@@ -119,7 +119,8 @@ router.get(
             res.status(400).json({ user: 'User does not exist!' });
             return;
         }
-        const { posts } = await User.findById(user._id)
+
+        /* const { posts } = await User.findById(user._id)
             .populate({
                 path: 'posts',
                 options: {
@@ -129,7 +130,39 @@ router.get(
                 },
             })
             .lean();
+        res.json(posts); */
+
+
+
+        let posts = await Post.find({ uid: req.params.uid })
+            .skip((page - 1) * size)
+            .limit(size)
+            .sort({ dtTime: -1 })
+            .populate('user', '-passowrd', null, null)
+            .lean()
+            .catch(e => {});
+        const asyncPostHandler = async post => {
+            let newView = {
+                pid: post._id,
+                uid: req.user.id,
+            };
+            newView = new View(newView);
+            await newView.save();
+            await Post.findByIdAndUpdate(post._id, { $inc: { nViews: 1 } });
+            const query = {
+                pid: post._id,
+                uid: post.user[0]._id,
+            };
+            const exists = await Reaction.findOne(query)
+                .lean()
+                .catch(e => {});
+            post.reaction = exists ? exists.type : null;
+            post.reactionDtTime = exists ? exists.dtTime : null;
+            return post;
+        };
+        posts = await Promise.all(posts.map(post => asyncPostHandler(post)));
         res.json(posts);
+
     },
 );
 // ============================================================================

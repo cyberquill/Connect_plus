@@ -4,28 +4,51 @@ import classnames from 'classnames';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
-import { getPosts } from '../../../redux/actions/Post Actions';
 import PostCard from '../../components/PostCard';
 import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
 import userImg from '../../../assets/user_purple.png';
-import authTokenPresent from '../../../utils/authTokenPresent';
+import { getPosts, postsReset } from '../../../redux/actions/Post Actions';
 
 class UserProfile extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            allowRequest: 0,
+        };
         this.pageBottomHandler = this.pageBottomHandler.bind(this);
     }
     //==========================================================================
-    componentDidMount() {}
+    componentDidMount() {
+        window.addEventListener('scroll', this.pageBottomHandler);
+        this.props.getPosts(this.props.person._id);
+    }
     //==========================================================================
-    pageBottomHandler = e => {};
+    pageBottomHandler = e => {
+        const windowHeight =
+            'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            html.clientHeight,
+            html.scrollHeight,
+            html.offsetHeight,
+        );
+        const windowBottom = Math.round(windowHeight + window.pageYOffset);
+
+        if (windowBottom >= docHeight && this.state.allowRequest) {
+            this.props.getPosts(this.props.person._id);
+            this.setState({ allowRequest: 0 });
+        } else if (Math.abs(windowBottom - docHeight) > 500 && !this.state.allowRequest)
+            this.setState({ allowRequest: 1 });
+    };
     //==========================================================================
     render() {
         if (isEmpty(this.props.user)) return <Redirect to='/login' />;
-        if (isEmpty(this.props.person)) return <Redirect to='/dashboard' />;
+        if (isEmpty(this.props.person._id)) return <Redirect to='/dashboard' />;
 
         let {
             profilePic,
@@ -42,6 +65,12 @@ class UserProfile extends Component {
             fb,
             ig,
         } = this.props.person;
+
+        const showLoader = this.props.posts.showLoader ? <Loader4 /> : null;
+        const postCards = this.props.posts.list.map((post, index) => {
+            return <PostCard post={post} index={index} key={index} />;
+        });
+
         if (isEmpty(profilePic)) profilePic = userImg;
         gender = gender == 'None' ? '' : gender + ' | ';
         joinDtTime = new Date(joinDtTime).toLocaleDateString('en-UK', {
@@ -86,36 +115,37 @@ class UserProfile extends Component {
                                             </a>
                                         </div>
                                     </div>
-                                    <div className='profile__user__bio'>
-                                        {bio} Lorem ipsum, dolor sit amet consectetur adipisicing
-                                        elit. Sed voluptatibus iste voluptate asperiores error quam
-                                        commodi quidem quia enim fugiat ratione, adipisci ea facilis
-                                        nihil doloribus! Distinctio ut magni cum quo molestiae quis
-                                        voluptatum consectetur cumque. Fuga sunt incidunt eveniet,
-                                        et quod consectetur asperiores voluptate iusto nam tempore
-                                        nesciunt architecto.{' '}
-                                    </div>
+                                    <div className='profile__user__bio'>{bio}</div>
                                 </div>
                             </div>
                         </div>
-                        <div className='profile__posts'></div>
+                        <div className='postcard--wrapper'>{postCards}</div>
+                        {showLoader}
                     </div>
                 </div>
+                {!isEmpty(this.props.posts.activePost) ? <Post /> : null}
             </Fragment>
         );
+    }
+    //==========================================================================
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.pageBottomHandler);
+        this.props.postsReset();
     }
 }
 //==========================================================================
 UserProfile.propTypes = {
     user: PropTypes.object.isRequired,
+    posts: PropTypes.object.isRequired,
     person: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
 //==========================================================================
 const mapStatesToProps = state => ({
     user: state.user,
+    posts: state.posts,
     person: state.person,
     errors: state.errors,
 });
 //==========================================================================
-export default connect(mapStatesToProps, { getPosts })(withRouter(UserProfile));
+export default connect(mapStatesToProps, { getPosts, postsReset })(withRouter(UserProfile));

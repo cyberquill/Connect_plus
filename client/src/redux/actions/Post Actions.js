@@ -55,10 +55,10 @@ export const createPost = (newPost, history) => (dispatch, getState) => {
         });
 };
 
-export const getPosts = page => (dispatch, getState) => {
+export const getFeedPosts = () => (dispatch, getState) => {
     dispatch({ type: POSTS_FETCHING });
     axios
-        .get(`/users/feed/${page}`)
+        .get(`/users/feed/${getState().posts.pstPgCtr}`)
         .then(res =>
             dispatch({
                 type: POSTS_FETCHED,
@@ -87,7 +87,39 @@ export const getPosts = page => (dispatch, getState) => {
         });
 };
 
-export const selectPost = (index, history) => (dispatch, getState) => {
+export const getPosts = id => (dispatch, getState) => {
+    dispatch({ type: POSTS_FETCHING });
+    axios
+        .get(`/users/${id}/posts/${getState().posts.pstPgCtr}`)
+        .then(res =>
+            dispatch({
+                type: POSTS_FETCHED,
+                payload: res.data,
+            }),
+        )
+        .catch(err => {
+            if (!isEmpty(err.response))
+                dispatch({
+                    type: POST_ERROR,
+                    payload: err.response.data,
+                });
+            else if (!err.status)
+                dispatch({
+                    type: NETWORK_ERROR,
+                    payload: { request: 'failed' },
+                });
+            else
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err,
+                });
+            setTimeout(() => {
+                dispatch({ type: RESET_ERRORS });
+            }, 5000);
+        });
+};
+
+export const selectPost = index => (dispatch, getState) => {
     dispatch({ type: POST_SELECTED, payload: index });
 };
 

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
-import { getPosts } from '../../../redux/actions/Post Actions';
+import { getFeedPosts, postsReset } from '../../../redux/actions/Post Actions';
 import PostCard from '../../components/PostCard';
 import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
@@ -23,19 +23,13 @@ class Dashboard extends Component {
     componentDidMount() {
         window.addEventListener('scroll', this.pageBottomHandler);
         if (authTokenPresent() && !isEmpty(this.props.user))
-            this.props.getPosts(this.props.posts.pstPgCtr);
-        else
-            setTimeout(
-                () => this.props.getPosts(this.props.posts.pstPgCtr),
-                3000,
-            );
+            this.props.getFeedPosts();
+        else setTimeout(() => this.props.getFeedPosts(), 3000);
     }
     //==========================================================================
     pageBottomHandler = e => {
         const windowHeight =
-            'innerHeight' in window
-                ? window.innerHeight
-                : document.documentElement.offsetHeight;
+            'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
         const body = document.body;
         const html = document.documentElement;
         const docHeight = Math.max(
@@ -48,12 +42,9 @@ class Dashboard extends Component {
         const windowBottom = Math.round(windowHeight + window.pageYOffset);
 
         if (windowBottom >= docHeight && this.state.allowRequest) {
-            this.props.getPosts(this.props.posts.pstPgCtr);
+            this.props.getFeedPosts();
             this.setState({ allowRequest: 0 });
-        } else if (
-            Math.abs(windowBottom - docHeight) > 500 &&
-            !this.state.allowRequest
-        )
+        } else if (Math.abs(windowBottom - docHeight) > 500 && !this.state.allowRequest)
             this.setState({ allowRequest: 1 });
     };
     //==========================================================================
@@ -70,9 +61,7 @@ class Dashboard extends Component {
                 <div className='dashboard__wrapper'>
                     <div className='dashboard'>
                         <div className='dashboard__heading'>
-                            <div className='dashboard__heading--text'>
-                                Dashboard
-                            </div>
+                            <div className='dashboard__heading--text'>Dashboard</div>
                         </div>
                         <div className='postcard--wrapper'>{postCards}</div>
                         {showLoader}
@@ -85,6 +74,7 @@ class Dashboard extends Component {
     //==========================================================================
     componentWillUnmount() {
         window.removeEventListener('scroll', this.pageBottomHandler);
+        this.props.postsReset();
     }
 }
 //==========================================================================
@@ -100,4 +90,4 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(mapStatesToProps, { getPosts })(withRouter(Dashboard));
+export default connect(mapStatesToProps, { getFeedPosts, postsReset })(withRouter(Dashboard));
