@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import userImg from '../../../assets/user_purple.png';
 import { logoutUser } from '../../../redux/actions/Auth Actions';
+import { setPerson } from '../../../redux/actions/Person Actions';
 
 class SideBar extends Component {
     constructor() {
@@ -21,7 +22,7 @@ class SideBar extends Component {
     //==========================================================================
     addPostLinkHandler = e => this.props.history.push('/createpost');
     //==========================================================================
-    userProfileLinkHandler = e => this.props.history.push('/profile');
+    userProfileLinkHandler = e => this.props.setPerson(this.props.user.id, this.props.history);
     //==========================================================================
     settingsLinkHandler = e => this.props.history.push('/settings');
     //==========================================================================
@@ -101,4 +102,4 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(mapStatesToProps, { logoutUser })(withRouter(SideBar));
+export default connect(mapStatesToProps, { logoutUser, setPerson })(withRouter(SideBar));

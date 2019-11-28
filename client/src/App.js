@@ -11,9 +11,11 @@ import NotFound from './React Components/pages/NotFound';
 import Home from './React Components/pages/Home';
 import Signup from './React Components/pages/Signup';
 import Login from './React Components/pages/Login';
+import Profile from './React Components/pages/Profile';
 import Dashboard from './React Components/pages/Dashboard';
 import CreatePost from './React Components/pages/CreatePost';
 import UsageAlarm from './React Components/layouts/UsageAlarm';
+import Footer from './React Components/layouts/Footer';
 //===================================================================================
 const token = checkAuthToken(); //check for existing token.
 if (token) store.dispatch(setCurrentUser(token));
@@ -28,10 +30,12 @@ class App extends Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/login" component={Login} />
+                        <Route exact path="/profile" component={Profile} />
                         <Route exact path="/dashboard" component={Dashboard} />
                         <Route exact path="/createpost" component={CreatePost} />
                         <Route component={NotFound} />
                     </Switch>
+                    <Footer />
                     <UsageAlarm />
                 </Router>
             </Provider>

@@ -6,6 +6,7 @@ import {
     POST_ERROR,
     RESET_ERRORS,
     AUTH_UNSET_USER,
+    PERSON_ERROR,
 } from '../types';
 
 const initialState = {
@@ -29,6 +30,13 @@ export default function(state = initialState, action) {
                 ...state,
                 ...action.payload,
             };
+
+        case PERSON_ERROR:
+            return {
+                ...state,
+                ...action.payload,
+            };
+
         case UPLOAD_ERROR:
             return {
                 ...state,
