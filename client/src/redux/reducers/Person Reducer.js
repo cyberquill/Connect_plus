@@ -7,12 +7,22 @@ import {
     PERSON_FOLLOWED,
     PERSON_UNFOLLOWED,
     PERSON_UNFOLLOWING,
+    FOLLOWERS_FETCHED,
+    FOLLOWERS_FETCHING,
+    FOLLOWING_FETCHED,
+    FOLLOWING_FETCHING,
+    FOLLOW_SETMODE,
+    FOLLOW_ERROR,
+    FOLLOW_RESET,
 } from '../types';
 import isEmpty from '../../validation/isEmpty';
 
 const initialState = {
     showLoader: false,
     success: null,
+    mode: null,
+    follows: [],
+    flwPgCtr: 1,
 };
 
 export default function(state = initialState, action) {
@@ -49,8 +59,71 @@ export default function(state = initialState, action) {
                 showLoader: false,
             };
 
+        case FOLLOW_SETMODE:
+            return {
+                ...state,
+                mode: action.payload,
+            };
+
+        case FOLLOWERS_FETCHING:
+        case FOLLOWING_FETCHING:
+            return {
+                ...state,
+                showLoader: true,
+                success: null,
+            };
+
+        case FOLLOWERS_FETCHED:
+            if (!isEmpty(action.payload))
+                return {
+                    ...state,
+                    success: true,
+                    showLoader: false,
+                    flwPgCtr: state.flwPgCtr + 1,
+                    follows: [...state.follows, ...action.payload],
+                };
+            else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: true,
+                };
+
+        case FOLLOWING_FETCHED:
+            if (!isEmpty(action.payload))
+                return {
+                    ...state,
+                    success: true,
+                    showLoader: false,
+                    flwPgCtr: state.flwPgCtr + 1,
+                    follows: [...state.follows, ...action.payload],
+                };
+            else
+                return {
+                    ...state,
+                    showLoader: false,
+                    success: true,
+                };
+
+        case FOLLOW_RESET:
+            return {
+                ...state,
+                showLoader: false,
+                success: null,
+                mode: null,
+                follows: [],
+                flwPgCtr: 1,
+            };
+
         case PERSON_RESET:
             return initialState;
+
+        case FOLLOW_ERROR:
+            return {
+                ...state,
+                success: false,
+                showLoader: false,
+            };
 
         case PERSON_ERROR:
             return {

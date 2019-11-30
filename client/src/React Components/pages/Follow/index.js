@@ -4,15 +4,17 @@ import classnames from 'classnames';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
-import { getFeedPosts, postsReset } from '../../../redux/actions/Post Actions';
-import PostCard from '../../components/PostCard';
 import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
-import Post from '../Post';
-import authTokenPresent from '../../../utils/authTokenPresent';
+import FollowCard from '../../components/FollowCard';
 import SearchBar from '../../components/SearchBar';
+import {
+    getPersonFollowers,
+    getPersonFollowings,
+    resetFollow,
+} from '../../../redux/actions/Person Actions';
 
-class Dashboard extends Component {
+class Follow extends Component {
     constructor() {
         super();
         this.state = {
@@ -23,8 +25,6 @@ class Dashboard extends Component {
     //==========================================================================
     componentDidMount() {
         window.addEventListener('scroll', this.pageBottomHandler);
-        if (authTokenPresent() && !isEmpty(this.props.user)) this.props.getFeedPosts();
-        else setTimeout(() => this.props.getFeedPosts(), 3000);
     }
     //==========================================================================
     pageBottomHandler = e => {
@@ -42,7 +42,9 @@ class Dashboard extends Component {
         const windowBottom = Math.round(windowHeight + window.pageYOffset);
 
         if (windowBottom >= docHeight && this.state.allowRequest) {
-            this.props.getFeedPosts();
+            if (this.props.person.mode === 'FOLLOWERS')
+                this.props.getPersonFollowers(this.props.person._id);
+            else this.props.getPersonFollowings(this.props.person._id);
             this.setState({ allowRequest: 0 });
         } else if (Math.abs(windowBottom - docHeight) > 500 && !this.state.allowRequest)
             this.setState({ allowRequest: 1 });
@@ -50,45 +52,60 @@ class Dashboard extends Component {
     //==========================================================================
     render() {
         if (isEmpty(this.props.user)) return <Redirect to='/login' />;
-        const showLoader = this.props.posts.showLoader ? <Loader4 /> : null;
-        const postCards = this.props.posts.list.map((post, index) => {
-            return <PostCard post={post} index={index} key={index} />;
+        if (isEmpty(this.props.person._id) || isEmpty(this.props.person.mode))
+            return <Redirect to='/dashboard' />;
+
+        const showLoader = this.props.person.showLoader ? <Loader4 /> : null;
+        let followCards = this.props.person.follows.map((follow, index) => {
+            return (
+                <FollowCard
+                    follow={follow}
+                    mode={this.props.person.mode}
+                    index={index}
+                    key={index}
+                />
+            );
         });
 
         return (
             <Fragment>
                 <SideBar />
-                <div className='dashboard__wrapper'>
+                <div className='follow--wrapper'>
                     <SearchBar />
-                    <div className='dashboard'>
-                        <div className='dashboard__heading'>
-                            <div className='dashboard__heading--text'>Dashboard</div>
+                    <div className='follow'>
+                        <div className='follow__heading'>
+                            <div className='follow__heading--text'>
+                                {this.props.person.mode === 'FOLLOWERS' ? 'Followers' : 'Following'}
+                            </div>
                         </div>
-                        <div className='postcard--wrapper mt-5 pt-5'>{postCards}</div>
+                        <div className='followcard--wrapper mt-5 pt-5'>{followCards}</div>
                         {showLoader}
                     </div>
                 </div>
-                {!isEmpty(this.props.posts.activePost) ? <Post /> : null}
             </Fragment>
         );
     }
     //==========================================================================
     componentWillUnmount() {
         window.removeEventListener('scroll', this.pageBottomHandler);
-        this.props.postsReset();
+        this.props.resetFollow();
     }
 }
 //==========================================================================
-Dashboard.propTypes = {
+Follow.propTypes = {
     user: PropTypes.object.isRequired,
-    posts: PropTypes.object.isRequired,
+    person: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
 //==========================================================================
 const mapStatesToProps = state => ({
     user: state.user,
-    posts: state.posts,
+    person: state.person,
     errors: state.errors,
 });
 //==========================================================================
-export default connect(mapStatesToProps, { getFeedPosts, postsReset })(withRouter(Dashboard));
+export default connect(mapStatesToProps, {
+    getPersonFollowers,
+    getPersonFollowings,
+    resetFollow,
+})(withRouter(Follow));

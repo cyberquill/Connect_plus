@@ -8,6 +8,7 @@ import SearchBar from '../../components/SearchBar';
 import PostCard from '../../components/PostCard';
 import UserCard from '../../components/UserCard';
 import Loader1 from '../../layouts/Loader1';
+import { resetSearch } from '../../../redux/actions/Search Actions';
 
 class SearchResults extends Component {
     constructor() {
@@ -45,6 +46,10 @@ class SearchResults extends Component {
             </Fragment>
         );
     }
+    //==========================================================================
+    componentWillUnmount() {
+        this.props.resetSearch();
+    }
 }
 //==========================================================================
 SearchResults.propTypes = {
@@ -59,4 +64,4 @@ const mapStateToProps = state => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps, {})(withRouter(SearchResults));
+export default connect(mapStateToProps, { resetSearch })(withRouter(SearchResults));

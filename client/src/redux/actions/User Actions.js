@@ -1,4 +1,11 @@
-import { GET_ERRORS, AUTH_SET_USER, AUTH_ERROR, RESET_ERRORS, NETWORK_ERROR, AUTH_UNSET_USER } from '../types';
+import {
+    AUTH_SET_USER,
+    AUTH_UNSET_USER,
+    GET_ERRORS,
+    AUTH_ERROR,
+    RESET_ERRORS,
+    NETWORK_ERROR,
+} from '../types';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import isEmpty from '../../validation/isEmpty';
@@ -76,7 +83,7 @@ export const googleLogin = (user, history) => dispatch => {
 export const logoutUser = history => dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
-    dispatch({type: AUTH_UNSET_USER});
+    dispatch({ type: AUTH_UNSET_USER });
     history.push('/');
 };
 

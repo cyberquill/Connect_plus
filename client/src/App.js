@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import checkAuthToken from './utils/authTokenPresent';
 import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser } from './redux/actions/Auth Actions';
+import { setCurrentUser } from './redux/actions/User Actions';
 //-----------------------------------------------------------
 import store from './redux/store';
 //-----------------------------------------------------------
@@ -15,6 +15,7 @@ import Profile from './React Components/pages/Profile';
 import Dashboard from './React Components/pages/Dashboard';
 import CreatePost from './React Components/pages/CreatePost';
 import SearchResults from './React Components/pages/SearchResults';
+import Follow from './React Components/pages/Follow';
 import UsageAlarm from './React Components/layouts/UsageAlarm';
 import Footer from './React Components/layouts/Footer';
 //===================================================================================
@@ -35,6 +36,7 @@ class App extends Component {
                         <Route exact path='/dashboard' component={Dashboard} />
                         <Route exact path='/createpost' component={CreatePost} />
                         <Route exact path='/searchresults' component={SearchResults} />
+                        <Route exact path='/follow' component={Follow} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />

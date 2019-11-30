@@ -5,7 +5,7 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import userImg from '../../../assets/user_purple.png';
-import { logoutUser } from '../../../redux/actions/Auth Actions';
+import { logoutUser } from '../../../redux/actions/User Actions';
 import { setPerson } from '../../../redux/actions/Person Actions';
 
 class SideBar extends Component {

@@ -5,13 +5,20 @@ import {
     PERSON_FETCHED,
     PERSON_FOLLOWING,
     PERSON_FOLLOWED,
+    PERSON_UNFOLLOWING,
+    PERSON_UNFOLLOWED,
+    FOLLOWERS_FETCHING,
+    FOLLOWERS_FETCHED,
+    FOLLOWING_FETCHING,
+    FOLLOWING_FETCHED,
+    FOLLOW_SETMODE,
     PERSON_ERROR,
     GET_ERRORS,
     NETWORK_ERROR,
     RESET_ERRORS,
     PERSON_RESET,
-    PERSON_UNFOLLOWING,
-    PERSON_UNFOLLOWED,
+    FOLLOW_ERROR,
+    FOLLOW_RESET,
 } from '../types';
 
 export const setPerson = (id, history) => (dispatch, getState) => {
@@ -113,4 +120,73 @@ export const unfollowPerson = id => (dispatch, getState) => {
                 dispatch({ type: RESET_ERRORS });
             }, 5000);
         });
+};
+
+export const getPersonFollowers = id => (dispatch, getState) => {
+    dispatch({ type: FOLLOWERS_FETCHING });
+    axios
+        .get(`/users/${id}/followers/${getState().user.flwPgCtr}`)
+        .then(res => 
+            dispatch({
+                type: FOLLOWERS_FETCHED,
+                payload: res.data,
+            }),
+        )
+        .catch(err => {
+            if (!isEmpty(err.response))
+                dispatch({
+                    type: FOLLOW_ERROR,
+                    payload: err.response.data,
+                });
+            else if (!err.status)
+                dispatch({
+                    type: NETWORK_ERROR,
+                    payload: { request: 'failed' },
+                });
+            else
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err,
+                });
+        });
+};
+
+export const getPersonFollowings = id => (dispatch, getState) => {
+    dispatch({ type: FOLLOWING_FETCHING });
+    axios
+        .get(`/users/${id}/following/${getState().user.flwPgCtr}`)
+        .then(res => 
+            dispatch({
+                type: FOLLOWING_FETCHED,
+                payload: res.data,
+            }),
+        )
+        .catch(err => {
+            if (!isEmpty(err.response))
+                dispatch({
+                    type: FOLLOW_ERROR,
+                    payload: err.response.data,
+                });
+            else if (!err.status)
+                dispatch({
+                    type: NETWORK_ERROR,
+                    payload: { request: 'failed' },
+                });
+            else
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err,
+                });
+        });
+};
+
+export const setFollowMode = mode => (dispatch, getState) => {
+    dispatch({
+        type: FOLLOW_SETMODE,
+        payload: mode,
+    });
+};
+
+export const resetFollow = () => (dispatch, getState) => {
+    dispatch({ type: FOLLOW_RESET });
 };

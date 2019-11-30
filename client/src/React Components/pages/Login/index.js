@@ -6,7 +6,7 @@ import authTokenPresent from '../../../utils/authTokenPresent';
 import isEmpty from '../../../validation/isEmpty';
 import AuthWrapper from '../../components/AuthWrapper';
 import FormGroup from '../../components/FormGroup';
-import { loginUser } from '../../../redux/actions/Auth Actions';
+import { loginUser } from '../../../redux/actions/User Actions';
 import userImg from '../../../assets/user_purple.png';
 import setAuthToken from '../../../utils/setAuthToken';
 import Logo from '../../components/Logo';

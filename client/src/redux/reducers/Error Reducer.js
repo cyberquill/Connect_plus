@@ -8,6 +8,7 @@ import {
     AUTH_UNSET_USER,
     PERSON_ERROR,
     SEARCH_ERROR,
+    FOLLOW_ERROR,
 } from '../types';
 
 const initialState = {
@@ -29,6 +30,7 @@ export default function(state = initialState, action) {
         case AUTH_ERROR:
         case PERSON_ERROR:
         case SEARCH_ERROR:
+        case FOLLOW_ERROR:
             return {
                 ...state,
                 ...action.payload,

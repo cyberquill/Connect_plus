@@ -7,7 +7,7 @@ import isEmpty from '../../../validation/isEmpty';
 import authTokenPresent from '../../../utils/authTokenPresent';
 import AuthWrapper from '../../components/AuthWrapper';
 import FormGroup from '../../components/FormGroup';
-import { createUser } from '../../../redux/actions/Auth Actions';
+import { createUser } from '../../../redux/actions/User Actions';
 import setAuthToken from '../../../utils/setAuthToken';
 
 class Signup extends Component {

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import PostCard from '../../components/PostCard';
@@ -10,6 +10,11 @@ import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
 import userImg from '../../../assets/user_purple.png';
 import { getPosts, postsReset } from '../../../redux/actions/Post Actions';
+import {
+    setFollowMode,
+    getPersonFollowers,
+    getPersonFollowings,
+} from '../../../redux/actions/Person Actions';
 import FollowBtn from '../../components/FollowBtn';
 
 class UserProfile extends Component {
@@ -19,11 +24,27 @@ class UserProfile extends Component {
             allowRequest: 0,
         };
         this.pageBottomHandler = this.pageBottomHandler.bind(this);
+        this.followersHandler = this.followersHandler.bind(this);
+        this.followingHandler = this.followingHandler.bind(this);
     }
     //==========================================================================
     componentDidMount() {
         window.addEventListener('scroll', this.pageBottomHandler);
         this.props.getPosts(this.props.person._id);
+    }
+    //==========================================================================
+    followersHandler = e => {
+        e.preventDefault();
+        this.props.setFollowMode('FOLLOWERS');
+        this.props.getPersonFollowers(this.props.person._id);
+        this.props.history.push('/follow');
+    }
+    //==========================================================================
+    followingHandler = e => {
+        e.preventDefault();
+        this.props.setFollowMode('FOLLOWING');
+        this.props.getPersonFollowings(this.props.person._id);
+        this.props.history.push('/follow');
     }
     //==========================================================================
     pageBottomHandler = e => {
@@ -105,12 +126,16 @@ class UserProfile extends Component {
                                             joined on {joinDtTime}
                                         </div>
                                         <div className='profile__user__subsection--2'>
-                                            <div className='profile__user__stats'>
-                                                {nFollowers} Followers
-                                            </div>
-                                            <div className='profile__user__stats'>
-                                                {nFollowing} Following
-                                            </div>
+                                            <Link to='/followers' onClick={this.followersHandler}>
+                                                <div className='profile__user__stats'>
+                                                    {nFollowers} Followers
+                                                </div>
+                                            </Link>
+                                            <Link to='/following' onClick={this.followingHandler}>
+                                                <div className='profile__user__stats'>
+                                                    {nFollowing} Following
+                                                </div>
+                                            </Link>
                                             <div className='profile__user__stats'>
                                                 {nPosts} Posts
                                             </div>
@@ -137,7 +162,7 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='postcard--wrapper'>{postCards}</div>
+                        <div className='postcard--wrapper mt-5 pt-5'>{postCards}</div>
                         {showLoader}
                     </div>
                 </div>
@@ -166,4 +191,10 @@ const mapStatesToProps = state => ({
     errors: state.errors,
 });
 //==========================================================================
-export default connect(mapStatesToProps, { getPosts, postsReset })(withRouter(UserProfile));
+export default connect(mapStatesToProps, {
+    getPosts,
+    postsReset,
+    setFollowMode,
+    getPersonFollowers,
+    getPersonFollowings,
+})(withRouter(UserProfile));
