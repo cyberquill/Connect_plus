@@ -96,7 +96,18 @@ router.get(
             .select('-password')
             .lean()
             .catch(e => {});
-        if (!user) res.status(404).json({ user: 'User Not Found!' });
+        if (!user) {
+            res.status(404).json({ user: 'User Not Found!' });
+            return;
+        }
+        const follow = {
+            master: req.params.uid,
+            slave: req.user.id,
+        };
+        const exists = await Follow.findOne(follow)
+            .lean()
+            .catch(e => {});
+        user.isFollowed = !isEmpty(exists);
         res.json(user);
     },
 );

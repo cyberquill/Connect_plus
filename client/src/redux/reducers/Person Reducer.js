@@ -3,6 +3,10 @@ import {
     PERSON_FETCHED,
     PERSON_RESET,
     PERSON_ERROR,
+    PERSON_FOLLOWING,
+    PERSON_FOLLOWED,
+    PERSON_UNFOLLOWED,
+    PERSON_UNFOLLOWING,
 } from '../types';
 import isEmpty from '../../validation/isEmpty';
 
@@ -14,6 +18,8 @@ const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
         case PERSON_FETCHING:
+        case PERSON_FOLLOWING:
+        case PERSON_UNFOLLOWING:
             return {
                 ...state,
                 showLoader: true,
@@ -25,6 +31,20 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 ...user,
+                success: true,
+                showLoader: false,
+            };
+
+        case PERSON_FOLLOWED:
+            return {
+                ...state,
+                success: true,
+                showLoader: false,
+            };
+
+        case PERSON_UNFOLLOWED:
+            return {
+                ...state,
                 success: true,
                 showLoader: false,
             };

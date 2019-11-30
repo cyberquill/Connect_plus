@@ -58,18 +58,20 @@ class SideBar extends Component {
                                 {firstName} {lastName}
                                 <div>{email}</div>
                                 <table>
-                                    <tr>
-                                        <td>Followers:</td>
-                                        <td>{nFollowers}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Following:</td>
-                                        <td>{nFollowing}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Posts:</td>
-                                        <td>{nPosts}</td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>Followers:</td>
+                                            <td>{nFollowers}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Following:</td>
+                                            <td>{nFollowing}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Posts:</td>
+                                            <td>{nPosts}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

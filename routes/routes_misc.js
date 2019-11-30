@@ -59,7 +59,7 @@ router.post(
     upload.array('photos', 20),
     async (req, res) => {
         const query = req.params.query;
-        const users = await User.find()
+        let users = await User.find()
             .or([
                 { firstName: { $regex: query, $options: 'i' } },
                 { lastName: { $regex: query, $options: 'i' } },
@@ -72,6 +72,19 @@ router.post(
             .sort({ firstName: 1, lastName: 1, email: 1 })
             .select('-password')
             .lean();
+
+        const asyncUserHandler = async user => {
+            const follow = {
+                master: user._id,
+                slave: req.user.id,
+            };
+            const exists = await Follow.findOne(follow)
+                .lean()
+                .catch(e => {});
+            user.isFollowed = !isEmpty(exists);
+            return user;
+        };
+        users = await Promise.all(users.map(user => asyncUserHandler(user)));
 
         const posts = await Post.find({ desc: { $regex: query, $options: 'i' } })
             .sort({ dtTime: -1 })

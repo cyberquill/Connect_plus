@@ -10,6 +10,7 @@ import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
 import userImg from '../../../assets/user_purple.png';
 import { getPosts, postsReset } from '../../../redux/actions/Post Actions';
+import FollowBtn from '../../components/FollowBtn';
 
 class UserProfile extends Component {
     constructor() {
@@ -51,6 +52,7 @@ class UserProfile extends Component {
         if (isEmpty(this.props.person._id)) return <Redirect to='/dashboard' />;
 
         let {
+            _id,
             profilePic,
             firstName,
             lastName,
@@ -63,6 +65,7 @@ class UserProfile extends Component {
             tw,
             fb,
             ig,
+            isFollowed,
         } = this.props.person;
 
         const showLoader = this.props.posts.showLoader ? <Loader4 /> : null;
@@ -102,9 +105,15 @@ class UserProfile extends Component {
                                             joined on {joinDtTime}
                                         </div>
                                         <div className='profile__user__subsection--2'>
-                                            <div className="profile__user__stats">{nFollowers} Followers</div>
-                                            <div className="profile__user__stats">{nFollowing} Following</div>
-                                            <div className="profile__user__stats">{nPosts} Posts</div>
+                                            <div className='profile__user__stats'>
+                                                {nFollowers} Followers
+                                            </div>
+                                            <div className='profile__user__stats'>
+                                                {nFollowing} Following
+                                            </div>
+                                            <div className='profile__user__stats'>
+                                                {nPosts} Posts
+                                            </div>
                                         </div>
                                         <div className='profile__user__subsection--3'>
                                             <a href={tw} className='profile__user__socialLink'>
@@ -116,7 +125,12 @@ class UserProfile extends Component {
                                             <a href={ig} className='profile__user__socialLink'>
                                                 <i className='fab fa-instagram'></i>
                                             </a>
-                                            <div className='profile__followBtn'>Follow</div>
+                                            <FollowBtn
+                                                others='profile__followbtn'
+                                                id={_id}
+                                                isFollowed={isFollowed}
+                                                disable={_id === this.props.user.id}
+                                            />
                                         </div>
                                     </div>
                                     <div className='profile__user__bio'>{bio}</div>

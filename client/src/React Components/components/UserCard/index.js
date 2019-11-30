@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import isEmpty from '../../../validation/isEmpty';
 import userImg from '../../../assets/user_purple.png';
 import { setPerson } from '../../../redux/actions/Person Actions';
+import FollowBtn from '../FollowBtn';
 
 class UserCard extends Component {
     constructor() {
@@ -16,6 +17,7 @@ class UserCard extends Component {
     //==========================================================================
     render() {
         let {
+            _id,
             profilePic,
             firstName,
             lastName,
@@ -25,14 +27,13 @@ class UserCard extends Component {
             nFollowers,
             nFollowing,
             nPosts,
-            bio,
             tw,
             fb,
             ig,
+            isFollowed,
         } = this.props.user;
 
         if (isEmpty(profilePic)) profilePic = userImg;
-        gender = gender == 'None' ? '' : gender + ' | ';
         joinDtTime = new Date(joinDtTime).toLocaleDateString('en-UK', {
             weekday: 'long',
             year: 'numeric',
@@ -54,8 +55,7 @@ class UserCard extends Component {
                     {firstName} {lastName}
                 </div>
                 <div className='usercard__email'>{email}</div>
-                <div className='usercard__section--1'>joined on {joinDtTime}</div>
-                <div className='usercard__section--2'>
+                <div className='usercard__section--1'>
                     <a href={tw} className='usercard__socialLink'>
                         <i className='fab fa-twitter'></i>
                     </a>
@@ -66,7 +66,7 @@ class UserCard extends Component {
                         <i className='fab fa-instagram'></i>
                     </a>
                 </div>
-                <div className='usercard__section--3'>
+                <div className='usercard__section--2'>
                     <div className='usercard__stats'>
                         {nFollowers}
                         <br />
@@ -83,17 +83,24 @@ class UserCard extends Component {
                         Posts
                     </div>
                 </div>
-                <div className='usercard__followBtn'>Follow</div>
+                <FollowBtn
+                    others='usercard__followbtn'
+                    id={_id}
+                    isFollowed={isFollowed}
+                    disable={_id === this.props.loginUser.id}
+                />
             </div>
         );
     }
 }
 //==========================================================================
 UserCard.propTypes = {
+    loginUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
 //==========================================================================
 const mapStatesToProps = state => ({
+    loginUser: state.user,
     errors: state.errors,
 });
 //==========================================================================

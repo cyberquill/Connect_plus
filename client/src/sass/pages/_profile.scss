@@ -188,51 +188,12 @@
         }
     }
 
-    &__followBtn {
+    &__followbtn {
         width: 45%;
-        color: white;
-        text-align: center;
-        padding: 0.25rem 0;
-        background: transparent;
-        font-size: 2rem;
-        font-weight: 600;
-        font-family: Arial, Helvetica, sans-serif;
-        border-radius: 0.5rem;
-        box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.3);
-        position: relative;
-        z-index: 10;
-        cursor: pointer;
-        transition: all 0.3s ease;
 
         &:hover {
             transform: scale(1.1);
-            background: white;
-            color: #5a297c;
             font-weight: 600;
-            box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.5);
-            border: 1px solid #ddd;
-        }
-
-        &:active {
-            transform: scale(1);
-        }
-
-        &::before {
-            position: absolute;
-            content: '';
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            border-radius: 0.5rem;
-            background-image: linear-gradient(to bottom, #5a297c, #291842);
-            z-index: -1;
-            transition: opacity 0.3s linear;
-            opacity: 0;
-        }
-
-        &:not(:hover)::before {
-            opacity: 1;
         }
     }
 
