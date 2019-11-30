@@ -1,0 +1,195 @@
+.usercard {
+    background: white;
+    padding: 3rem 1.5rem 1.5rem;
+    width: 25rem;
+    margin: 1rem 1.15rem;
+    border-radius: 1rem;
+    z-index: 10;
+    box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.8);
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.5s ease;
+
+    @include respond(phone) {
+        width: 35rem;
+    }
+
+    &__profilePic {
+        width: 50%;
+        border-radius: 500px;
+        overflow: hidden;
+        padding: 0.5rem;
+        margin-bottom: 2rem;
+        border: 0.25rem solid #5a297c;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1rem 2.5rem -0.5rem rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            border-radius: 500px;
+            border: 0.8rem solid #eee;
+        }
+
+        & img {
+            max-width: 100%;
+        }
+    }
+
+    &__name {
+        font-size: 2rem;
+        width: 100%;
+        font-family: 'elianto';
+        text-transform: uppercase;
+        font-weight: 600;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+    }
+
+    &__email {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        font-style: italic;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__section {
+
+        &--1 {
+            font-size: 1.4rem;
+            font-weight: normal;
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        &--2 {
+            width: 75%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &--3 {
+            position: relative;
+            width: 100%;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    }
+
+    &__socialLink {
+        i {
+            font-size: 3rem;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+
+            &:hover {
+                transform: scale(1.15);
+                text-shadow: 0 1rem 2rem rgba(#333, 0.5);
+            }
+        }
+
+        &:nth-of-type(1) i {
+            color: #00d5fb;
+        }
+        &:nth-of-type(2) i {
+            color: #008afb;
+        }
+        &:nth-of-type(3) i {
+            color: #fb007d;
+        }
+    }
+
+    &__stats {
+        font-size: 1.4rem;
+        text-align: center;
+        width: 30%;
+        overflow: hidden;
+    }
+
+    &__followBtn {
+        width: 100%;
+        color: white;
+        text-align: center;
+        padding: 0.25rem 0;
+        background: transparent;
+        font-size: 2rem;
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 2rem;
+        border-radius: 0.5rem;
+        position: relative;
+        box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3);
+        z-index: 10;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: white;
+            transform: scale(1.05);
+            color: #5a297c;
+            box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.5);
+            border: 1px solid #ddd;
+        }
+
+        &:active {
+            transform: scale(1);
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 0.5rem;
+            background-image: linear-gradient(to bottom, #5a297c, #291842);
+            z-index: -1;
+            transition: opacity 0.3s linear;
+            opacity: 0;
+        }
+
+        &:not(:hover)::before {
+            opacity: 1;
+        }
+    }
+
+    &--wrapper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 1vh 5vh 5vh;
+    }
+}

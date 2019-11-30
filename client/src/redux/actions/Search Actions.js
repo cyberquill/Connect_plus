@@ -1,31 +1,30 @@
 import axios from 'axios';
 import isEmpty from '../../validation/isEmpty';
 import {
-    PERSON_FETCHING,
-    PERSON_FETCHED,
-    PERSON_ERROR,
+    SEARCHING,
+    SEARCHED,
+    SEARCH_RESET,
+    SEARCH_ERROR,
     GET_ERRORS,
     NETWORK_ERROR,
     RESET_ERRORS,
-    PERSON_RESET,
 } from '../types';
 
-
-export const setPerson = (id, history) => (dispatch, getState) => {
-    dispatch({ type: PERSON_FETCHING });
+export const search = (query, history, route) => (dispatch, getState) => {
+    dispatch({ type: SEARCHING });
     axios
-        .get(`/users/${id}`)
+        .post(`/search/${query}`)
         .then(res => {
             dispatch({
-                type: PERSON_FETCHED,
+                type: SEARCHED,
                 payload: res.data,
             });
-            history.push('/profile');
+            history.push(route);
         })
         .catch(err => {
             if (!isEmpty(err.response))
                 dispatch({
-                    type: PERSON_ERROR,
+                    type: SEARCH_ERROR,
                     payload: err.response.data,
                 });
             else if (!err.status)
@@ -44,6 +43,6 @@ export const setPerson = (id, history) => (dispatch, getState) => {
         });
 };
 
-export const resetPerson = () => (dispatch, getState) => {
-    dispatch({ type: PERSON_RESET });
+export const resetSearch = () => (dispatch, getState) => {
+    dispatch({ type: SEARCH_RESET });
 };

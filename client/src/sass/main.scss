@@ -16,9 +16,11 @@
 
 @import 'components/authWrapper';
 @import 'components/formGroup';
+@import 'components/searchbar';
 @import 'components/logo';
 @import 'components/preview';
 @import 'components/postCard';
+@import 'components/usercard';
 
 @import 'layouts/loaders';
 @import 'layouts/sidebar';
@@ -30,3 +32,4 @@
 @import 'pages/post';
 @import 'pages/profile';
 @import 'pages/createpost';
+@import 'pages/searchresults';

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
     uid: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     resources: [String],
-    desc: String,
+    desc: { type: String },
     dtTime: { type: Date, default: Date.now },
     access: { type: String, default: 'public' },
     nViews: { type: Number, default: 0 },

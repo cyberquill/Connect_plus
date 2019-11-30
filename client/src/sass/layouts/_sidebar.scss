@@ -12,7 +12,7 @@
         top: 2rem;
         left: 2rem;
         border-radius: 50%;
-        z-index: 70;
+        z-index: 700;
         box-shadow: 0 0.5rem 3rem rgba(#333, .5);
         text-align: center;
         cursor: pointer;
@@ -76,7 +76,7 @@
     }
 
     &__chkbx:checked~&__wrapper+div {
-        width: calc(100% - 25.6rem);
+        padding-left: 25.6rem;
     }
 
     &__chkbx:checked~&__btn {
@@ -101,7 +101,7 @@
         transform: translateX(-100%);
         top: 0;
         left: 0;
-        z-index: 50;
+        z-index: 100;
         overflow: hidden;
         display: flex;
         flex-direction: column;

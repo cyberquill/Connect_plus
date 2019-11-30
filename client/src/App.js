@@ -14,6 +14,7 @@ import Login from './React Components/pages/Login';
 import Profile from './React Components/pages/Profile';
 import Dashboard from './React Components/pages/Dashboard';
 import CreatePost from './React Components/pages/CreatePost';
+import SearchResults from './React Components/pages/SearchResults';
 import UsageAlarm from './React Components/layouts/UsageAlarm';
 import Footer from './React Components/layouts/Footer';
 //===================================================================================
@@ -27,12 +28,13 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/signup" component={Signup} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/profile" component={Profile} />
-                        <Route exact path="/dashboard" component={Dashboard} />
-                        <Route exact path="/createpost" component={CreatePost} />
+                        <Route exact path='/' component={Home} />
+                        <Route exact path='/signup' component={Signup} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/dashboard' component={Dashboard} />
+                        <Route exact path='/createpost' component={CreatePost} />
+                        <Route exact path='/searchresults' component={SearchResults} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />

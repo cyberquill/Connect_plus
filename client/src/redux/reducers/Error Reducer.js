@@ -7,6 +7,7 @@ import {
     RESET_ERRORS,
     AUTH_UNSET_USER,
     PERSON_ERROR,
+    SEARCH_ERROR,
 } from '../types';
 
 const initialState = {
@@ -26,12 +27,8 @@ export default function(state = initialState, action) {
             };
 
         case AUTH_ERROR:
-            return {
-                ...state,
-                ...action.payload,
-            };
-
         case PERSON_ERROR:
+        case SEARCH_ERROR:
             return {
                 ...state,
                 ...action.payload,

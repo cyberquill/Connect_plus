@@ -10,6 +10,7 @@ import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
 import Post from '../Post';
 import authTokenPresent from '../../../utils/authTokenPresent';
+import SearchBar from '../../components/SearchBar';
 
 class Dashboard extends Component {
     constructor() {
@@ -59,11 +60,12 @@ class Dashboard extends Component {
             <Fragment>
                 <SideBar />
                 <div className='dashboard__wrapper'>
+                    <SearchBar />
                     <div className='dashboard'>
                         <div className='dashboard__heading'>
                             <div className='dashboard__heading--text'>Dashboard</div>
                         </div>
-                        <div className='postcard--wrapper'>{postCards}</div>
+                        <div className='postcard--wrapper mt-5 pt-5'>{postCards}</div>
                         {showLoader}
                     </div>
                 </div>

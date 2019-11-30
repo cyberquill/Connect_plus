@@ -55,7 +55,6 @@ class UserProfile extends Component {
             firstName,
             lastName,
             email,
-            gender,
             joinDtTime,
             nFollowers,
             nFollowing,
@@ -72,7 +71,6 @@ class UserProfile extends Component {
         });
 
         if (isEmpty(profilePic)) profilePic = userImg;
-        gender = gender == 'None' ? '' : gender + ' | ';
         joinDtTime = new Date(joinDtTime).toLocaleDateString('en-UK', {
             weekday: 'long',
             year: 'numeric',
@@ -101,9 +99,14 @@ class UserProfile extends Component {
                                     <div className='profile__user__email'>{email}</div>
                                     <div className='profile__user__subsection'>
                                         <div className='profile__user__subsection--1'>
-                                            {gender}joined on {joinDtTime}
+                                            joined on {joinDtTime}
                                         </div>
                                         <div className='profile__user__subsection--2'>
+                                            <div className="profile__user__stats">{nFollowers} Followers</div>
+                                            <div className="profile__user__stats">{nFollowing} Following</div>
+                                            <div className="profile__user__stats">{nPosts} Posts</div>
+                                        </div>
+                                        <div className='profile__user__subsection--3'>
                                             <a href={tw} className='profile__user__socialLink'>
                                                 <i className='fab fa-twitter'></i>
                                             </a>
@@ -113,6 +116,7 @@ class UserProfile extends Component {
                                             <a href={ig} className='profile__user__socialLink'>
                                                 <i className='fab fa-instagram'></i>
                                             </a>
+                                            <div className='profile__followBtn'>Follow</div>
                                         </div>
                                     </div>
                                     <div className='profile__user__bio'>{bio}</div>

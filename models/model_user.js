@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // ============================================================================
 const userSchema = new Schema({
-    email: { type: String, required: true },
-    password: String,
     regMode: { type: String, required: true },
+    password: String,
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    email: { type: String, required: true },
     gender: { type: String, default: 'None' },
     profilePic: {
         type: String,
@@ -17,10 +17,10 @@ const userSchema = new Schema({
     nPosts: { type: Number, default: 0 },
     nFollowers: { type: Number, default: 0 },
     nFollowing: { type: Number, default: 0 },
-    bio: String,
-    tw: String,
-    fb: String,
-    ig: String,
+    bio: { type: String },
+    tw: { type: String },
+    fb: { type: String },
+    ig: { type: String },
 });
 // ============================================================================
 userSchema.virtual('posts', {

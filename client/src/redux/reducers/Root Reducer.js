@@ -4,6 +4,7 @@ import uploadReducer from './Upload Reducer';
 import postReducer from './Post Reducer';
 import errorReducer from './Error Reducer';
 import personReducer from './Person Reducer';
+import searchReducer from './Search Reducer';
 
 export default combineReducers({
     user: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     uploads: uploadReducer,
     errors: errorReducer,
     person: personReducer,
+    search: searchReducer,
 });

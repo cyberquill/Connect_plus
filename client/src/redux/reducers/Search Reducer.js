@@ -1,9 +1,4 @@
-import {
-    PERSON_FETCHING,
-    PERSON_FETCHED,
-    PERSON_RESET,
-    PERSON_ERROR,
-} from '../types';
+import { SEARCHING, SEARCHED, SEARCH_RESET, SEARCH_ERROR } from '../types';
 import isEmpty from '../../validation/isEmpty';
 
 const initialState = {
@@ -13,26 +8,26 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case PERSON_FETCHING:
+        case SEARCHING:
             return {
                 ...state,
                 showLoader: true,
                 success: null,
             };
 
-        case PERSON_FETCHED:
-            const user = action.payload;
+        case SEARCHED:
+            const result = action.payload;
             return {
                 ...state,
-                ...user,
+                ...result,
                 success: true,
                 showLoader: false,
             };
 
-        case PERSON_RESET:
+        case SEARCH_RESET:
             return initialState;
 
-        case PERSON_ERROR:
+        case SEARCH_ERROR:
             return {
                 ...state,
                 success: false,
