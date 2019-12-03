@@ -119,8 +119,8 @@ export const getPosts = id => (dispatch, getState) => {
         });
 };
 
-export const selectPost = index => (dispatch, getState) => {
-    dispatch({ type: POST_SELECTED, payload: index });
+export const selectPost = post => (dispatch, getState) => {
+    dispatch({ type: POST_SELECTED, payload: post });
 };
 
 export const unSelectPost = () => (dispatch, getState) => {

@@ -88,7 +88,7 @@ export default function(state = initialState, action) {
         case POST_SELECTED:
             return {
                 ...state,
-                activePost: state.list[action.payload],
+                activePost: { ...action.payload },
             };
 
         case POST_UNSELECTED:

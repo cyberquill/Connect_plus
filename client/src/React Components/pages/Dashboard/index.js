@@ -8,7 +8,7 @@ import { getFeedPosts, postsReset } from '../../../redux/actions/Post Actions';
 import PostCard from '../../components/PostCard';
 import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
-import Post from '../Post';
+import Post from '../../layouts/Post';
 import authTokenPresent from '../../../utils/authTokenPresent';
 import SearchBar from '../../components/SearchBar';
 

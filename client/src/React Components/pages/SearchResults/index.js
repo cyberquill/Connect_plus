@@ -8,6 +8,7 @@ import SearchBar from '../../components/SearchBar';
 import PostCard from '../../components/PostCard';
 import UserCard from '../../components/UserCard';
 import Loader1 from '../../layouts/Loader1';
+import Post from '../../layouts/Post';
 import { resetSearch } from '../../../redux/actions/Search Actions';
 
 class SearchResults extends Component {
@@ -43,6 +44,7 @@ class SearchResults extends Component {
                     <div className='postcard--wrapper'>{postCards}</div>
                 </div>
                 {showLoader}
+                {!isEmpty(this.props.posts.activePost) ? <Post /> : null}
             </Fragment>
         );
     }
@@ -54,12 +56,14 @@ class SearchResults extends Component {
 //==========================================================================
 SearchResults.propTypes = {
     user: PropTypes.object.isRequired,
+    posts: PropTypes.object.isRequired,
     search: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
 //==========================================================================
 const mapStateToProps = state => ({
     user: state.user,
+    posts: state.posts,
     search: state.search,
     errors: state.errors,
 });

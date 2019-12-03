@@ -7,7 +7,7 @@ import isEmpty from '../../../validation/isEmpty';
 import PostCard from '../../components/PostCard';
 import Loader4 from '../../layouts/Loader4';
 import SideBar from '../../layouts/SideBar';
-import Post from '../Post';
+import Post from '../../layouts/Post';
 import userImg from '../../../assets/user_purple.png';
 import { getPosts, postsReset } from '../../../redux/actions/Post Actions';
 import {

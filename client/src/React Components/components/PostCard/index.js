@@ -12,9 +12,7 @@ class PostCard extends Component {
         this.clickHandler = this.clickHandler.bind(this);
     }
     //==========================================================================
-    clickHandler = e => {
-        this.props.selectPost(this.props.index, this.props.history);
-    };
+    clickHandler = e => this.props.selectPost(this.props.post);
     //==========================================================================
     render() {
         let { resources, desc, user, dtTime } = this.props.post;
