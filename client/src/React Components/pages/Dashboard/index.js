@@ -58,8 +58,7 @@ class Dashboard extends Component {
         return (
             <Fragment>
                 <SideBar />
-                <div className='dashboard__wrapper'>
-                    <SearchBar />
+                <div className='dashboard--wrapper'>
                     <div className='dashboard'>
                         <div className='dashboard__heading'>
                             <div className='dashboard__heading--text'>Dashboard</div>
@@ -67,6 +66,7 @@ class Dashboard extends Component {
                         <div className='postcard--wrapper mt-5 pt-5'>{postCards}</div>
                         {showLoader}
                     </div>
+                    <SearchBar />
                 </div>
                 {!isEmpty(this.props.posts.activePost) ? <Post /> : null}
             </Fragment>
