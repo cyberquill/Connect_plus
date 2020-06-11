@@ -8,7 +8,7 @@ A Social-Networking website, based on the **MERN** stack.
 	alt="Connect+ - Landing Page" />
 </a>
 
-<br />
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ---
