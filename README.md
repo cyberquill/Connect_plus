@@ -25,6 +25,8 @@ CLOUDINARY_NAME | your_name
 CLOUDINARY_KEY | 1234567890
 CLOUDINARY_SECRET | THE-BIG-SECRET
 
+---
+
 ## Installation Instructions
 
 1. Install *Node.js*
