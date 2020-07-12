@@ -65,24 +65,12 @@ Open [http://localhost:8000](http://localhost:8000) to view it in the browser. P
 ## Project Screenshots
 
 <a href="http://connect-plus.herokuapp.com/" target="_blank">
-	<img src="./screenshots/1.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/2.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/10.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/3.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/4.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/5.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/6.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/7.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/8.gif" 
-	alt="Connect+ Screenshot" />
-    <img src="./screenshots/9.gif" 
-	alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture1.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture2.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture3.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture4.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture5.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture6.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture7.png" alt="Connect+ Screenshot" />
+	<img src="./screenshots/Picture8.png" alt="Connect+ Screenshot" />
 </a>
