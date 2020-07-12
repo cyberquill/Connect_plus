@@ -62,7 +62,7 @@ Open [http://localhost:8000](http://localhost:8000) to view it in the browser. P
 
 ---
 
-## Project Screenshots
+## Application Screenshots
 
 <a href="http://connect-plus.herokuapp.com/" target="_blank">
 	<img src="./screenshots/Picture1.png" alt="Connect+ Screenshot" />
