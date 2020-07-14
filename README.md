@@ -32,11 +32,15 @@ CLOUDINARY_SECRET | THE-BIG-SECRET
 1. Install *Node.js*
 1. Install *npm*
 1. If you plan to use a local instance of *MongoDB database*, install *MongoDB community server*.
+1. If you are using a local instance of *MongoDB database*,Open a terminal/cmd window, and run:	`mongod`
 1. Clone this github repo.
 1. In the local project directory, create a new file called "`.env`".
 1. Setup the environment variables as described above.
-1. Open the local project directory in a terminal, and run: `npm install`.
-1. run: `npm run dev`.
+1. Open the local project directory in a terminal, and run:
+	```bash
+	>	npm install
+	>	npm run dev
+	```
 
 ## Available Scripts
 
