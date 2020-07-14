@@ -31,7 +31,7 @@ CLOUDINARY_SECRET | THE-BIG-SECRET
 
 1. Install *Node.js*
 1. Install *npm*
-1. If you plan to use a local instance of *MongoDB database*, install *MongoDB atlas*.
+1. If you plan to use a local instance of *MongoDB database*, install *MongoDB community server*.
 1. Clone this github repo.
 1. In the local project directory, create a new file called "`.env`".
 1. Setup the environment variables as described above.
